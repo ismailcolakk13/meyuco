@@ -1,18 +1,23 @@
-import { useState } from 'react'
-import Topbar from './Components/Topbar'
-import HomePage from './Pages/HomePage'
-import Footer from './Components/Footer'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Topbar from './Components/Topbar';
+import Footer from './Components/Footer';
+import HomePage from './Pages/HomePage';
+import Konserler from './Pages/Konserler';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="d-flex flex-column min-vh-100">
       <Topbar />
-      <HomePage />
+      <div className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/konserler" element={<Konserler />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

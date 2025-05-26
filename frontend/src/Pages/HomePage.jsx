@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from "react-router-dom";
 // Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
 const populerEtkinlikler = [
   { id: 1, ad: "Konser A", img: "https://placehold.co/300x200?text=Konser+A" },
@@ -67,12 +67,14 @@ const HomePage = () => {
       {/* 2x2 Grid: Konserler, Tiyatro, Spor, Sinema */}
       <div className="row g-4 my-4">
         <div className="col-12 col-md-6">
-          <div className="border rounded p-3 h-100 d-flex flex-column">
-            <h2 className="mb-3">Konserler</h2>
-            <div className="row">
-              {konserler.map(etkinlikKart)}
+          <Link to="/Konserler" className="text-decoration-none text-dark">
+            <div className="border rounded p-3 h-100 d-flex flex-column">
+              <h2 className="mb-3">Konserler</h2>
+              <div className="row">
+                {konserler.map(etkinlikKart)}
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="col-12 col-md-6">
           <div className="border rounded p-3 h-100 d-flex flex-column">
