@@ -5,7 +5,7 @@ import EtkinlikGrupPage from "./Pages/EtkinlikGrupPage";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
-import { konserler, tiyatrolar } from "./data/etkinlikler";
+import   { konserler, tiyatrolar,sporlar } from "./data/etkinlikler";
 
 function App() {
   const location = useLocation();
@@ -34,6 +34,12 @@ function App() {
                 baslik={"Tiyatrolar"}
                 etkinlikler={tiyatrolar}
               />
+            }
+          />
+          <Route
+            path="/sporlar"
+            element={
+              <EtkinlikGrupPage baslik={"Sporlar"} etkinlikler={sporlar} />
             }
           />
         </Routes>

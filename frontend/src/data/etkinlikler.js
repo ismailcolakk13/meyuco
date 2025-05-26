@@ -74,3 +74,41 @@ export const tiyatrolar = [
       "Tarihi olaylara sahnede bir yolculuk. Tarih: 12 Temmuz 2025, Mekan: Atatürk Kültür Merkezi",
   },
 ];
+export const sporlar = [
+  {
+    id: 1,
+    ad: "Futbol Maçı",
+    img: "/images/spor1.jpg",
+    aciklama: "Heyecan dolu bir futbol maçı. Tarih: 10 Temmuz 2025, Mekan: Stadyum",
+  },
+   {
+    id: 2,
+    ad: "Basketbol Maçı",
+    img: "/images/spor2.jpg",
+    aciklama: "Heyecan dolu bir basketbol maçı. Tarih: 12 Temmuz 2025, Mekan: Basketbol Salonu",
+  },
+  {
+    id: 3,
+    ad: "Voleybol Maçı",
+    img: "/images/spor3.jpg",
+    aciklama: "Heyecan dolu bir voleybol maçı. Tarih: 15 Temmuz 2025, Mekan: Voleybol Salonu",
+  },
+   {
+    id: 4,
+    ad: "Hentbol Maçı",
+    img: "/images/spor4.jpg",
+    aciklama: "Heyecan dolu bir hentbol maçı. Tarih: 18 Temmuz 2025, Mekan: Hentbol Salonu",
+  },
+  {
+    id: 5,
+    ad: "",
+    img: "",
+    aciklama: "",
+  },
+   {
+    id: 6,
+    ad: "",
+    img: "",
+    aciklama: "",
+  }
+];

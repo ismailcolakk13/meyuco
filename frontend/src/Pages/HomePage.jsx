@@ -124,10 +124,12 @@ const HomePage = () => {
         </div>
 
         <div className="col-12 col-md-6">
-          <div className="border rounded p-3 h-100 d-flex flex-column">
-            <h2 className="mb-3">Spor</h2>
-            <div className="row">{sporlar.map(etkinlikKart)}</div>
-          </div>
+          <Link to="/sporlar" className="text-decoration-none text-dark">
+            <div className="border rounded p-3 h-100 d-flex flex-column">
+              <h2 className="mb-3">Spor</h2>
+              <div className="row">{sporlar.map(etkinlikKart)}</div>
+            </div>
+          </Link>
         </div>
         <div className="col-12 col-md-6">
           <div className="border rounded p-3 h-100 d-flex flex-column">
