@@ -74,7 +74,7 @@ const HomePage = () => {
                   style={{ maxHeight: 350, objectFit: "cover" }}
                 />
                 <div className="carousel-caption d-none d-md-block">
-                  <h5>{etkinlik.ad}</h5>
+                  <h5 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius: '5px', display:"inline"}}>{etkinlik.ad}</h5>
                 </div>
               </div>
             ))}
