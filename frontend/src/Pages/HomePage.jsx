@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 // Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
 const populerEtkinlikler = [

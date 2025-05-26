@@ -1,11 +1,14 @@
-import { useState } from 'react'
-import Topbar from './Components/Topbar'
-import HomePage from './Pages/HomePage'
-import Footer from './Components/Footer'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Topbar from './Components/Topbar';
+import Footer from './Components/Footer';
+import HomePage from './Pages/HomePage';
+import Konserler from './Pages/Konserler';
+import LoginPage from './Pages/LoginPage';        
+import RegisterPage from './Pages/RegisterPage';   
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <div className="d-flex flex-column min-vh-100">
       <Topbar />
@@ -13,15 +16,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/konserler" element={<Konserler />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </div>
       <Footer />
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-
-      </Routes>
-
     </div>
   );
 }
