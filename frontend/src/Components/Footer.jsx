@@ -1,14 +1,59 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Footer = () => {
+const Footer = () =>
+{
   return (
-    <footer className="border text-secondary py-3 mt-auto shadow-sm h-auto">
-      <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <footer style={{ backgroundColor: '#0F68FF' }} className="py-3 mt-auto shadow-sm">
+      <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center text-white">
+
+        {/* Sol Telif */}
         <span>&copy; {new Date().getFullYear()} Meyuco.com | Tüm hakları saklıdır.</span>
+
+        {/* Orta Sosyal İkonlar */}
+        <div className="my-2 my-md-0 d-flex align-items-center gap-3">
+          {/* Instagram */}
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Instagram"
+          >
+            <img
+              src="/images/instagram.ico"
+              alt="Instagram"
+              style={{ height: "24px", width: "24px" }}
+            />
+          </a>
+
+          {/* Twitter */}
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Twitter"
+          >
+            <img
+              src="/images/twitter.ico"
+              alt="Twitter"
+              style={{ height: "24px", width: "24px" }}
+            />
+          </a>
+
+          {/* Ana Logo */}
+          <Link to="/" title="Anasayfa">
+            <img
+              src="/images/logo2.png"
+              alt="Meyuco Logo"
+              style={{ height: "50px" }}
+            />
+          </Link>
+        </div>
+
+        {/* Sayfa Linkleri */}
         <div>
-          <Link to="/hakkimizda" className="text-secondary me-3 text-decoration-none">Hakkımızda</Link>
-          <Link to="/iletisim" className="text-secondary text-decoration-none">İletişim</Link>
+          <Link to="/hakkimizda" className="text-white me-3 text-decoration-none">Hakkımızda</Link>
+          <Link to="/iletisim" className="text-white text-decoration-none">İletişim</Link>
         </div>
       </div>
     </footer>
