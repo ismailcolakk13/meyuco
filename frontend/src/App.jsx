@@ -5,7 +5,7 @@ import EtkinlikGrupPage from "./Pages/EtkinlikGrupPage";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
-import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
+import { konserler, sinemalar, sporlar, tiyatrolar } from "./data/etkinlikler";
 
 
 function App()

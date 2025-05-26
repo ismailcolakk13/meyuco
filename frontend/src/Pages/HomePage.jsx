@@ -1,12 +1,11 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { konserler, tiyatrolar, sporlar, sinemalar } from "../data/etkinlikler";
+import { konserler, sinemalar, sporlar, tiyatrolar } from "../data/etkinlikler";
 
 // Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
 const populerEtkinlikler = [
-  { id: 1, ad: "Konser A", img: "https://placehold.co/300x200?text=Konser+A" },
-  { id: 2, ad: "Aydınlıkevler", img: "/images/tiyatro2.jpg" },
-  { id: 3, ad: "Spor C", img: "https://placehold.co/300x200?text=Spor+C" },
+  konserler[1],
+  tiyatrolar[1],
+  sporlar[5],
 ];
 
 const etkinlikKart = (etkinlik) => (
