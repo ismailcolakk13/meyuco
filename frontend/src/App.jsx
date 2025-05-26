@@ -6,6 +6,8 @@ import HomePage from './Pages/HomePage';
 import Konserler from './Pages/Konserler';
 import LoginPage from './Pages/LoginPage';        
 import RegisterPage from './Pages/RegisterPage';   
+import TiyatroPage from "./Pages/TiyatroPage";
+
 
 function App() {
   
@@ -18,6 +20,8 @@ function App() {
           <Route path="/konserler" element={<Konserler />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+           <Route path="/tiyatrolar" element={<TiyatroPage />} />
+
         </Routes>
       </div>
       <Footer />
