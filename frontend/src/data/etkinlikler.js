@@ -1,8 +1,8 @@
 export const konserler = [
   { id: 1, ad: "Hayko Cepkin", img: "/images/hayko.jpg" },
   { id: 2, ad: "AC/DC", img: "/images/ACDC.jpg" },
-  { id: 3, ad: "Duman", img: "/images/duman.png" },
-  { id: 4, ad: "Mor ve Ötesi", img: "/images/mvö.png" },
+  { id: 3, ad: "Duman", img: "/images/duman.jpg" },
+  { id: 4, ad: "Mor ve Ötesi", img: "/images/mvö.jpg" },
   { id: 5, ad: "Konser X", img: "https://placehold.co/300x200?text=Konser+X" },
   { id: 6, ad: "Konser Y", img: "https://placehold.co/300x200?text=Konser+Y" },
   { id: 7, ad: "Konser Z", img: "https://placehold.co/300x200?text=Konser+Z" },

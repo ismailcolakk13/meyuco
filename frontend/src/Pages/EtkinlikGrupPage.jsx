@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
-{
+const EtkinlikGrupPage = ({ baslik, etkinlikler }) => {
   const navigate = useNavigate();
   const isLoggedIn = false;
   const [detaylar, setDetaylar] = useState({});
 
-  const handleSatinAl = (id) =>
-  {
+  const handleSatinAl = (id) => {
     if (!isLoggedIn) {
       navigate("/login");
     } else {
@@ -16,8 +14,7 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
     }
   };
 
-  const toggleDetay = (id) =>
-  {
+  const toggleDetay = (id) => {
     setDetaylar((prev) => ({
       ...prev,
       [id]: !prev[id],
@@ -62,7 +59,9 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
 
                 {detaylar[etkinlik.id] && (
                   <div className="mt-3 p-2 bg-light rounded shadow-sm">
-                    <small className="text-secondary">{etkinlik.aciklama}</small>
+                    <small className="text-secondary">
+                      {etkinlik.aciklama}
+                    </small>
                   </div>
                 )}
               </div>
