@@ -61,6 +61,12 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) => {
                   <div className="mt-3 p-2 bg-light rounded shadow-sm">
                     <small className="text-secondary">
                       {etkinlik.aciklama}
+                    </small> <br />
+                    <small className="text-secondary">
+                      Tarih: {etkinlik.tarih}
+                    </small> <br />
+                    <small className="text-secondary">
+                      Mekan: {etkinlik.mekan}
                     </small>
                   </div>
                 )}
