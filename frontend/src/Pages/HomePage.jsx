@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { konserler,tiyatrolar } from "../data/etkinlikler";
 
 // Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
 const populerEtkinlikler = [
@@ -8,15 +9,6 @@ const populerEtkinlikler = [
   { id: 3, ad: "Spor C", img: "https://placehold.co/300x200?text=Spor+C" },
 ];
 
-// Her etkinliğe resim ekleyin
-const konserler = [
-  { id: 1, ad: "Konser X", img: "https://placehold.co/300x200?text=Konser+X" },
-  { id: 2, ad: "Konser Y", img: "https://placehold.co/300x200?text=Konser+Y" },
-];
-const tiyatrolar = [
-  { id: 1, ad: "Mercaniye Çok Yaşa", img: "/public/images/tiyatro1.jpg" },
-  { id: 2, ad: "Aydınlıkevler", img: "/public/images/tiyatro2.jpg" },
-];
 const sporlar = [
   { id: 1, ad: "Spor X", img: "https://placehold.co/300x200?text=Spor+X" },
   { id: 2, ad: "Spor Y", img: "https://placehold.co/300x200?text=Spor+Y" },
@@ -29,17 +21,17 @@ const sinemalar = [
 const etkinlikKart = (etkinlik) => (
   <div
     key={etkinlik.id}
-    className="col-6 col-md-4 col-lg-3 d-flex flex-column align-items-center mb-4"
+    className="col-6 d-flex flex-column align-items-center mb-4"
   >
     <img
       src={etkinlik.img}
       alt={etkinlik.ad}
       style={{
-        width: 80,
-        height: 80,
+        width: 90,
+        height: 120,
         objectFit: "cover",
         borderRadius: 8,
-        border: "1px solid #eee",
+        border: "1px solid black",
         background: "#fff",
       }}
     />
@@ -105,22 +97,32 @@ const HomePage = () => {
       </div>
 
       {/* 2x2 Grid: Konserler, Tiyatro, Spor, Sinema */}
-      <div className="row g-4 my-4">
-        <div className="col-12 col-md-6">
-          <Link to="/Konserler" className="text-decoration-none text-dark">
-            <div className="border rounded p-3 h-100 d-flex flex-column">
-              <h2 className="mb-3">Konserler</h2>
-              <div className="row">{konserler.map(etkinlikKart)}</div>
-            </div>
-          </Link>
+      <div className="row g-4 my-4 col-12">
+        <div className="col-md-3">
+          <div className="border rounded p-3 h-100 d-flex flex-column">
+            <h2 className="mb-3">Konserler</h2>
+            <div className="row mb-auto">{konserler.slice(0, 2).map(etkinlikKart)}</div>
+            <div className="row">{konserler.slice(2, 4).map(etkinlikKart)}</div>
+            <Link
+              to="/konserler"
+              className="text-decoration-none text-dark btn btn-warning mt-auto"
+            >
+              Daha Fazla
+            </Link>
+          </div>
         </div>
-        <div className="col-12 col-md-6">
-          <Link to="/tiyatrolar" className="text-decoration-none text-dark">
-            <div className="border rounded p-3 h-100 d-flex flex-column">
+        <div className="col-md-3">
+          <div className="border rounded p-3 h-100 d-flex flex-column">
               <h2 className="mb-3">Tiyatro</h2>
-              <div className="row">{tiyatrolar.map(etkinlikKart)}</div>
+              <div className="row mb-auto">{tiyatrolar.slice(0,2).map(etkinlikKart)}</div>
+              <div className="row">{tiyatrolar.slice(2,4).map(etkinlikKart)}</div>
+          <Link
+              to="/tiyatrolar"
+              className="text-decoration-none text-dark btn btn-warning mt-auto"
+            >
+              Daha Fazla
+            </Link>
             </div>
-          </Link>
         </div>
 
         <div className="col-12 col-md-6">
@@ -131,7 +133,7 @@ const HomePage = () => {
             </div>
           </Link>
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-md-3">
           <div className="border rounded p-3 h-100 d-flex flex-column">
             <h2 className="mb-3">Sinema</h2>
             <div className="row">{sinemalar.map(etkinlikKart)}</div>
