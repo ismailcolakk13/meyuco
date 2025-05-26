@@ -1,17 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { konserler, tiyatrolar, sporlar } from "../data/etkinlikler";
+import { konserler, tiyatrolar, sporlar, sinemalar } from "../data/etkinlikler";
 
 // Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
 const populerEtkinlikler = [
   { id: 1, ad: "Konser A", img: "https://placehold.co/300x200?text=Konser+A" },
   { id: 2, ad: "Aydınlıkevler", img: "/images/tiyatro2.jpg" },
   { id: 3, ad: "Spor C", img: "https://placehold.co/300x200?text=Spor+C" },
-];
-
-const sinemalar = [
-  { id: 1, ad: "Sinema X", img: "https://placehold.co/300x200?text=Sinema+X" },
-  { id: 2, ad: "Sinema Y", img: "https://placehold.co/300x200?text=Sinema+Y" },
 ];
 
 const etkinlikKart = (etkinlik) => (
@@ -40,9 +35,14 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) => {
     <div className="col-12 col-sm-6 col-lg-3">
       <div className="border rounded p-3 h-100 d-flex flex-column">
         <h2 className="mb-3">{baslik}</h2>
-        <div className="row mb-auto">{veriler.slice(0, 2).map(etkinlikKart)}</div>
+        <div className="row mb-auto">
+          {veriler.slice(0, 2).map(etkinlikKart)}
+        </div>
         <div className="row">{veriler.slice(2, 4).map(etkinlikKart)}</div>
-        <Link to={link} className="text-decoration-none text-dark btn btn-warning mt-auto">
+        <Link
+          to={link}
+          className="text-decoration-none text-dark btn btn-warning mt-auto"
+        >
           Daha Fazla
         </Link>
       </div>
@@ -108,10 +108,26 @@ const HomePage = () => {
       </div>
 
       <div className="row g-4 my-4 col-12">
-        <EtkinlikKartGrubu baslik={"Konserler"} veriler={konserler} link={"/konserler"}/>
-        <EtkinlikKartGrubu baslik={"Tiyatrolar"} veriler={tiyatrolar} link={"/tiyatrolar"}/>
-        <EtkinlikKartGrubu baslik={"Spor"} veriler={sporlar} link={"/sporlar"}/>
-        <EtkinlikKartGrubu baslik={"Sinemalar"} veriler={sinemalar} link={"/sinemalar"}/>
+        <EtkinlikKartGrubu
+          baslik={"Konserler"}
+          veriler={konserler}
+          link={"/konserler"}
+        />
+        <EtkinlikKartGrubu
+          baslik={"Tiyatrolar"}
+          veriler={tiyatrolar}
+          link={"/tiyatrolar"}
+        />
+        <EtkinlikKartGrubu
+          baslik={"Spor"}
+          veriler={sporlar}
+          link={"/sporlar"}
+        />
+        <EtkinlikKartGrubu
+          baslik={"Sinemalar"}
+          veriler={sinemalar}
+          link={"/sinemalar"}
+        />
       </div>
     </div>
   );

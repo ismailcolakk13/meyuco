@@ -81,7 +81,7 @@ export const sporlar = [
     img: "/images/yoga.jpg",
     aciklama: "Rahatlatıcı bir yoga deneyimi. Tarih: 10 Temmuz 2025, Mekan: Sait Halim Paşa Yalıs",
   },
-   {
+  {
     id: 2,
     ad: "Basketbol Maçı",
     img: "/images/basket.jpg",
@@ -93,7 +93,7 @@ export const sporlar = [
     img: "/images/voleybol11.jpg",
     aciklama: "Heyecan dolu bir voleybol maçı. Tarih: 15 Temmuz 2025 21.00, Mekan:Avcılar Kampüs Voleybol Salonu",
   },
-   {
+  {
     id: 4,
     ad: "Boks Maçı",
     img: "/images/boks.jpg",
@@ -105,10 +105,59 @@ export const sporlar = [
     img: "/images/futbol.jpg",
     aciklama: "Fenerbahçe Galatasaray Derbisi. Tarih: 20 Temmuz 2025 19.00, Mekan: Rams Park Stadyumu",
   },
-   {
+  {
     id: 6,
     ad: "Formula 1 Yarışı",
     img: "/images/formula1.jpg",
     aciklama: "Heyecan dolu bir Formula 1 yarışı. Tarih: 25 Temmuz 2025 15.00, Mekan: İstanbul Park",
-  }
+  },
+];
+
+export const sinemalar = [
+  {
+    id: 1,
+    ad: "Görevimiz Tehlike - Son Hesaplaşma",
+    img: "/images/görevimizTehlike.jpg",
+    aciklama:
+      "Mission: Impossible - Ölümcül Hesaplaşma Birinci Bölüm'ün bıraktığı yerden devam edecek olan film, Ethan Hunt ve ekibinin yanlış ellerde dünyanın sonunu getirebilecek bir AI programı olan The Entity'ye ulaşma mücadelesini anlatıyor.",
+    tarih:"21/05/2025",
+    mekan:"Meydan İstanbul AVM"
+  },
+  {
+    id: 2,
+    ad: "Lilo ve Stiç",
+    img: "/images/lilovestic.jpg",
+    aciklama:
+      "Lilo ve Stiç, yalnız bir Hawaiili kız ile onun parçalanmış ailesini onarmaya yardım eden tuhaf bir uzaylının hikâyesini anlatıyor.",
+    tarih:"23/05/2025",
+    mekan:"City's Nişantaşı"
+  },
+  {
+    id: 3,
+    ad: "Thunderbolts",
+    img: "/images/thunderbolts.jpg",
+    aciklama:
+      "Thunderbolts filminde, alışılmışın dışında bir anti-kahraman ekibi bir araya geliyor: Yelena Belova, Bucky Barnes, Red Guardian, Ghost, Taskmaster ve John Walker. Valentina Allegra de Fontaine’in kurduğu ölümcül bir tuzağa düşen bu dışlanmış karakterler, geçmişlerinin en karanlık yönleriyle yüzleşmek zorunda kalacakları tehlikeli bir göreve çıkıyor.",
+    tarih:"02/05/2025",
+    mekan:"Cineverse Akasya"
+  },
+  {
+    id: 4,
+    ad: "Kefenler",
+    img: "/images/kefenler.jpg",
+    aciklama:
+      "Karısının ölümünden beri bir türlü teselli bulamayan Karsh, devrim niteliğinde ve tartışmalı bir teknoloji olan GraveTech’i icat eder. Bu teknoloji sayesinde geride kalanlar, kaybettiklerinin cesetlerini kefenleri içinde gözlemleyebileceklerdir. Bir gece, aralarında Karsh’ın eşininkinin de bulunduğu birçok mezar tahrip edilir. Karsh bu eylemin faillerinin izini sürmek için yola koyulur, ancak daha büyük, daha sinsi bir komplonun şüphesi de içini kemirmektedir.",
+    tarih:"26/05/2025",
+    mekan:"Cineverse Emaar"
+  },
+  {
+    id: 5,
+    ad: "Örümcek Adam 3",
+    img: "/images/spiderman3.jpg",
+    aciklama:
+      "Efsanevi Marvel Comics dizisine dayanan filmde, Peter Parker nihayet Mary Jane'e duyduğu tutku ile süper kahramanlık görevleri arasındaki dengeyi kurar. Ancak, ufukta belirmeye başlayan bir fırtına vardır. Peter'ın Örümcek Adam kostümü birden bire değişip siyaha dönüşerek güçlerini pekiştirmeye başlayınca, Peter da değişmeye başlar. Kostümün etkisi altındaki Peter, kibirli ve kendine aşırı güvenli biri olur; en değer verdiği kişileri ihmal etmeye başlar. Bugüne dek en korkulan iki kötü kahraman Kumadam ve Venom benzersiz güçler edinip, intikam ateşiyle yanarken, Peter en büyük savaşını kendi içinde yapmaktadır. Örümcek Adam'ın onu o yapan, onu bir kahraman yapan özelliğini, yani şefkati yeniden keşfetmesi gerekecektir.",
+    tarih:"04/05/2007",
+    mekan:"Cineverse Hilltown"
+  },
+    
 ];
