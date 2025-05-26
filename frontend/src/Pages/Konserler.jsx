@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const konserler_rock = [
   { id: 1, ad: "Hayko Cepkin", img:"/images/hayko.jpg" },
-  { id: 2, ad: "Queen", img: "/images/queen.jpg" },
+  { id: 2, ad: "AC/DC", img: "/images/ACDC.jpg" },
   { id: 3, ad: "Pink Floyd", img: "https://placehold.co/300x200?text=Konser+Z" },
   { id: 4, ad: "Mor ve Ötesi", img: "https://placehold.co/300x200?text=Konser+W" },
 ];
