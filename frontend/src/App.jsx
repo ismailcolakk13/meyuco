@@ -2,8 +2,13 @@ import { useState } from 'react'
 import Topbar from './Components/Topbar'
 import HomePage from './Pages/HomePage'
 import Footer from './Components/Footer'
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./Pages/LoginPage";
+import RegisterPage from "./Pages/RegisterPage";
 
-function App() {
+
+function App()
+{
   const [count, setCount] = useState(0)
 
   return (
@@ -11,6 +16,12 @@ function App() {
       <Topbar />
       <HomePage />
       <Footer />
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+      </Routes>
+
     </div>
   )
 }

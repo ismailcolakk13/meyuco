@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+
 // Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
 const populerEtkinlikler = [
   { id: 1, ad: "Konser A", img: "https://placehold.co/300x200?text=Konser+A" },
@@ -42,6 +44,8 @@ const HomePage = () => {
       <div className="my-4">
         <h1>Öne Çıkanlar</h1>
         {/* Bootstrap Carousel */}
+
+         
         <div id="populerCarousel" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             {populerEtkinlikler.map((etkinlik, idx) => (
