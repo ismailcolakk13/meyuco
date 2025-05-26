@@ -6,7 +6,6 @@ import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
-import AdminPanel from "./Pages/AdminPanel";
 
 
 function App()
@@ -20,10 +19,7 @@ function App()
     <div className="d-flex flex-column">
       {showTopBar && <Topbar />}
       <div className="flex-grow-1">
-        <Routes>
-          {/* Diğer rotalar */}
-          <Route path="/admin" element={<AdminPanel />} />
-        </Routes>
+
 
         <Routes>
           <Route path="/" element={<HomePage />} />
