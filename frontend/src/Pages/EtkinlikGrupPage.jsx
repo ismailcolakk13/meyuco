@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Etkinlik = ({ baslik, etkinlikler }) =>
+const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
 {
   const navigate = useNavigate();
   const isLoggedIn = false;
@@ -29,15 +29,15 @@ const Etkinlik = ({ baslik, etkinlikler }) =>
       <h2 className="text-center mb-5 fw-bold">{baslik}</h2>
       <div className="row justify-content-center">
         {etkinlikler.map((etkinlik) => (
-          <div key={etkinlik.id} className="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+          <div key={etkinlik.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
             <div className="card shadow-sm h-100 text-center border-0">
               <img
                 src={etkinlik.img}
                 alt={etkinlik.ad}
                 className="card-img-top"
                 style={{
-                  height: 620,
-                  objectFit: "cover",
+                  height: 400,
+                  objectFit: "fill",
                   borderTopLeftRadius: "8px",
                   borderTopRightRadius: "8px",
                 }}
@@ -74,4 +74,4 @@ const Etkinlik = ({ baslik, etkinlikler }) =>
   );
 };
 
-export default Etkinlik;
+export default EtkinlikGrupPage;

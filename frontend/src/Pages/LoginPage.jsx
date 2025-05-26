@@ -16,7 +16,7 @@ const LoginPage = () => {
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
         background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-        padding: "20px",
+        padding: "20px"
       }}
     >
       <div

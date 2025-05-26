@@ -1,5 +1,5 @@
 import React from "react";
-import Etkinlik from "./Etkinlik";
+import EtkinlikGrupPage from "./EtkinlikGrupPage";
 
 const tiyatrolar = [
   {
