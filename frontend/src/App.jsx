@@ -1,25 +1,17 @@
 import { useState } from 'react'
+import Topbar from './Components/Topbar'
+import HomePage from './Pages/HomePage'
+import Footer from './Components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div className="container">
-        <h1 className="text-center my-4">Welcome to My App</h1>
-        <div className="text-center">
-          <button
-            className="btn btn-primary"
-            onClick={() => setCount(count + 1)}
-          >
-            Count: {count}
-          </button>
-        </div>
-      </div>
-      <footer className="text-center mt-4">
-        <p>© 2023 My App</p>
-      </footer>
-    </>
+    <div className="d-flex flex-column min-vh-100">
+      <Topbar />
+      <HomePage />
+      <Footer />
+    </div>
   )
 }
 
