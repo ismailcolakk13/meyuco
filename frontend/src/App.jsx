@@ -7,7 +7,7 @@ import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
-
+import Profile from "./Pages/Profile";
 
 function App()
 {
@@ -27,6 +27,7 @@ function App()
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/konserler"
             element={
