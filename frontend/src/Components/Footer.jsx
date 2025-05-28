@@ -7,7 +7,6 @@ const Footer = () =>
     <footer
       style={{
         backgroundColor: '#0F68FF',
-        position: 'fixed',
         bottom: 0,
         width: '100%',
         zIndex: 999
