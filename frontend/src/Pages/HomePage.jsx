@@ -109,12 +109,12 @@ const HomePage = () =>
   return (
     <div className="position-relative">
       {/* Sol Video */}
-      <div style={{
+      <div className="d-none d-lg-block" style={{
         position: "fixed",
         left: 0,
-        top: "100px",
-        width: "400px",
-        height: "920px",
+        top: "80px",
+        width: "18vw",
+        height: "75vh",
         zIndex: 1000
       }}>
         <video
@@ -132,12 +132,12 @@ const HomePage = () =>
       </div>
 
       {/* Sağ Video */}
-      <div style={{
+      <div className="d-none d-lg-block" style={{
         position: "fixed",
         right: 0,
-        top: "100px",
-        width: "400px",
-        height: "920px",
+        top: "80px",
+        width: "18vw",
+        height: "75vh",
         zIndex: 1000
       }}>
         <video
@@ -153,6 +153,7 @@ const HomePage = () =>
           }}
         />
       </div>
+
 
       {/* Sayfa İçeriği */}
       <div className="container">
