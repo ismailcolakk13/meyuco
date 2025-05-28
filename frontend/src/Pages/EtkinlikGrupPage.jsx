@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
 {
   const navigate = useNavigate();
-
+  const [hovered, setHovered] = useState(null);
   const kategori = baslik.toLowerCase(); // örnek: "Konserler" -> "konserler"
 
   const handleBiletBul = (id) =>
@@ -21,8 +22,19 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
       <h2 className="text-center mb-5 fw-bold">{baslik}</h2>
       <div className="row justify-content-center">
         {etkinlikler.map((etkinlik) => (
-          <div key={etkinlik.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div className="card shadow-sm h-100 text-center border-0">
+          <div
+            key={etkinlik.id}
+            className="col-lg-3 col-md-4 col-sm-6 mb-4"
+          >
+            <div
+              className="card shadow-sm h-100 text-center border-0 etkinlik-card position-relative"
+              style={{
+                transition: "transform 0.3s cubic-bezier(.4,2,.6,1)",
+                transform: hovered === etkinlik.id ? "scale(1.06)" : "scale(1)"
+              }}
+              onMouseEnter={() => setHovered(etkinlik.id)}
+              onMouseLeave={() => setHovered(null)}
+            >
               <img
                 src={etkinlik.img}
                 alt={etkinlik.ad}
@@ -32,11 +44,12 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
                   objectFit: "fill",
                   borderTopLeftRadius: "8px",
                   borderTopRightRadius: "8px",
+                  cursor: "pointer"
                 }}
+                onClick={() => handleDetay(etkinlik.id)}
               />
               <div className="card-body">
                 <h5 className="card-title">{etkinlik.ad}</h5>
-
                 <div className="d-flex justify-content-center gap-2">
                   <button
                     className="btn btn-success btn-sm"
@@ -44,7 +57,6 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
                   >
                     Bilet Bul
                   </button>
-
                   <button
                     className="btn btn-outline-primary btn-sm"
                     onClick={() => handleDetay(etkinlik.id)}

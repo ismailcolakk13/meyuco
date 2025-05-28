@@ -32,45 +32,38 @@ const Detay = () => {
   }
 
   return (
-    <main style={{
-      maxWidth: 600,
-      margin: '0 auto',
-      padding: 20,
-      fontFamily: 'sans-serif',
-      background: '#fafafa',
-      borderRadius: 12,
-      boxShadow: '0 2px 8px #eee'
-    }}>
-      <section style={{
-        borderRadius: 8,
-        overflow: 'hidden',
-        marginBottom: 24
-      }}>
-        <img
-          src={etkinlik.img}
-          alt={etkinlik.ad}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
-        />
-      </section>
-      <section style={{ marginBottom: 24 }}>
-        <h2 style={{ margin: '0 0 8px 0', color: '#333' }}>{etkinlik.ad}</h2>
-        <p style={{ color: '#555', fontSize: 16 }}>{etkinlik.aciklama}</p>
-        <p style={{ fontSize: 14, color: '#777' }}>
-          Tarih: {etkinlik.tarih} <br />
-          Mekan: {etkinlik.mekan} <br />
-        </p>
-        <p style={{ fontSize: 20, color: '#000' }}>
-          Etkinlik kuralları:<br /></p>
-          <p>
-          18 yaş ve üzeri katılım gerekmektedir. <br />
-          Etkinlik boyunca saygılı ve hoşgörülü olunmalıdır. <br />
-          Etkinlik alanında sigara içmek yasaktır. <br />
-          Etkinlik alanında yiyecek ve içecek tüketimi yasaktır. <br />
-          Etkinlik sırasında fotoğraf ve video çekimi serbesttir. <br />
-          Etkinlik alanına girişte kimlik kontrolü yapılacaktır. <br />
-          Lütfen biletinizi yanınızda bulundurun.</p>
-      </section>
-    </main>
+    <div className="container my-5">
+      <div className="row align-items-center bg-light rounded shadow-sm p-4">
+        <div className="col-12 col-md-5 mb-4 mb-md-0 d-flex justify-content-center align-items-center">
+          <img
+            src={etkinlik.img}
+            alt={etkinlik.ad}
+            className="img-fluid rounded"
+            style={{ maxWidth: '540px', maxHeight: '540px', width: '100%', height: '100%', objectFit: 'contain', background: '#fff' }}
+          />
+        </div>
+        <div className="col-12 col-md-7">
+          <h2 className="mb-3 text-primary">{etkinlik.ad}</h2>
+          <p className="text-secondary fs-5">{etkinlik.aciklama}</p>
+          <p className="text-muted mb-2">
+            <strong>Tarih:</strong> {etkinlik.tarih} <br />
+            <strong>Mekan:</strong> {etkinlik.mekan}
+          </p>
+          <div className="mt-4">
+            <h5 className="mb-2">Etkinlik kuralları:</h5>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">18 yaş ve üzeri katılım gerekmektedir.</li>
+              <li className="list-group-item">Etkinlik boyunca saygılı ve hoşgörülü olunmalıdır.</li>
+              <li className="list-group-item">Etkinlik alanında sigara içmek yasaktır.</li>
+              <li className="list-group-item">Etkinlik alanında yiyecek ve içecek tüketimi yasaktır.</li>
+              <li className="list-group-item">Etkinlik sırasında fotoğraf ve video çekimi serbesttir.</li>
+              <li className="list-group-item">Etkinlik alanına girişte kimlik kontrolü yapılacaktır.</li>
+              <li className="list-group-item">Lütfen biletinizi yanınızda bulundurun.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
