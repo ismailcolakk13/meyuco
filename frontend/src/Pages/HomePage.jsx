@@ -1,43 +1,109 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { konserler, sinemalar, sporlar, tiyatrolar } from "../data/etkinlikler";
+import { useState } from "react";
 
+// Öne çıkan etkinlikler
 const populerEtkinlikler = [
   konserler[1],
   tiyatrolar[1],
   sporlar[5],
 ];
 
-const etkinlikKart = (etkinlik) => (
-  <div key={etkinlik.id} className="col-6 d-flex flex-column align-items-center mb-4">
-    <img
-      src={etkinlik.img}
-      alt={etkinlik.ad}
+// Etkinlik kartı bileşeni
+const EtkinlikKart = ({ etkinlik, hovered, setHovered, kategori }) =>
+{
+  const navigate = useNavigate();
+
+  return (
+    <div
+      key={etkinlik.id}
+      className="col-6 d-flex flex-column align-items-center mb-4"
       style={{
-        width: 90,
-        height: 120,
-        objectFit: "cover",
-        borderRadius: 8,
-        border: "1px solid black",
-        background: "#fff",
+        transition: "transform 0.3s cubic-bezier(.4,2,.6,1)",
+        transform: hovered === etkinlik.id ? "scale(1.06)" : "scale(1)"
       }}
-    />
-    <span className="mt-2 text-center">{etkinlik.ad}</span>
-  </div>
-);
-
-const EtkinlikKartGrubu = ({ baslik, veriler, link }) => (
-  <div className="col-12 col-sm-6 col-lg-3">
-    <div className="border rounded p-3 h-100 d-flex flex-column">
-      <h2 className="mb-3">{baslik}</h2>
-      <div className="row mb-auto">{veriler.slice(0, 2).map(etkinlikKart)}</div>
-      <div className="row">{veriler.slice(2, 4).map(etkinlikKart)}</div>
-      <Link to={link} className="text-decoration-none text-dark btn btn-warning mt-auto">
-        Daha Fazla
-      </Link>
+      onMouseEnter={() => setHovered(etkinlik.id)}
+      onMouseLeave={() => setHovered(null)}
+    >
+      <img
+        src={etkinlik.img}
+        alt={etkinlik.ad}
+        style={{
+          width: 90,
+          height: 120,
+          objectFit: "cover",
+          borderRadius: 8,
+          border: "1px solid black",
+          background: "#fff",
+          cursor: "pointer"
+        }}
+        onClick={() => navigate(`/detay/${kategori}/${etkinlik.id}`)}
+      />
+      <span
+        className="mt-2 text-center"
+        style={{
+          maxWidth: 90,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'normal',
+          height: '2.4em',
+          lineHeight: '1.2em'
+        }}
+        title={etkinlik.ad}
+      >
+        {etkinlik.ad}
+      </span>
     </div>
-  </div>
-);
+  );
+};
 
+// Etkinlik kart grubu bileşeni
+const EtkinlikKartGrubu = ({ baslik, veriler, link }) =>
+{
+  const [hovered, setHovered] = useState(null);
+  const kategori = baslik.toLowerCase();
+
+  return (
+    <div className="col-12 col-sm-6 col-lg-3">
+      <div className="border rounded p-3 h-100 d-flex flex-column">
+        <h2 className="mb-3">{baslik}</h2>
+        <div className="row mb-auto">
+          {veriler.slice(0, 2).map(etkinlik => (
+            <EtkinlikKart
+              key={etkinlik.id}
+              etkinlik={etkinlik}
+              hovered={hovered}
+              setHovered={setHovered}
+              kategori={kategori}
+            />
+          ))}
+        </div>
+        <div className="row">
+          {veriler.slice(2, 4).map(etkinlik => (
+            <EtkinlikKart
+              key={etkinlik.id}
+              etkinlik={etkinlik}
+              hovered={hovered}
+              setHovered={setHovered}
+              kategori={kategori}
+            />
+          ))}
+        </div>
+        <Link
+          to={link}
+          className="text-decoration-none text-dark btn btn-warning mt-auto"
+        >
+          Daha Fazla
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+// Ana sayfa bileşeni
 const HomePage = () =>
 {
   return (
@@ -52,7 +118,7 @@ const HomePage = () =>
         zIndex: 1000
       }}>
         <video
-          src="public/images/raklam1.mp4"
+          src="/images/raklam1.mp4"
           autoPlay
           muted
           loop
@@ -75,7 +141,7 @@ const HomePage = () =>
         zIndex: 1000
       }}>
         <video
-          src="public/images/reklam2.mp4"
+          src="/images/reklam2.mp4"
           autoPlay
           muted
           loop
@@ -87,7 +153,6 @@ const HomePage = () =>
           }}
         />
       </div>
-
 
       {/* Sayfa İçeriği */}
       <div className="container">
@@ -105,7 +170,12 @@ const HomePage = () =>
                       style={{ maxHeight: 350, objectFit: "cover" }}
                     />
                     <div className="carousel-caption d-none d-md-block">
-                      <h5 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius: '5px', display: "inline" }}>{etkinlik.ad}</h5>
+                      <h5 style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        padding: '5px',
+                        borderRadius: '5px',
+                        display: "inline"
+                      }}>{etkinlik.ad}</h5>
                     </div>
                   </div>
                 ))}
