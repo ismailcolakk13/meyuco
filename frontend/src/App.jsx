@@ -8,6 +8,7 @@ import RegisterPage from "./Pages/RegisterPage";
 import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
 import Profile from "./Pages/Profile";
+import BiletSatinalPage from "./Pages/BiletSatinalPage";
 
 function App()
 {
@@ -28,6 +29,8 @@ function App()
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
+
           <Route
             path="/konserler"
             element={

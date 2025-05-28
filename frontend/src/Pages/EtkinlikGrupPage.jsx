@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EtkinlikGrupPage = ({ baslik, etkinlikler }) => {
+const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
+{
   const navigate = useNavigate();
   const isLoggedIn = false;
   const [detaylar, setDetaylar] = useState({});
 
-  const handleSatinAl = (id) => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    } else {
-      alert(`${id} numaralı etkinlikten bilet satın alındı.`);
-    }
+  const handleBiletBul = (id) =>
+  {
+    navigate(`/bilet-satin-al/${id}`);
   };
 
-  const toggleDetay = (id) => {
+  const toggleDetay = (id) =>
+  {
     setDetaylar((prev) => ({
       ...prev,
       [id]: !prev[id],
@@ -45,10 +44,11 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) => {
                 <div className="d-flex justify-content-center gap-2">
                   <button
                     className="btn btn-success btn-sm"
-                    onClick={() => handleSatinAl(etkinlik.id)}
+                    onClick={() => handleBiletBul(etkinlik.id)}
                   >
-                    Satın Al
+                    Bilet Bul
                   </button>
+
                   <button
                     className="btn btn-outline-primary btn-sm"
                     onClick={() => toggleDetay(etkinlik.id)}
@@ -61,10 +61,12 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) => {
                   <div className="mt-3 p-2 bg-light rounded shadow-sm">
                     <small className="text-secondary">
                       {etkinlik.aciklama}
-                    </small> <br />
+                    </small>{" "}
+                    <br />
                     <small className="text-secondary">
                       Tarih: {etkinlik.tarih}
-                    </small> <br />
+                    </small>{" "}
+                    <br />
                     <small className="text-secondary">
                       Mekan: {etkinlik.mekan}
                     </small>
