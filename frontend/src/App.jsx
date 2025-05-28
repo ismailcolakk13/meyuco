@@ -9,7 +9,7 @@ import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
 import Profile from "./Pages/Profile";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
-import Detay from "./Pages/detay";
+import Detay from "./Pages/Detay";
 function App()
 {
   const location = useLocation();
