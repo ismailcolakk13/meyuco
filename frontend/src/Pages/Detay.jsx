@@ -57,8 +57,18 @@ const Detay = () => {
         <p style={{ color: '#555', fontSize: 16 }}>{etkinlik.aciklama}</p>
         <p style={{ fontSize: 14, color: '#777' }}>
           Tarih: {etkinlik.tarih} <br />
-          Mekan: {etkinlik.mekan}
+          Mekan: {etkinlik.mekan} <br />
         </p>
+        <p style={{ fontSize: 20, color: '#000' }}>
+          Etkinlik kuralları:<br /></p>
+          <p>
+          18 yaş ve üzeri katılım gerekmektedir. <br />
+          Etkinlik boyunca saygılı ve hoşgörülü olunmalıdır. <br />
+          Etkinlik alanında sigara içmek yasaktır. <br />
+          Etkinlik alanında yiyecek ve içecek tüketimi yasaktır. <br />
+          Etkinlik sırasında fotoğraf ve video çekimi serbesttir. <br />
+          Etkinlik alanına girişte kimlik kontrolü yapılacaktır. <br />
+          Lütfen biletinizi yanınızda bulundurun.</p>
       </section>
     </main>
   );
