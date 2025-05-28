@@ -6,16 +6,17 @@ const Footer = () =>
   return (
     <footer
       style={{
-        backgroundColor: '#0F68FF',
+        background:"linear-gradient(135deg, #1C2D41, #18B38C)",
         bottom: 0,
         width: '100%',
-        zIndex: 999
+        zIndex: 999,
+        borderTop: '1px solid black'
       }}
-      className="py-3 shadow-sm"
+      className="py-1 shadow-sm"
     >
       <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center text-white">
         {/* Sol Telif */}
-        <span>&copy; {new Date().getFullYear()} Meyuco.com | Tüm hakları saklıdır.</span>
+        <span style={{color:"#7D969B"}}>&copy; {new Date().getFullYear()} Meyuco.com | Tüm hakları saklıdır.</span>
 
         {/* Orta Sosyal İkonlar */}
         <div className="my-2 my-md-0 d-flex align-items-center gap-3">
@@ -28,12 +29,6 @@ const Footer = () =>
           <Link to="/" title="Anasayfa">
             <img src="/images/logo2.png" alt="Meyuco Logo" style={{ height: "50px" }} />
           </Link>
-        </div>
-
-        {/* Sayfa Linkleri */}
-        <div>
-          <Link to="/hakkimizda" className="text-white me-3 text-decoration-none">Hakkımızda</Link>
-          <Link to="/iletisim" className="text-white text-decoration-none">İletişim</Link>
         </div>
       </div>
     </footer>

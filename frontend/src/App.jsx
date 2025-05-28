@@ -21,7 +21,7 @@ function App()
   const showTopBar = !hideTopbarPaths.includes(location.pathname);
 
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column" style={{backgroundColor:"whitesmoke"}}>
       {showTopBar && <Topbar />}
       <div className="flex-grow-1">
 
