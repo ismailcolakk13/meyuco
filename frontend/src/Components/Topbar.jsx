@@ -27,10 +27,33 @@ const Topbar = () =>
                         </li>
                     </ul>
 
+                    {/* Arama Çubuğu */}
+                    <form className="d-flex ms-3" style={{ minWidth: '330px', flex: 1, maxWidth: '357px' }}>
+                        <input
+                            className="form-control flex-grow-1 me-2"
+                            type="search"
+                            placeholder="Etkinlik, Sanatçı ya da Konser Arayın"
+                            aria-label="Search"
+                            style={{ minWidth: '250px' }}
+                        />
+                        <button className="btn btn-outline-light d-flex align-items-center me-2" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.398a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+                            </svg>
+                        </button>
+                    </form>
+
                     {/* Sağ Butonlar */}
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                         <Link to="/login" className="btn btn-outline-light me-2">Giriş Yap</Link>
-                        <Link to="/register" className="btn btn-outline-light">Kayıt Ol</Link>
+                        {/* <Link to="/register" className="btn btn-outline-light me-2">Kayıt Ol</Link> */}
+                        <Link to="/profile" className="btn btn-outline-light d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-person-circle me-1" viewBox="0 0 16 16">
+                                <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5c-1.482 0-2.758.726-3.468 1.87A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                <path fillRule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 8A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            </svg>
+                            Profil
+                        </Link>
                     </div>
                 </div>
             </div>
