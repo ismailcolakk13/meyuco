@@ -42,7 +42,7 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
                                     margin: 4,
                                     borderRadius: 4,
                                     cursor: "pointer",
-                                    backgroundColor: isSelected ? "#F39C12" : "#ccc",
+                                    backgroundColor: isSelected ? "#176763" : "#ccc", // ✅ yeşil renk
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
@@ -53,6 +53,7 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
                             >
                                 {i + 1}
                             </div>
+
                         );
                     })}
                 </div>
