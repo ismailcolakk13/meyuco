@@ -4,9 +4,9 @@ import { useState } from "react";
 
 // Öne çıkan etkinlikler
 const populerEtkinlikler = [
-  konserler[1],
-  tiyatrolar[1],
-  sporlar[5],
+  { ...konserler[1], kategori: "konserler" },
+  { ...tiyatrolar[1], kategori: "tiyatrolar" },
+  { ...sporlar[5], kategori: "sporlar" },
 ];
 
 // Etkinlik kartı bileşeni
@@ -106,6 +106,7 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) =>
 // Ana sayfa bileşeni
 const HomePage = () =>
 {
+  const navigate = useNavigate();
   return (
     <div className="position-relative">
       {/* Sol Video */}
@@ -168,8 +169,9 @@ const HomePage = () =>
                       src={etkinlik.img}
                       className="d-block w-100 rounded"
                       alt={etkinlik.ad}
-                      style={{ maxHeight: 350, objectFit: "cover" }}
-                    />
+                      style={{ maxHeight: 350, objectFit: "cover", cursor: "pointer" }}
+                      onClick={() => navigate(`/detay/${etkinlik.kategori || 'konserler'}/${etkinlik.id}`)}
+                  />
                     <div className="carousel-caption d-none d-md-block">
                       <h5 style={{
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
