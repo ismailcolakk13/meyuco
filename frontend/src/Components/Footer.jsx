@@ -6,7 +6,7 @@ const Footer = () =>
   return (
     <footer
       style={{
-        background:"linear-gradient(135deg, #1C2D41, #18B38C)",
+        background: "linear-gradient(135deg, #1C2D41, #18B38C)",
         bottom: 0,
         width: '100%',
         zIndex: 999,
@@ -17,7 +17,7 @@ const Footer = () =>
     >
       <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center text-white">
         {/* Sol Telif */}
-        <span style={{color:"#7D969B"}}>&copy; {new Date().getFullYear()} Meyuco.com | Tüm hakları saklıdır.</span>
+        <span style={{ color: "#7D969B" }}>&copy; {new Date().getFullYear()} Meyuco.com | Tüm hakları saklıdır.</span>
 
         {/* Orta Sosyal İkonlar */}
         <div className="my-2 my-md-0 d-flex align-items-center gap-3">
@@ -28,7 +28,7 @@ const Footer = () =>
             <img src="/images/twitter.ico" alt="Twitter" style={{ height: "24px", width: "24px" }} />
           </a>
           <Link to="/" title="Anasayfa">
-            <img src="/images/logo2.png" alt="Meyuco Logo" style={{ height: "50px" }} />
+            <img src="/images/deneme3.png" alt="Meyuco Logo" style={{ height: "40px" }} />
           </Link>
         </div>
       </div>
