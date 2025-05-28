@@ -94,10 +94,15 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) =>
         </div>
         <Link
           to={link}
-          className="text-decoration-none text-dark btn btn-danger mt-auto"
+          className="text-decoration-none text-white btn mt-auto"
+          style={{
+            background: "linear-gradient(135deg, #0c3e49, #188976)",
+            border: "none"
+          }}
         >
           Daha Fazla
         </Link>
+
       </div>
     </div>
   );
@@ -148,7 +153,7 @@ const HomePage = () =>
           </div>
           {/* Sağ Video */}
           <div className="col-12 col-lg-3 d-flex flex-column align-items-start justify-content-center">
-            <h1 style={{visibility:'hidden'}}>Öne Çıkanlar</h1>
+            <h1 style={{ visibility: 'hidden' }}>Öne Çıkanlar</h1>
             <video
               src="/images/reklam2.mp4"
               autoPlay
