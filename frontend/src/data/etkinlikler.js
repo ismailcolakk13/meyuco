@@ -47,7 +47,7 @@ export const konserler = [
   {
     id: 6,
     ad: "Sertab Erener",
-    img: "/images/sertap.jpg",
+    img: "/images/ser.png",
     aciklama:
       "Sertab Erener, güçlü sesi ve unutulmaz şarkılarıyla Harbiye Cemil Topuzlu Açıkhava Tiyatrosu'nda müzikseverlere unutulmaz bir gece yaşatacak!",
     tarih: "05/07/2025",

@@ -94,7 +94,7 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) =>
         </div>
         <Link
           to={link}
-          className="text-decoration-none text-dark btn btn-warning mt-auto"
+          className="text-decoration-none text-dark btn btn-danger mt-auto"
         >
           Daha Fazla
         </Link>
