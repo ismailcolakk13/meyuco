@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { konserler, sinemalar, sporlar, tiyatrolar } from "../data/etkinlikler";
 
-// Örnek popüler etkinlikler (görselleri kendi projene göre değiştir)
+// Örnek popüler etkinlikler 
 const populerEtkinlikler = [
   konserler[1],
   tiyatrolar[1],
