@@ -9,7 +9,7 @@ import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
 import Profile from "./Pages/Profile";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
-
+import Detay from "./Pages/detay";
 function App()
 {
   const location = useLocation();
@@ -30,7 +30,7 @@ function App()
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
-
+          <Route path="/detay/:kategori/:id" element={<Detay />} />
           <Route
             path="/konserler"
             element={

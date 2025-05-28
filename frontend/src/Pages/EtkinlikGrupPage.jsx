@@ -1,23 +1,19 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
 {
   const navigate = useNavigate();
-  const isLoggedIn = false;
-  const [detaylar, setDetaylar] = useState({});
+
+  const kategori = baslik.toLowerCase(); // örnek: "Konserler" -> "konserler"
 
   const handleBiletBul = (id) =>
   {
     navigate(`/bilet-satin-al/${id}`);
   };
 
-  const toggleDetay = (id) =>
+  const handleDetay = (id) =>
   {
-    setDetaylar((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    navigate(`/detay/${kategori}/${id}`);
   };
 
   return (
@@ -51,27 +47,11 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
 
                   <button
                     className="btn btn-outline-primary btn-sm"
-                    onClick={() => toggleDetay(etkinlik.id)}
+                    onClick={() => handleDetay(etkinlik.id)}
                   >
                     Detay
                   </button>
                 </div>
-
-                {detaylar[etkinlik.id] && (
-                  <div className="mt-3 p-2 bg-light rounded shadow-sm">
-                    <small className="text-secondary">
-                      {etkinlik.aciklama}
-                    </small>{" "}
-                    <br />
-                    <small className="text-secondary">
-                      Tarih: {etkinlik.tarih}
-                    </small>{" "}
-                    <br />
-                    <small className="text-secondary">
-                      Mekan: {etkinlik.mekan}
-                    </small>
-                  </div>
-                )}
               </div>
             </div>
           </div>
