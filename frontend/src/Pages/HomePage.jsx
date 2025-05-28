@@ -108,58 +108,11 @@ const HomePage = () =>
 {
   const navigate = useNavigate();
   return (
-    <div className="position-relative">
-      {/* Sol Video */}
-      <div className="d-none d-lg-block" style={{
-        position: "fixed",
-        left: 0,
-        top: "80px",
-        width: "18vw",
-        height: "75vh",
-        zIndex: 1000
-      }}>
-        <video
-          src="/images/raklam1.mp4"
-          autoPlay
-          muted
-          loop
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "8px",
-            objectFit: "cover"
-          }}
-        />
-      </div>
-
-      {/* Sağ Video */}
-      <div className="d-none d-lg-block" style={{
-        position: "fixed",
-        right: 0,
-        top: "80px",
-        width: "18vw",
-        height: "75vh",
-        zIndex: 1000
-      }}>
-        <video
-          src="/images/reklam2.mp4"
-          autoPlay
-          muted
-          loop
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "8px",
-            objectFit: "cover"
-          }}
-        />
-      </div>
-
-
+    <div>
       {/* Sayfa İçeriği */}
       <div className="container">
-        <div className="row my-4 align-items-center">
-          <div className="col-12 col-md-6">
+        <div className="row my-4 align-items-start">
+          <div className="col-12 col-lg-9">
             <h1>Öne Çıkanlar</h1>
             <div id="populerCarousel" className="carousel slide" data-bs-ride="carousel">
               <div className="carousel-inner">
@@ -169,9 +122,9 @@ const HomePage = () =>
                       src={etkinlik.img}
                       className="d-block w-100 rounded"
                       alt={etkinlik.ad}
-                      style={{ maxHeight: 350, objectFit: "cover", cursor: "pointer" }}
+                      style={{ height: 350, objectFit: "cover", cursor: "pointer" }}
                       onClick={() => navigate(`/detay/${etkinlik.kategori || 'konserler'}/${etkinlik.id}`)}
-                  />
+                    />
                     <div className="carousel-caption d-none d-md-block">
                       <h5 style={{
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -192,6 +145,22 @@ const HomePage = () =>
                 <span className="visually-hidden">Sonraki</span>
               </button>
             </div>
+          </div>
+          {/* Sağ Video */}
+          <div className="col-12 col-lg-3 d-flex flex-column align-items-start justify-content-center">
+            <h1 style={{visibility:'hidden'}}>Öne Çıkanlar</h1>
+            <video
+              src="/images/reklam2.mp4"
+              autoPlay
+              muted
+              loop
+              style={{
+                width: "100%",
+                height: 350,
+                borderRadius: "8px",
+                objectFit: "cover"
+              }}
+            />
           </div>
         </div>
 
