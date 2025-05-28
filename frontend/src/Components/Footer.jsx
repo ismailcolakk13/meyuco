@@ -10,7 +10,8 @@ const Footer = () =>
         bottom: 0,
         width: '100%',
         zIndex: 999,
-        borderTop: '1px solid black'
+        borderTop: '1px solid black',
+        borderBottom: '1px solid black'
       }}
       className="py-1 shadow-sm"
     >
