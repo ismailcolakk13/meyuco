@@ -11,6 +11,7 @@ import Profile from "./Pages/Profile";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
 import Hakkimizda from "./Pages/Hakkimizda";
+import İletisim from "./Pages/İletisim";
 
 
 function App()
@@ -35,7 +36,7 @@ function App()
           <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
           <Route path="/detay/:kategori/:id" element={<Detay />} />
           <Route path="/hakkimizda" element={<Hakkimizda />} />
-
+          <Route path="/iletisim" element={<İletisim />} />
           <Route
             path="/konserler"
             element={
