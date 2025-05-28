@@ -10,6 +10,9 @@ import AdminPanel from "./Pages/AdminPanel";
 import Profile from "./Pages/Profile";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
+import Hakkimizda from "./Pages/Hakkimizda";
+
+
 function App()
 {
   const location = useLocation();
@@ -31,6 +34,8 @@ function App()
           <Route path="/profile" element={<Profile />} />
           <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
           <Route path="/detay/:kategori/:id" element={<Detay />} />
+          <Route path="/hakkimizda" element={<Hakkimizda />} />
+
           <Route
             path="/konserler"
             element={
