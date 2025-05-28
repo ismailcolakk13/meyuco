@@ -52,58 +52,60 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) => {
 const HomePage = () => {
   return (
     <div className="container">
-      <div className="my-4">
-        <h1>Öne Çıkanlar</h1>
-        {/* Bootstrap Carousel */}
-
-        <div
-          id="populerCarousel"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-inner">
-            {populerEtkinlikler.map((etkinlik, idx) => (
-              <div
-                className={`carousel-item${idx === 0 ? " active" : ""}`}
-                key={etkinlik.id}
-              >
-                <img
-                  src={etkinlik.img}
-                  className="d-block w-100 rounded"
-                  alt={etkinlik.ad}
-                  style={{ maxHeight: 350, objectFit: "cover" }}
-                />
-                <div className="carousel-caption d-none d-md-block">
-                  <h5 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius: '5px', display:"inline"}}>{etkinlik.ad}</h5>
+      <div className="row my-4 align-items-center">
+        <div className="col-12 col-md-6">
+          <h1>Öne Çıkanlar</h1>
+          {/* Bootstrap Carousel */}
+          <div
+            id="populerCarousel"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              {populerEtkinlikler.map((etkinlik, idx) => (
+                <div
+                  className={`carousel-item${idx === 0 ? " active" : ""}`}
+                  key={etkinlik.id}
+                >
+                  <img
+                    src={etkinlik.img}
+                    className="d-block w-100 rounded"
+                    alt={etkinlik.ad}
+                    style={{ maxHeight: 350, objectFit: "cover" }}
+                  />
+                  <div className="carousel-caption d-none d-md-block">
+                    <h5 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius: '5px', display:"inline"}}>{etkinlik.ad}</h5>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#populerCarousel"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Önceki</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#populerCarousel"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Sonraki</span>
+            </button>
           </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#populerCarousel"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Önceki</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#populerCarousel"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Sonraki</span>
-          </button>
         </div>
+        <div className="col-md-6 d-none d-md-block"></div>
       </div>
 
       <div className="row g-4 my-4 col-12">
