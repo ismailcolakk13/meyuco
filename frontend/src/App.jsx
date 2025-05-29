@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Topbar from "./Components/Topbar";
-import { etkinlikler } from "./data/etkinlikler";
+import { etkinlikler, fetchEtkinlikler } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
@@ -13,6 +13,8 @@ import LoginPage from "./Pages/LoginPage";
 import OdemeEkrani from "./Pages/OdemeEkrani";
 import Profile from "./Pages/Profile";
 import RegisterPage from "./Pages/RegisterPage";
+import { useEffect } from "react";
+import { useState } from "react";
 
 
 function App()
@@ -21,6 +23,12 @@ function App()
 
   const hideTopbarPaths = ["/login", "/register"];
   const showTopBar = !hideTopbarPaths.includes(location.pathname);
+
+  const [etkinlikler, setEtkinlikler] = useState([]);
+
+  useEffect(() => {
+    fetchEtkinlikler().then(setEtkinlikler);
+  }, []);
 
   return (
     <div className="d-flex flex-column" style={{backgroundColor:"whitesmoke"}}>
