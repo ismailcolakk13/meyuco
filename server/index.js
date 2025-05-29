@@ -9,6 +9,12 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Server çalışıyor!");
+  db.query('SELECT NOW() AS current_time', (err, results) => {
+    if (err) {
+      return res.status(500).send('Veritabanı hatası');
+    }
+    res.send(`Veritabanı bağlantısı başarılı! Sunucu zamanı: ${results[0].current_time}`);
+  });
 });
 
 // Etkinlikler tablosundaki tüm verileri döndüren endpoint
@@ -22,12 +28,7 @@ app.get("/api/etkinlikler", (req, res) => {
   });
 });
 
-db.query('SELECT NOW() AS current_time', (err, results) => {
-    if (err) {
-      return console.error('Veritabanı hatası');
-    }
-    console.log(`Veritabanı bağlantısı başarılı! Sunucu zamanı: ${results[0].current_time}`);
-  });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
