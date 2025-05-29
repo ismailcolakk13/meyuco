@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import Lottie from "lottie-react";
+import { useState } from "react";
 import registerAnim from "../assets/register-animation.json"; // Yeni animasyon dosyası
 
 const RegisterPage = () =>

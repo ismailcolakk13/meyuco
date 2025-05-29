@@ -1,20 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
 {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
-  const kategori = baslik.toLowerCase(); // örnek: "Konserler" -> "konserler"
 
   const handleBiletBul = (id) =>
   {
     navigate(`/bilet-satin-al/${id}`);
-  };
-
-  const handleDetay = (id) =>
-  {
-    navigate(`/detay/${kategori}/${id}`);
   };
 
   return (
@@ -46,7 +40,7 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
                   borderTopRightRadius: "8px",
                   cursor: "pointer"
                 }}
-                onClick={() => handleDetay(etkinlik.id)}
+                onClick={() => navigate(`/detay/${etkinlik.id}`,{state:{etkinlik:etkinlik}})}
               />
               <div className="card-body">
                 <h5 className="card-title">{etkinlik.ad}</h5>
@@ -59,7 +53,7 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
                   </button>
                   <button
                     className="btn btn-outline-primary btn-sm"
-                    onClick={() => handleDetay(etkinlik.id)}
+                    onClick={() => navigate(`/detay/${etkinlik.id}`,{state:{etkinlik:etkinlik}})}
                   >
                     Detay
                   </button>

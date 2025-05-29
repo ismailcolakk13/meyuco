@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import saskinAnim from '../assets/saskin.json';
 import Lottie from 'lottie-react';
+import { useState } from 'react';
+import saskinAnim from '../assets/saskin.json';
 import yardımAnim from '../assets/yardim.json';
 
 const İletisim = () => {

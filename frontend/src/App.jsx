@@ -5,13 +5,14 @@ import EtkinlikGrupPage from "./Pages/EtkinlikGrupPage";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
-import { konserler, tiyatrolar, sporlar, sinemalar } from "./data/etkinlikler";
+import { konserler, tiyatrolar, sporlar, sinemalar, etkinlikler } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
 import Profile from "./Pages/Profile";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
 import Hakkimizda from "./Pages/Hakkimizda";
 import İletisim from "./Pages/İletisim";
+import OdemeEkrani from "./Pages/OdemeEkrani";
 
 
 function App()
@@ -34,13 +35,14 @@ function App()
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
-          <Route path="/detay/:kategori/:id" element={<Detay />} />
+          <Route path="/odeme/:id" element={<OdemeEkrani />} />
+          <Route path="/detay/:id" element={<Detay />} />
           <Route path="/hakkimizda" element={<Hakkimizda />} />
           <Route path="/iletisim" element={<İletisim />} />
           <Route
             path="/konserler"
             element={
-              <EtkinlikGrupPage baslik={"Konserler"} etkinlikler={konserler} />
+              <EtkinlikGrupPage baslik={"Konserler"} etkinlikler={etkinlikler.filter((e) => e.kategori === "konserler")} />
             }
           />
           <Route
@@ -48,20 +50,20 @@ function App()
             element={
               <EtkinlikGrupPage
                 baslik={"Tiyatrolar"}
-                etkinlikler={tiyatrolar}
+                etkinlikler={etkinlikler.filter((e) => e.kategori === "tiyatrolar")}
               />
             }
           />
           <Route
             path="/sporlar"
             element={
-              <EtkinlikGrupPage baslik={"Sporlar"} etkinlikler={sporlar} />
+              <EtkinlikGrupPage baslik={"Sporlar"} etkinlikler={etkinlikler.filter((e) => e.kategori === "sporlar")} />
             }
           />
           <Route
             path="/sinemalar"
             element={
-              <EtkinlikGrupPage baslik={"Sinemalar"} etkinlikler={sinemalar} />
+              <EtkinlikGrupPage baslik={"Sinemalar"} etkinlikler={etkinlikler.filter((e) => e.kategori === "sinemalar")} />
             }
           />
         </Routes>

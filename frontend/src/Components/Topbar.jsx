@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Topbar = () =>
@@ -24,7 +23,7 @@ const Topbar = () =>
                 {/* Logo */}
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <img
-                        src="public/images/deneme3.png"
+                        src="/images/deneme3.png"
                         alt="Meyuco Logo"
                         style={{
                             height: "40px",

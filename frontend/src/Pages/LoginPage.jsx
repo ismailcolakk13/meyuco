@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import Lottie from "lottie-react";
+import { useState } from "react";
 import loginAnim from "../assets/login-animation.json";
 
 const LoginPage = () => {

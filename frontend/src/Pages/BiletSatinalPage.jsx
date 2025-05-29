@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { etkinlikler } from "../data/etkinlikler";
+import OdemeEkrani from "./OdemeEkrani";
 
 // 👇 SeatSelection bileşeni
 const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
@@ -68,6 +70,10 @@ const BiletSatinalPage = () =>
     const { id } = useParams();
     const [adet, setAdet] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
+    const navigate = useNavigate();
+
+    const etkinlik = etkinlikler.find((e) => e.id === parseInt(id));
+    const [bilet, setBilet] = useState({});
 
     const handleSubmit = (e) =>
     {
@@ -77,13 +83,20 @@ const BiletSatinalPage = () =>
             alert(`Lütfen tam olarak ${adet} koltuk seçin.`);
             return;
         }
-
-        alert(`${adet} adet bilet satın alındı.\nKoltuklar: ${selectedSeats.join(", ")}`);
+        const yeniBilet = {
+            etkinlik,
+            koltuklar: selectedSeats,
+            adet: adet,
+            toplamFiyat: etkinlik.fiyat * adet
+        };
+        setBilet(yeniBilet);
+        console.log("Bilet Bilgisi:", yeniBilet);
+        navigate(`/odeme/${id}`, {state:{bilet:yeniBilet}});
     };
 
     return (
         <div className="container my-5">
-            <h2 className="text-center mb-4">🎟️ Bilet Satın Al – Etkinlik #{id}</h2>
+            <h2 className="text-center mb-4">🎟️ Bilet Satın Al – {etkinlik.ad}</h2>
 
             <form
                 onSubmit={handleSubmit}
@@ -126,9 +139,17 @@ const BiletSatinalPage = () =>
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary w-100">
-                    Satın Al
-                </button>
+                <div className="mb-3">
+                    <label className="form-label">Toplam Fiyat</label>
+                    <input
+                        type="text"
+                        value={etkinlik ? (etkinlik.fiyat * adet) + " TL" : ""}
+                        readOnly
+                        className="form-control fw-bold text-success"
+                    />
+                </div>
+
+                <button type="submit" className="btn btn-primary w-100" >Ödemeye Geç</button>
             </form>
         </div>
     );

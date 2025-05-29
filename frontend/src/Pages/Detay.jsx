@@ -1,31 +1,9 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { konserler, tiyatrolar, sporlar, sinemalar } from '../data/etkinlikler';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Detay = () => {
-  const { kategori, id } = useParams();
-  const etkinlikId = parseInt(id, 10);
-
-  let etkinlikListesi = [];
-
-  switch (kategori) {
-    case 'konserler':
-      etkinlikListesi = konserler;
-      break;
-    case 'tiyatrolar':
-      etkinlikListesi = tiyatrolar;
-      break;
-    case 'sporlar':
-      etkinlikListesi = sporlar;
-      break;
-    case 'sinemalar':
-      etkinlikListesi = sinemalar;
-      break;
-    default:
-      etkinlikListesi = [];
-  }
-
-  const etkinlik = etkinlikListesi.find((e) => e.id === etkinlikId);
+  const location = useLocation();
+  const etkinlik = location.state?.etkinlik;
+  const navigate = useNavigate();
 
   if (!etkinlik) {
     return <div>Etkinlik bulunamadı.</div>;
@@ -49,6 +27,12 @@ const Detay = () => {
             <strong>Tarih:</strong> {etkinlik.tarih} <br />
             <strong>Mekan:</strong> {etkinlik.mekan}
           </p>
+          <button
+            className="btn btn-success btn-lg my-3"
+            onClick={()=> navigate(`/bilet-satin-al/${etkinlik.id}`)}
+          >
+            Bilet Satın Al
+          </button>
           <div className="mt-4">
             <h5 className="mb-2">Etkinlik kuralları:</h5>
             <ul className="list-group list-group-flush">

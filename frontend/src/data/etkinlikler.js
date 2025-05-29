@@ -7,6 +7,7 @@ export const konserler = [
       "Hayko Cepkin, sevilen şarkıları ve enerjik sahne performansıyla IF Performance Hall Ankara'da!",
     tarih: "22/06/2025",
     mekan: "IF Performance Hall Ankara",
+    fiyat: 450
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const konserler = [
       "Efsanevi rock grubu AC/DC, unutulmaz şarkılarıyla İstanbul Olimpiyat Stadı'nı sallamaya geliyor!",
     tarih: "29/06/2025",
     mekan: "İstanbul Olimpiyat Stadı",
+    fiyat: 1200
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const konserler = [
       "Türk rock müziğinin sevilen grubu Duman, Harbiye Cemil Topuzlu Açıkhava Tiyatrosu'nda hayranlarıyla buluşuyor!",
     tarih: "06/07/2025",
     mekan: "Harbiye Cemil Topuzlu Açıkhava Tiyatrosu",
+    fiyat: 600
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ export const konserler = [
       "Mor ve Ötesi, en sevilen şarkıları ve yeni albümleriyle Turkcell Vadi'de unutulmaz bir konsere imza atacak!",
     tarih: "13/07/2025",
     mekan: "Turkcell Vadi",
+    fiyat: 550
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ export const konserler = [
       "Teoman, akustik performansı ve duygusal şarkılarıyla IF Performance Hall Ankara'da sevenleriyle buluşuyor.",
     tarih: "28/06/2025",
     mekan: "IF Performance Hall Ankara",
+    fiyat: 500
   },
   {
     id: 6,
@@ -52,6 +57,7 @@ export const konserler = [
       "Sertab Erener, güçlü sesi ve unutulmaz şarkılarıyla Harbiye Cemil Topuzlu Açıkhava Tiyatrosu'nda müzikseverlere unutulmaz bir gece yaşatacak!",
     tarih: "05/07/2025",
     mekan: "Harbiye Cemil Topuzlu Açıkhava Tiyatrosu",
+    fiyat: 700
   },
   {
     id: 7,
@@ -61,6 +67,7 @@ export const konserler = [
       "Kenan Doğulu, enerjik sahnesi ve sevilen şarkılarıyla Turkcell Vadi'de hayranlarıyla buluşuyor!",
     tarih: "12/07/2025",
     mekan: "Turkcell Vadi",
+    fiyat: 650
   },
   {
     id: 8,
@@ -70,6 +77,7 @@ export const konserler = [
       "Yüksek Sadakat, güçlü şarkıları ve etkileyici performansıyla KadıköySahne'de sevenleriyle buluşuyor!",
     tarih: "19/07/2025",
     mekan: "KadıköySahne",
+    fiyat: 400
   },
 ];
 
@@ -81,6 +89,7 @@ export const tiyatrolar = [
     aciklama: "Komedi dolu bir Osmanlı parodisi.",
     tarih: "12/06/2025",
     mekan: "Zorlu PSM",
+    fiyat: 350
   },
   {
     id: 2,
@@ -89,6 +98,7 @@ export const tiyatrolar = [
     aciklama: "Toplumsal olaylara mizahi bakış.",
     tarih: "18/06/2025",
     mekan: "Maximum UNIQ Hall",
+    fiyat: 300
   },
   {
     id: 3,
@@ -97,6 +107,7 @@ export const tiyatrolar = [
     aciklama: "Sınırsız kahkaha garantili bir gösteri.",
     tarih: "20/06/2025",
     mekan: "BKM Tiyatro",
+    fiyat: 250
   },
   {
     id: 4,
@@ -105,6 +116,7 @@ export const tiyatrolar = [
     aciklama: "Klasiklerden sahne uyarlamaları.",
     tarih: "25/06/2025",
     mekan: "DasDas Sahne",
+    fiyat: 200
   },
   {
     id: 5,
@@ -113,6 +125,7 @@ export const tiyatrolar = [
     aciklama: "Romantik komedi türünde sahne oyunu.",
     tarih: "01/07/2025",
     mekan: "Kadıköy Halk Eğitim Merkezi",
+    fiyat: 220
   },
   {
     id: 6,
@@ -121,6 +134,7 @@ export const tiyatrolar = [
     aciklama: "Derin karakter çözümlemeleri içerir.",
     tarih: "03/07/2025",
     mekan: "Trump Sahne",
+    fiyat: 210
   },
   {
     id: 7,
@@ -129,6 +143,7 @@ export const tiyatrolar = [
     aciklama: "Absürt skeçlerden oluşur.",
     tarih: "06/07/2025",
     mekan: "Cevahir Sahnesi",
+    fiyat: 180
   },
   {
     id: 8,
@@ -137,6 +152,7 @@ export const tiyatrolar = [
     aciklama: "Çocuklar ve yetişkinler için kukla oyunu.",
     tarih: "09/07/2025",
     mekan: "Sahne Dragos",
+    fiyat: 160
   },
   {
     id: 9,
@@ -145,8 +161,10 @@ export const tiyatrolar = [
     aciklama: "Tarihi olaylara sahnede bir yolculuk.",
     tarih: "12/07/2025",
     mekan: "Atatürk Kültür Merkezi",
+    fiyat: 400
   },
 ];
+
 export const sporlar = [
   {
     id: 1,
@@ -155,6 +173,7 @@ export const sporlar = [
     aciklama: "Rahatlatıcı bir yoga deneyimi.",
     tarih: "10/07/2025",
     mekan: "Sait Halim Paşa Yalıs",
+    fiyat: 120
   },
   {
     id: 2,
@@ -163,6 +182,7 @@ export const sporlar = [
     aciklama: "Heyecan dolu bir basketbol maçı.",
     tarih: "12/07/2025",
     mekan: "Şişli Basketbol Salonu",
+    fiyat: 200
   },
   {
     id: 3,
@@ -171,6 +191,7 @@ export const sporlar = [
     aciklama: "Heyecan dolu bir voleybol maçı.",
     tarih: "15/07/2025",
     mekan: "Avcılar Kampüs Voleybol Salonu",
+    fiyat: 180
   },
   {
     id: 4,
@@ -179,6 +200,7 @@ export const sporlar = [
     aciklama: "Heyecan dolu bir boks maçı.",
     tarih: "18/06/2025",
     mekan: "Florya Boks Salonu",
+    fiyat: 250
   },
   {
     id: 5,
@@ -187,6 +209,7 @@ export const sporlar = [
     aciklama: "Fenerbahçe Galatasaray Derbisi.",
     tarih: "20/07/2025",
     mekan: "Rams Park Stadyumu",
+    fiyat: 350
   },
   {
     id: 6,
@@ -195,6 +218,7 @@ export const sporlar = [
     aciklama: "Heyecan dolu bir Formula 1 yarışı.",
     tarih: "25/07/2025",
     mekan: "İstanbul Park",
+    fiyat: 900
   },
 ];
 
@@ -207,6 +231,7 @@ export const sinemalar = [
       "Mission: Impossible - Ölümcül Hesaplaşma Birinci Bölüm'ün bıraktığı yerden devam edecek olan film, Ethan Hunt ve ekibinin yanlış ellerde dünyanın sonunu getirebilecek bir AI programı olan The Entity'ye ulaşma mücadelesini anlatıyor.",
     tarih: "21/05/2025",
     mekan: "Meydan İstanbul AVM",
+    fiyat: 120
   },
   {
     id: 2,
@@ -216,6 +241,7 @@ export const sinemalar = [
       "Lilo ve Stiç, yalnız bir Hawaiili kız ile onun parçalanmış ailesini onarmaya yardım eden tuhaf bir uzaylının hikâyesini anlatıyor.",
     tarih: "23/05/2025",
     mekan: "City's Nişantaşı",
+    fiyat: 110
   },
   {
     id: 3,
@@ -225,6 +251,7 @@ export const sinemalar = [
       "Thunderbolts filminde, alışılmışın dışında bir anti-kahraman ekibi bir araya geliyor: Yelena Belova, Bucky Barnes, Red Guardian, Ghost, Taskmaster ve John Walker. Valentina Allegra de Fontaine’in kurduğu ölümcül bir tuzağa düşen bu dışlanmış karakterler, geçmişlerinin en karanlık yönleriyle yüzleşmek zorunda kalacakları tehlikeli bir göreve çıkıyor.",
     tarih: "02/05/2025",
     mekan: "Cineverse Akasya",
+    fiyat: 130
   },
   {
     id: 4,
@@ -234,6 +261,7 @@ export const sinemalar = [
       "Karısının ölümünden beri bir türlü teselli bulamayan Karsh, devrim niteliğinde ve tartışmalı bir teknoloji olan GraveTech’i icat eder. Bu teknoloji sayesinde geride kalanlar, kaybettiklerinin cesetlerini kefenleri içinde gözlemleyebileceklerdir. Bir gece, aralarında Karsh’ın eşininkinin de bulunduğu birçok mezar tahrip edilir. Karsh bu eylemin faillerinin izini sürmek için yola koyulur, ancak daha büyük, daha sinsi bir komplonun şüphesi de içini kemirmektedir.",
     tarih: "26/05/2025",
     mekan: "Cineverse Emaar",
+    fiyat: 140
   },
   {
     id: 5,
@@ -243,5 +271,23 @@ export const sinemalar = [
       "Efsanevi Marvel Comics dizisine dayanan filmde, Peter Parker nihayet Mary Jane'e duyduğu tutku ile süper kahramanlık görevleri arasındaki dengeyi kurar. Ancak, ufukta belirmeye başlayan bir fırtına vardır. Peter'ın Örümcek Adam kostümü birden bire değişip siyaha dönüşerek güçlerini pekiştirmeye başlayınca, Peter da değişmeye başlar. Kostümün etkisi altındaki Peter, kibirli ve kendine aşırı güvenli biri olur; en değer verdiği kişileri ihmal etmeye başlar. Bugüne dek en korkulan iki kötü kahraman Kumadam ve Venom benzersiz güçler edinip, intikam ateşiyle yanarken, Peter en büyük savaşını kendi içinde yapmaktadır. Örümcek Adam'ın onu o yapan, onu bir kahraman yapan özelliğini, yani şefkati yeniden keşfetmesi gerekecektir.",
     tarih: "04/05/2007",
     mekan: "Cineverse Hilltown",
+    fiyat: 125
   },
 ];
+
+export const etkinlikler = [
+  ...konserler.map((e, i) => ({ ...e, id: i + 1, kategori: 'konserler' })),
+  ...tiyatrolar.map((e, i) => ({ ...e, id: konserler.length + i + 1, kategori: 'tiyatrolar' })),
+  ...sporlar.map((e, i) => ({ ...e, id: konserler.length + tiyatrolar.length + i + 1, kategori: 'sporlar' })),
+  ...sinemalar.map((e, i) => ({ ...e, id: konserler.length + tiyatrolar.length + sporlar.length + i + 1, kategori: 'sinemalar' })),
+];
+
+// Artık tüm etkinlikler için etkinlikler dizisi kullanılabilir. Id çakışmalarını önlemek için her kategori için id'ler benzersiz şekilde ayarlandı.
+
+
+
+//TODO:backend bağlantısı
+export const fetchEtkinlikler = async () => {
+  const response = await axios.get('/api/etkinlikler');
+  return response.data;
+}

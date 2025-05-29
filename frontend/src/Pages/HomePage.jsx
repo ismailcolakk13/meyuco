@@ -1,16 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { konserler, sinemalar, sporlar, tiyatrolar } from "../data/etkinlikler";
+import { etkinlikler, konserler, sinemalar, sporlar, tiyatrolar } from "../data/etkinlikler";
 import { useState } from "react";
 
 // Öne çıkan etkinlikler
-const populerEtkinlikler = [
-  { ...konserler[1], kategori: "konserler" },
-  { ...tiyatrolar[1], kategori: "tiyatrolar" },
-  { ...sporlar[5], kategori: "sporlar" },
-];
+
+const populerEtkinlikler = [etkinlikler[1],etkinlikler[9],etkinlikler[22]];
 
 // Etkinlik kartı bileşeni
-const EtkinlikKart = ({ etkinlik, hovered, setHovered, kategori }) =>
+const EtkinlikKart = ({ etkinlik, hovered, setHovered }) =>
 {
   const navigate = useNavigate();
 
@@ -37,7 +34,7 @@ const EtkinlikKart = ({ etkinlik, hovered, setHovered, kategori }) =>
           background: "#fff",
           cursor: "pointer"
         }}
-        onClick={() => navigate(`/detay/${kategori}/${etkinlik.id}`)}
+        onClick={() => navigate(`/detay/${etkinlik.id}`, {state: { etkinlik:etkinlik }})}
       />
       <span
         className="mt-2 text-center"
@@ -128,7 +125,7 @@ const HomePage = () =>
                       className="d-block w-100 rounded"
                       alt={etkinlik.ad}
                       style={{ height: 350, objectFit: "cover", cursor: "pointer" }}
-                      onClick={() => navigate(`/detay/${etkinlik.kategori || 'konserler'}/${etkinlik.id}`)}
+                      onClick={() => navigate(`/detay/${etkinlik.id}`,{state:{etkinlik:etkinlik}})}
                     />
                     <div className="carousel-caption d-none d-md-block">
                       <h5 style={{
@@ -170,10 +167,10 @@ const HomePage = () =>
         </div>
 
         <div className="row g-4 my-4 col-12">
-          <EtkinlikKartGrubu baslik="Konserler" veriler={konserler} link="/konserler" />
-          <EtkinlikKartGrubu baslik="Tiyatrolar" veriler={tiyatrolar} link="/tiyatrolar" />
-          <EtkinlikKartGrubu baslik="Spor" veriler={sporlar} link="/sporlar" />
-          <EtkinlikKartGrubu baslik="Sinemalar" veriler={sinemalar} link="/sinemalar" />
+          <EtkinlikKartGrubu baslik="Konserler" veriler={etkinlikler.filter((e)=> e.kategori==="konserler")} link="/konserler" />
+          <EtkinlikKartGrubu baslik="Tiyatrolar" veriler={etkinlikler.filter((e)=> e.kategori==="tiyatrolar")} link="/tiyatrolar" />
+          <EtkinlikKartGrubu baslik="Spor" veriler={etkinlikler.filter((e)=> e.kategori==="sporlar")} link="/sporlar" />
+          <EtkinlikKartGrubu baslik="Sinemalar" veriler={etkinlikler.filter((e)=> e.kategori==="sinemalar")} link="/sinemalar" />
         </div>
       </div>
     </div>
