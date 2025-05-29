@@ -1,6 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-import { etkinlikler, konserler, sinemalar, sporlar, tiyatrolar } from "../data/etkinlikler";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { etkinlikler } from "../data/etkinlikler";
 
 // Öne çıkan etkinlikler
 

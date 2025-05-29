@@ -1,18 +1,18 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Topbar from "./Components/Topbar";
-import EtkinlikGrupPage from "./Pages/EtkinlikGrupPage";
-import HomePage from "./Pages/HomePage";
-import LoginPage from "./Pages/LoginPage";
-import RegisterPage from "./Pages/RegisterPage";
-import { konserler, tiyatrolar, sporlar, sinemalar, etkinlikler } from "./data/etkinlikler";
+import { etkinlikler } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
-import Profile from "./Pages/Profile";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
+import EtkinlikGrupPage from "./Pages/EtkinlikGrupPage";
 import Hakkimizda from "./Pages/Hakkimizda";
+import HomePage from "./Pages/HomePage";
 import İletisim from "./Pages/İletisim";
+import LoginPage from "./Pages/LoginPage";
 import OdemeEkrani from "./Pages/OdemeEkrani";
+import Profile from "./Pages/Profile";
+import RegisterPage from "./Pages/RegisterPage";
 
 
 function App()
