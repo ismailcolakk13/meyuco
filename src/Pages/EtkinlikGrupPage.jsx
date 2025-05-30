@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { EtkinliklerContext } from "../data/Context";
 
-const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
+const EtkinlikGrupPage = ({ baslik, kategori }) =>
 {
+  const { etkinlikler } = useContext(EtkinliklerContext);
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
+
+  const filtreliEtkinlikler = etkinlikler.filter(e => e.kategori === kategori);
 
   const handleBiletBul = (id) =>
   {
@@ -15,7 +19,7 @@ const EtkinlikGrupPage = ({ baslik, etkinlikler }) =>
     <div className="container my-5">
       <h2 className="text-center mb-5 fw-bold">{baslik}</h2>
       <div className="row justify-content-center">
-        {etkinlikler.map((etkinlik) => (
+        {filtreliEtkinlikler.map((etkinlik) => (
           <div
             key={etkinlik.id}
             className="col-lg-3 col-md-4 col-sm-6 mb-4"

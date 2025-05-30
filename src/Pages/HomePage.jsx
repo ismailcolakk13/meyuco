@@ -1,10 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { etkinlikler } from "../data/etkinlikler";
-
-// Öne çıkan etkinlikler
-
-const populerEtkinlikler = [etkinlikler[1],etkinlikler[9],etkinlikler[22]];
+import { EtkinliklerContext } from "../data/Context";
 
 // Etkinlik kartı bileşeni
 const EtkinlikKart = ({ etkinlik, hovered, setHovered }) =>
@@ -108,7 +104,14 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) =>
 // Ana sayfa bileşeni
 const HomePage = () =>
 {
+  const { etkinlikler } = useContext(EtkinliklerContext);
   const navigate = useNavigate();
+
+  // Öne çıkan etkinlikler
+  const populerEtkinlikler = etkinlikler.filter((e) =>
+    [1, 9, 22].includes(etkinlikler.indexOf(e))
+  );
+
   return (
     <div>
       {/* Sayfa İçeriği */}

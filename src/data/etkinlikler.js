@@ -1,4 +1,4 @@
-export const etkinlikler = [
+export const etkinlikListesi = [
   {
     id: 1,
     ad: "Hayko Cepkin",
@@ -295,14 +295,3 @@ export const etkinlikler = [
 ];
 
 
-
-// Artık tüm etkinlikler için etkinlikler dizisi kullanılabilir. Id çakışmalarını önlemek için her kategori için id'ler benzersiz şekilde ayarlandı.
-
-import axios from 'axios';
-
-//TODO:backend bağlantısı
-export const fetchEtkinlikler = async () => {
-  const response = await axios.get('/api/etkinlikler');
-  console.log("Etkinlikler başarıyla alındı:", response.data);
-  return response.data;
-}

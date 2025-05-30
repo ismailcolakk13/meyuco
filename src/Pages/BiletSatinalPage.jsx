@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { etkinlikler } from "../data/etkinlikler";
+import { EtkinliklerContext } from "../data/Context";
 import OdemeEkrani from "./OdemeEkrani";
 
 // 👇 SeatSelection bileşeni
@@ -68,6 +68,7 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
 const BiletSatinalPage = () =>
 {
     const { id } = useParams();
+    const { etkinlikler } = useContext(EtkinliklerContext);
     const [adet, setAdet] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const navigate = useNavigate();
