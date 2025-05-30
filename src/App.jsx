@@ -27,7 +27,10 @@ function App() {
 
   useEffect(() => {
     axios.get("/api/etkinlikler")
-      .then(res => setEtkinlikler(res.data))
+      .then(res => {
+        console.log("API'dan etkinlikler alındı!");
+        setEtkinlikler(res.data)
+      })
       .catch(err => {
         console.error("API'dan etkinlikler alınamadı, local veri kullanılacak:", err);
         setEtkinlikler(etkinlikListesi);
