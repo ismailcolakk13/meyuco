@@ -66,7 +66,9 @@ const LoginPage = () => {
               Giriş Yap
             </button>
           </div>
-
+          <p className="text-center mt-3 mb-0 text-dark">
+            <a href="/unutma">Şifremi Unuttum</a>
+          </p>
           <p className="text-center mt-3 mb-0 text-dark">
             Hesabın yok mu? <a href="/register">Kayıt Ol</a>
           </p>

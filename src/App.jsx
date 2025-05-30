@@ -17,13 +17,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { etkinlikListesi } from "./data/etkinlikler";
 import './style.css';
-
+import UnutmaPage from "./Pages/UnutmaPage";
 
 function App()
 {
   const location = useLocation();
 
-  const hideTopbarPaths = ["/login", "/register"];
+  const hideTopbarPaths = ["/login", "/register","/unutma"];
   const showTopBar = !hideTopbarPaths.includes(location.pathname);
 
   const [etkinlikler, setEtkinlikler] = useState([]);
@@ -63,6 +63,7 @@ function App()
             <Route path="/tiyatrolar" element={<EtkinlikGrupPage baslik="Tiyatrolar" kategori="tiyatrolar" />} />
             <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
             <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
+            <Route path="/unutma" element={<UnutmaPage />} />
           </Routes>
         </div>
         <Footer />

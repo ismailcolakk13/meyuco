@@ -51,9 +51,9 @@ const Topbar = () =>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     {/* Sol Menü */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to="/">Anasayfa</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link" to="/hakkimizda">Hakkımızda</Link>
                         </li>
