@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { useState } from "react";
-import registerAnim from "../assets/register-animation.json"; // Lottie animasyonu
+import registerAnim from "../assets/register-animation.json";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () =>
@@ -30,7 +30,7 @@ const RegisterPage = () =>
 
         try
         {
-            const res = await fetch("https://meyuco-production.up.railway.app/register.php", {
+            const res = await fetch("https://patient-celebration-production.up.railway.app/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
