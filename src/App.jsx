@@ -45,7 +45,7 @@ function App()
 
   return (
     <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
-      <div className="d-flex flex-column" style={{ backgroundColor: "whitesmoke" }}>
+      <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: "whitesmoke" }}>
         {showTopBar && <Topbar />}
         <div className="flex-grow-1">
           <Routes>
