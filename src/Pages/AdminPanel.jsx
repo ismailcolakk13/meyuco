@@ -12,7 +12,8 @@ const AdminPanel = () =>
         tarih: "",
         mekan: "",
         aciklama: "",
-        img: ""
+        img: "",
+        fiyat: ""
     });
 
     const {etkinlikler, setEtkinlikler} = useContext(EtkinliklerContext);
@@ -32,8 +33,17 @@ const AdminPanel = () =>
         tarih: "",
         mekan: "",
         aciklama: "",
-        img: ""
+        img: "",
+        fiyat: ""
     });
+
+    // Kategori çoğul karşılıkları
+    const kategoriMap = {
+        "konser": "konserler",
+        "tiyatro": "tiyatrolar",
+        "sinema": "sinemalar",
+        "spor": "sporlar"
+    };
 
     const handleChange = (e) =>
     {
@@ -45,16 +55,24 @@ const AdminPanel = () =>
         e.preventDefault();
         try {
             const response = await axios.post('/api/etkinlik-ekle', form);
-            setEtkinlikler(response.data); // Tüm etkinlikler dönüyor
+            // response.data array değilse diziye çevir
+            const etkinliklerArr = Array.isArray(response.data) ? response.data : [response.data];
+            const normalized = etkinliklerArr.map(e => ({
+                ...e,
+                kategori: kategoriMap[e.kategori] || e.kategori
+            }));
+            setEtkinlikler(normalized);
             setForm({
                 ad: "",
                 kategori: "",
                 tarih: "",
                 mekan: "",
                 aciklama: "",
-                img: ""
+                img: "",
+                fiyat: ""
             });
         } catch (err) {
+            console.error('Etkinlik eklenirken hata oluştu:', err);
             alert('Etkinlik eklenirken hata oluştu!');
         }
     };
@@ -65,8 +83,14 @@ const AdminPanel = () =>
             try {
                 const etkinlikId = etkinlikler[index].id;
                 const response = await axios.delete(`/api/etkinlik-sil/${etkinlikId}`);
-                setEtkinlikler(response.data); // Tüm etkinlikler dönüyor
+                const etkinliklerArr = Array.isArray(response.data) ? response.data : [response.data];
+                const normalized = etkinliklerArr.map(e => ({
+                    ...e,
+                    kategori: kategoriMap[e.kategori] || e.kategori
+                }));
+                setEtkinlikler(normalized);
             } catch (err) {
+                console.error('Etkinlik silinirken hata oluştu:', err);
                 alert('Etkinlik silinirken hata oluştu!');
             }
         }
@@ -102,11 +126,17 @@ const AdminPanel = () =>
         try {
             if (!editId) throw new Error('Etkinlik id bulunamadı!');
             const response = await axios.put(`/api/etkinlik-duzenle/${editId}`, editForm);
-            setEtkinlikler(response.data); // Tüm etkinlikler dönüyor
+            const etkinliklerArr = Array.isArray(response.data) ? response.data : [response.data];
+            const normalized = etkinliklerArr.map(e => ({
+                ...e,
+                kategori: kategoriMap[e.kategori] || e.kategori
+            }));
+            setEtkinlikler(normalized);
             setShowModal(false);
             setEditId(null);
             setEditIndex(null);
         } catch (err) {
+            console.error('Etkinlik güncellenirken hata oluştu:', err);
             alert('Etkinlik güncellenirken hata oluştu!');
         }
     };
@@ -137,10 +167,10 @@ const AdminPanel = () =>
                         required
                     >
                         <option value="">🎯 Tür Seçin</option>
-                        <option value="tiyatro">🎭 Tiyatro</option>
-                        <option value="konser">🎵 Konser</option>
-                        <option value="sinema">🎬 Sinema</option>
-                        <option value="spor">🏟️ Spor</option>
+                        <option value="tiyatrolar">🎭 Tiyatro</option>
+                        <option value="konserler">🎵 Konser</option>
+                        <option value="sinemalar">🎬 Sinema</option>
+                        <option value="sporlar">🏟️ Spor</option>
                     </select>
                 </div>
 
@@ -187,6 +217,19 @@ const AdminPanel = () =>
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Resim URL (veya /images/tiyatro1.jpg gibi)"
+                        required
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <input
+                        type="number"
+                        name="fiyat"
+                        value={form.fiyat}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder="Fiyat (₺)"
+                        min="0"
                         required
                     />
                 </div>
@@ -268,6 +311,7 @@ const AdminPanel = () =>
                                     <input type="text" name="mekan" value={editForm.mekan} onChange={handleEditChange} className="form-control mb-2" placeholder="Mekan" required />
                                     <textarea name="aciklama" value={editForm.aciklama} onChange={handleEditChange} className="form-control mb-2" placeholder="Etkinlik Açıklaması" rows="3" required />
                                     <input type="text" name="img" value={editForm.img} onChange={handleEditChange} className="form-control mb-2" placeholder="Resim URL (veya /images/tiyatro1.jpg gibi)" required />
+                                    <input type="number" name="fiyat" value={editForm.fiyat} onChange={handleEditChange} className="form-control mb-2" placeholder="Fiyat (₺)" min="0" required />
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Vazgeç</button>
