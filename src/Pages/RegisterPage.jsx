@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import { useState } from "react";
-import registerAnim from "../assets/register-animation.json"; // Yeni animasyon dosyası
+import registerAnim from "../assets/register-animation.json"; // Lottie animasyonu
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () =>
 {
@@ -11,12 +12,14 @@ const RegisterPage = () =>
         confirmPassword: ""
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) =>
     {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) =>
+    const handleSubmit = async (e) =>
     {
         e.preventDefault();
         if (form.password !== form.confirmPassword)
@@ -24,7 +27,35 @@ const RegisterPage = () =>
             alert("Şifreler uyuşmuyor!");
             return;
         }
-        console.log("Kayıt bilgileri:", form);
+
+        try
+        {
+            const res = await fetch("https://meyuco-production.up.railway.app/register.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: form.name,
+                    email: form.email,
+                    password: form.password
+                })
+            });
+
+            const data = await res.json();
+            if (data.success)
+            {
+                alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
+                navigate("/login");
+            } else
+            {
+                alert("Hata: " + data.error);
+            }
+        } catch (error)
+        {
+            alert("Sunucuya bağlanırken bir hata oluştu.");
+            console.error("Kayıt hatası:", error);
+        }
     };
 
     return (
