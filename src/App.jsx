@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Topbar from "./Components/Topbar";
-import { EtkinliklerContext } from "./data/Context";
+import { EtkinliklerContext, UserContext } from "./data/Context";
 import AdminPanel from "./Pages/AdminPanel";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
@@ -27,6 +27,7 @@ function App()
   const showTopBar = !hideTopbarPaths.includes(location.pathname);
 
   const [etkinlikler, setEtkinlikler] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() =>
   {
@@ -44,31 +45,33 @@ function App()
   }, []);
 
   return (
-    <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
-      <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: "whitesmoke" }}>
-        {showTopBar && <Topbar />}
-        <div className="flex-grow-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
-            <Route path="/odeme/:id" element={<OdemeEkrani />} />
-            <Route path="/detay/:id" element={<Detay />} />
-            <Route path="/hakkimizda" element={<Hakkimizda />} />
-            <Route path="/iletisim" element={<İletisim />} />
-            <Route path="/konserler" element={<EtkinlikGrupPage baslik="Konserler" kategori="konserler" />} />
-            <Route path="/tiyatrolar" element={<EtkinlikGrupPage baslik="Tiyatrolar" kategori="tiyatrolar" />} />
-            <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
-            <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
-            <Route path="/unutma" element={<UnutmaPage />} />
-          </Routes>
+    <UserContext.Provider value={{ user, setUser }}>
+      <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
+        <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: "whitesmoke" }}>
+          {showTopBar && <Topbar />}
+          <div className="flex-grow-1">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/admin" element={<AdminPanel />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/bilet-satin-al/:id" element={<BiletSatinalPage />} />
+              <Route path="/odeme/:id" element={<OdemeEkrani />} />
+              <Route path="/detay/:id" element={<Detay />} />
+              <Route path="/hakkimizda" element={<Hakkimizda />} />
+              <Route path="/iletisim" element={<İletisim />} />
+              <Route path="/konserler" element={<EtkinlikGrupPage baslik="Konserler" kategori="konserler" />} />
+              <Route path="/tiyatrolar" element={<EtkinlikGrupPage baslik="Tiyatrolar" kategori="tiyatrolar" />} />
+              <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
+              <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
+              <Route path="/unutma" element={<UnutmaPage />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </EtkinliklerContext.Provider>
+      </EtkinliklerContext.Provider>
+    </UserContext.Provider>
   );
 }
 

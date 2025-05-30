@@ -1,7 +1,9 @@
 import Lottie from "lottie-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import registerAnim from "../assets/register-animation.json";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserContext } from "../data/Context";
 
 const RegisterPage = () =>
 {
@@ -11,6 +13,8 @@ const RegisterPage = () =>
         password: "",
         confirmPassword: ""
     });
+
+    const { setUser } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -27,34 +31,19 @@ const RegisterPage = () =>
             alert("Şifreler uyuşmuyor!");
             return;
         }
-
-        try
-        {
-            const res = await fetch("https://patient-celebration-production.up.railway.app/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: form.name,
-                    email: form.email,
-                    password: form.password
-                })
+        try {
+            const response = await axios.post("/api/register", {
+                email: form.email,
+                password: form.password,
+                name: form.name,
+                role: "user" // Varsayılan rol
             });
-
-            const data = await res.json();
-            if (data.success)
-            {
-                alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
-                navigate("/login");
-            } else
-            {
-                alert("Hata: " + data.error);
-            }
-        } catch (error)
-        {
-            alert("Sunucuya bağlanırken bir hata oluştu.");
-            console.error("Kayıt hatası:", error);
+            alert(response.data.message);
+            setUser(response.data.user); // Kullanıcıyı context'e kaydet
+            navigate("/"); // Ana sayfaya yönlendir
+        } catch (err) {
+            const msg = err.response?.data?.message || "Kayıt sırasında hata oluştu";
+            alert(msg);
         }
     };
 

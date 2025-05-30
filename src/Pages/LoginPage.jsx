@@ -1,14 +1,25 @@
 import Lottie from "lottie-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../data/Context";
 import loginAnim from "../assets/login-animation.json";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(UserContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Giriş yapılıyor:", { email, password });
+    try {
+      const response = await axios.post("/api/giris", { email, password });
+      alert(response.data.message);
+      setUser(response.data.user); // Kullanıcı bilgisini context'e kaydet
+      // Başarılı girişte yönlendirme eklenebilir
+    } catch (err) {
+      const msg = err.response?.data?.message || "Giriş sırasında hata oluştu";
+      alert(msg);
+    }
   };
 
   return (
