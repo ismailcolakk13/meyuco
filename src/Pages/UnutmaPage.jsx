@@ -1,21 +1,25 @@
 import Lottie from "lottie-react";
 import { useState } from "react";
-import registerAnim from "../assets/register-animation.json"; // Animasyon dosyası
+import registerAnim from "../assets/şifreunttum.json"; // Animasyon dosyası
 
-const UnutmaPage = () => {
+const UnutmaPage = () =>
+{
     const [form, setForm] = useState({
         email: "",
         password: "",
         confirmPassword: "",
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e) =>
+    {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) =>
+    {
         e.preventDefault();
-        if (form.password !== form.confirmPassword) {
+        if (form.password !== form.confirmPassword)
+        {
             alert("Şifreler eşleşmiyor!");
             return;
         }
