@@ -22,6 +22,7 @@ const RegisterPage = () =>
     const handleSubmit = async (e) =>
     {
         e.preventDefault();
+
         if (form.password !== form.confirmPassword)
         {
             alert("Şifreler uyuşmuyor!");
@@ -43,6 +44,7 @@ const RegisterPage = () =>
             });
 
             const data = await res.json();
+
             if (data.success)
             {
                 alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
@@ -63,7 +65,7 @@ const RegisterPage = () =>
             className="d-flex justify-content-center align-items-center vh-100"
             style={{
                 background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-                padding: "20px",
+                padding: "20px"
             }}
         >
             <div
@@ -73,10 +75,9 @@ const RegisterPage = () =>
                     width: "100%",
                     borderRadius: "15px",
                     backgroundColor: "#ffffffcc",
-                    backdropFilter: "blur(10px)",
+                    backdropFilter: "blur(10px)"
                 }}
             >
-                {/* Lottie Animasyon */}
                 <div className="text-center mb-3">
                     <Lottie
                         animationData={registerAnim}
@@ -133,7 +134,9 @@ const RegisterPage = () =>
                     </div>
 
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-success">Kayıt Ol</button>
+                        <button type="submit" className="btn btn-success">
+                            Kayıt Ol
+                        </button>
                     </div>
 
                     <p className="text-center mt-3 mb-0 text-dark">
