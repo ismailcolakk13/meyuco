@@ -293,5 +293,25 @@ export const etkinlikListesi = [
     kategori: "sinemalar"
   },
 ];
+// Yardımcı fonksiyon: Her yerde tarihi düzgün göster
+export function formatTarih(tarihStr) {
+  if (!tarihStr) return "";
+  // Eğer tarih ISO formatındaysa (2025-06-22T00:00:00.000Z gibi)
+  if (/\d{4}-\d{2}-\d{2}T/.test(tarihStr)) {
+    const date = new Date(tarihStr);
+    return date.toLocaleDateString("tr-TR");
+  }
+  // Eğer tarih DD/MM/YYYY formatındaysa
+  if (/\d{2}\/\d{2}\/\d{4}/.test(tarihStr)) {
+    const [gun, ay, yil] = tarihStr.split("/");
+    return `${gun}.${ay}.${yil}`;
+  }
+  // Eğer tarih YYYY-MM-DD formatındaysa
+  if (/\d{4}-\d{2}-\d{2}/.test(tarihStr)) {
+    const [yil, ay, gun] = tarihStr.split("-");
+    return `${gun}.${ay}.${yil}`;
+  }
+  return tarihStr;
+}
 
 

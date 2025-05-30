@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { formatTarih } from '../data/etkinlikler';
 
 const Detay = () => {
   const location = useLocation();
@@ -24,7 +25,7 @@ const Detay = () => {
           <h2 className="mb-3 text-primary">{etkinlik.ad}</h2>
           <p className="text-secondary fs-5">{etkinlik.aciklama}</p>
           <p className="text-muted mb-2">
-            <strong>Tarih:</strong> {etkinlik.tarih} <br />
+            <strong>Tarih:</strong> {formatTarih(etkinlik.tarih)} <br />
             <strong>Mekan:</strong> {etkinlik.mekan}
           </p>
           <button

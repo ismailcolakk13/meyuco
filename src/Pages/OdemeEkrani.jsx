@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { formatTarih } from '../data/etkinlikler';
 
 const OdemeEkrani = () => {
     const [form, setForm] = useState({ isim: '', kartNo: '', sonKullanma: '', cvc: '' });
@@ -46,8 +47,8 @@ const OdemeEkrani = () => {
                     <div className="card shadow-sm p-4 bg-light">
                         <h4 className="mb-3 text-success">Bilet Bilgileri</h4>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item"><strong>Etkinlik:</strong>{bilet.etkinlik.ad}</li>
-                            <li className="list-group-item"><strong>Tarih:</strong> {bilet.etkinlik.tarih}</li>
+                            <li className="list-group-item"><strong>Etkinlik:</strong> {bilet.etkinlik.ad}</li>
+                            <li className="list-group-item"><strong>Tarih:</strong> {formatTarih(bilet.etkinlik.tarih)}</li>
                             <li className="list-group-item"><strong>Mekan:</strong> {bilet.etkinlik.mekan}</li>
                             <li className="list-group-item"><strong>Koltuk:</strong> {Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar}</li>
                             <li className="list-group-item"><strong>Adet:</strong> {bilet.adet}</li>

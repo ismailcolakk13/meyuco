@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { formatTarih } from '../data/etkinlikler';
 
 const başlangıçEtkinlikleri = [
     {
@@ -153,7 +154,7 @@ const AdminPanel = () =>
                         {etkinlikler.map((e, index) => (
                             <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <strong>{e.ad}</strong> ({e.kategori}) - {e.tarih} <br />
+                                    <strong>{e.ad}</strong> ({e.kategori}) - {formatTarih(e.tarih)} <br />
                                     <small className="text-muted">{e.mekan}</small>
                                 </div>
                                 <button
