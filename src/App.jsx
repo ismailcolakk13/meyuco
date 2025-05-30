@@ -16,8 +16,11 @@ import RegisterPage from "./Pages/RegisterPage";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { etkinlikListesi } from "./data/etkinlikler";
+import './style.css';
 
-function App() {
+
+function App()
+{
   const location = useLocation();
 
   const hideTopbarPaths = ["/login", "/register"];
@@ -25,13 +28,16 @@ function App() {
 
   const [etkinlikler, setEtkinlikler] = useState([]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios.get("/api/etkinlikler")
-      .then(res => {
+      .then(res =>
+      {
         console.log("API'dan etkinlikler alındı!");
         setEtkinlikler(res.data)
       })
-      .catch(err => {
+      .catch(err =>
+      {
         console.error("API'dan etkinlikler alınamadı, local veri kullanılacak:", err);
         setEtkinlikler(etkinlikListesi);
       });
