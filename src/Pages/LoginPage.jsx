@@ -15,7 +15,7 @@ const LoginPage = () => {
       const response = await axios.post("/api/giris", { email, password });
       alert(response.data.message);
       setUser(response.data.user); // Kullanıcı bilgisini context'e kaydet
-      // Başarılı girişte yönlendirme eklenebilir
+      window.location.href = "/kullanici"; // Başarılı girişte kullanıcı sayfasına yönlendir
     } catch (err) {
       const msg = err.response?.data?.message || "Giriş sırasında hata oluştu";
       alert(msg);
