@@ -23,14 +23,26 @@ import KullanıcıPage from "./Pages/KullanıcıPage";
 
 function App() {
   const location = useLocation();
-
-  
-  const hideTopbarPaths = ["/login", "/register", "/unutma"];
-  const showTopBar = !hideTopbarPaths.includes(location.pathname) && location.pathname !== "/kullanici";
-  const showTopBarKullanıcı = location.pathname === "/kullanici";
-
   const [etkinlikler, setEtkinlikler] = useState([]);
   const [user, setUser] = useState(null);
+
+  // Token kontrolü
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      setUser({ token }); // Burada gerçek kullanıcı bilgisi API'den alınabilir
+    } else {
+      setUser(null);
+    }
+  }, [token]);
+
+  const hideTopbarPaths = ["/login", "/register", "/unutma"];
+  const isHidden = hideTopbarPaths.includes(location.pathname);
+
+  // Navbar gösterimi
+  const showTopBarKullanıcı = user && !isHidden;
+  const showTopBar = !user && !isHidden;
 
   useEffect(() => {
     axios.get("/api/etkinlikler")
