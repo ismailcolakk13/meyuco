@@ -13,6 +13,7 @@ const RegisterPage = () =>
         password: "",
         confirmPassword: ""
     });
+    const [error, setError] = useState("");
 
     const { setUser } = useContext(UserContext);
 
@@ -29,7 +30,7 @@ const RegisterPage = () =>
 
         if (form.password !== form.confirmPassword)
         {
-            alert("Şifreler uyuşmuyor!");
+            setError("Şifreler uyuşmuyor!");
             return;
         }
         try {
@@ -43,8 +44,8 @@ const RegisterPage = () =>
             setUser(response.data.user); // Kullanıcıyı context'e kaydet
             navigate("/"); // Ana sayfaya yönlendir
         } catch (err) {
-            const msg = err.response?.data?.message || "Kayıt sırasında hata oluştu";
-            alert(msg);
+            const msg = err.response?.data?.message || "Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.";
+            setError(msg);
         }
     };
 
@@ -73,9 +74,8 @@ const RegisterPage = () =>
                         style={{ width: 200, margin: "0 auto" }}
                     />
                 </div>
-
                 <h3 className="text-center mb-4 text-dark">Kayıt Ol</h3>
-
+                {error && <div className="alert alert-danger text-center">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label className="form-label text-dark">Ad Soyad</label>

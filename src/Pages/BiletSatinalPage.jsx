@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { EtkinliklerContext } from "../data/Context";
+import { EtkinliklerContext, UserContext } from "../data/Context";
 import axios from "axios";
+import Spinner from "../Components/Spinner";
 
 // 👇 SeatSelection bileşeni
 const SeatSelection = ({ selectedSeats, setSelectedSeats, adet, doluKoltuklar }) =>
@@ -67,6 +68,7 @@ const BiletSatinalPage = () =>
 {
     const { id } = useParams();
     const { etkinlikler } = useContext(EtkinliklerContext);
+    const { user } = useContext(UserContext);
     const [adet, setAdet] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [doluKoltuklar, setDoluKoltuklar] = useState([]);
@@ -97,15 +99,23 @@ const BiletSatinalPage = () =>
     if (!etkinlik || loading) {
         return (
             <div className="container my-5">
-                <div className="alert alert-info text-center">
-                    {loading ? "Koltuk bilgileri yükleniyor..." : "Etkinlik bulunamadı."}
-                </div>
+                {loading ? (
+                  <Spinner message="Koltuk bilgileri yükleniyor..." />
+                ) : (
+                  <div className="alert alert-info text-center">
+                    Etkinlik bulunamadı.
+                  </div>
+                )}
             </div>
         );
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!user) {
+            alert("Lütfen giriş yapınız.");
+            return;
+        }
         if (selectedSeats.length !== parseInt(adet)) {
             alert(`Lütfen tam olarak ${adet} koltuk seçin.`);
             return;

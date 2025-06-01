@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { formatTarih } from '../data/etkinlikler';
 import axios from 'axios';
 import { UserContext } from '../data/Context';
+import Spinner from '../Components/Spinner';
 
 const OdemeEkrani = () =>
 {
@@ -10,6 +11,8 @@ const OdemeEkrani = () =>
     const [form, setForm] = useState({ isim: '', kartNo: '', sonKullanma: '', cvc: '' });
     const [odemeBasarili, setOdemeBasarili] = useState(false);
     const [cvvOdakta, setCvvOdakta] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const location = useLocation();
     const bilet = location.state?.bilet || {};
@@ -22,13 +25,18 @@ const OdemeEkrani = () =>
     const handleSubmit = async (e) =>
     {
         e.preventDefault();
+        setLoading(true);
+        setError("");
         try {
             // Bilet bilgisini backend'e gönder
             await axios.post('/api/bilet-al', {user_id:user.id , etkinlik_id: bilet.etkinlik?.id, adet:bilet.adet, koltuk: Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar});
             setOdemeBasarili(true);
         } catch (err) {
-            alert('Bilet kaydedilirken hata oluştu!');
+            const msg = err.response?.data?.message || 'Bilet kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.';
+            setError(msg);
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -109,7 +117,13 @@ const OdemeEkrani = () =>
                                 </div>
 
                                 {/* FORM */}
-                                <form onSubmit={handleSubmit}>
+                                {error && (
+                                  <div className="alert alert-danger text-center">{error}</div>
+                                )}
+                                {loading ? (
+                                  <Spinner message="Ödeme işleniyor..." />
+                                ) : (
+                                  <form onSubmit={handleSubmit}>
                                     <div className="mb-3">
                                         <label htmlFor="isim" className="form-label">Kart Üzerindeki İsim</label>
                                         <input type="text" className="form-control" id="isim" name="isim" value={form.isim} onChange={handleChange} required />
@@ -155,7 +169,8 @@ const OdemeEkrani = () =>
                                         </div>
                                     </div>
                                     <button type="submit" className="btn btn-success w-100">Ödemeyi Tamamla</button>
-                                </form>
+                                  </form>
+                                )}
                             </>
                         )}
                     </div>

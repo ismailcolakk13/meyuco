@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./Components/Footer";
+import Spinner from "./Components/Spinner";
 import Topbar from "./Components/Topbar";
 import TopbarKullanıcı from "./Components/TopbarKullanıcı";
 import { EtkinliklerContext, UserContext } from "./data/Context";
@@ -28,6 +29,16 @@ function App() {
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
   });
+
+  // User ve token bilgisini localStorage'dan güncel tut
+  useEffect(() => {
+    const handleStorage = () => {
+      const storedUser = localStorage.getItem("user");
+      setUser(storedUser ? JSON.parse(storedUser) : null);
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   const hideTopbarPaths = ["/login", "/register", "/unutma"];
   const isHidden = hideTopbarPaths.includes(location.pathname);

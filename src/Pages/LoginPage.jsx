@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +20,10 @@ const LoginPage = () => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       setUser(response.data.user);
-      navigate("/"); // Başarılı girişte kullanıcı sayfasına yönlendir
+      navigate("/");
     } catch (err) {
-      const msg = err.response?.data?.message || "Giriş sırasında hata oluştu";
-      alert(msg);
+      const msg = err.response?.data?.message || "Giriş sırasında bir hata oluştu. Lütfen tekrar deneyin.";
+      setError(msg);
     }
   };
 
@@ -48,9 +49,8 @@ const LoginPage = () => {
         <div className="text-center mb-3">
           <Lottie animationData={loginAnim} loop={true} style={{ width: 200, margin: "0 auto" }} />
         </div>
-
         <h3 className="text-center mb-4 text-dark">Giriş Yap</h3>
-
+        {error && <div className="alert alert-danger text-center">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label text-dark">E-posta adresi</label>
