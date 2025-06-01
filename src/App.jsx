@@ -1,8 +1,11 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Topbar from "./Components/Topbar";
 import TopbarKullanıcı from "./Components/TopbarKullanıcı";
 import { EtkinliklerContext, UserContext } from "./data/Context";
+import { etkinlikListesi } from "./data/etkinlikler";
 import AdminPanel from "./Pages/AdminPanel";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
 import Detay from "./Pages/Detay";
@@ -14,28 +17,17 @@ import LoginPage from "./Pages/LoginPage";
 import OdemeEkrani from "./Pages/OdemeEkrani";
 import Profile from "./Pages/Profile";
 import RegisterPage from "./Pages/RegisterPage";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { etkinlikListesi } from "./data/etkinlikler";
-import './style.css';
 import UnutmaPage from "./Pages/UnutmaPage";
-import KullanıcıPage from "./Pages/KullanıcıPage";
+import './style.css';
 
 function App() {
   const location = useLocation();
   const [etkinlikler, setEtkinlikler] = useState([]);
-  const [user, setUser] = useState(null);
-
-  // Token kontrolü
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (token) {
-      setUser({ token }); // Burada gerçek kullanıcı bilgisi API'den alınabilir
-    } else {
-      setUser(null);
-    }
-  }, [token]);
+  // User'ı localStorage'dan yükle
+  const [user, setUser] = useState(() => {
+    const stored = localStorage.getItem("user");
+    return stored ? JSON.parse(stored) : null;
+  });
 
   const hideTopbarPaths = ["/login", "/register", "/unutma"];
   const isHidden = hideTopbarPaths.includes(location.pathname);
@@ -79,7 +71,6 @@ function App() {
               <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
               <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
               <Route path="/unutma" element={<UnutmaPage />} />
-              <Route path="/kullanici" element={<KullanıcıPage />} />
             </Routes>
           </div>
           <Footer />

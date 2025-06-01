@@ -15,8 +15,9 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/giris", { email, password });
-      //alert(response.data.message);
+      console.log("Giriş başarılı:", response.data);
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       setUser(response.data.user);
       navigate("/"); // Başarılı girişte kullanıcı sayfasına yönlendir
     } catch (err) {

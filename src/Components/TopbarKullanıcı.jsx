@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../data/Context';
 
 const TopbarKullanıcı = () =>
 {
+    const { setUser } = useContext(UserContext);
     const handleLogout = () => {
         localStorage.removeItem('token'); // Token'ı kaldır
+        localStorage.removeItem('user');
+        setUser(null);
         window.location.href = '/'; // Anasayfaya yönlendir
     };
 
