@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EtkinliklerContext } from "../data/Context";
-import OdemeEkrani from "./OdemeEkrani";
 
 // 👇 SeatSelection bileşeni
 const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>

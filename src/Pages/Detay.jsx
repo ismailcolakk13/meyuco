@@ -32,7 +32,7 @@ const Detay = () => {
             className="btn btn-success btn-lg my-3"
             onClick={()=> navigate(`/bilet-satin-al/${etkinlik.id}`)}
           >
-            Bilet Satın Al
+            Bilet Satın Al - <span>{etkinlik.fiyat}₺</span>
           </button>
           <div className="mt-4">
             <h5 className="mb-2">Etkinlik kuralları:</h5>

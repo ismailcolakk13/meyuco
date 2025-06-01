@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { formatTarih } from '../data/etkinlikler';
+import axios from 'axios';
+import { UserContext } from '../data/Context';
 
 const OdemeEkrani = () =>
 {
+    const{user} = useContext(UserContext);
     const [form, setForm] = useState({ isim: '', kartNo: '', sonKullanma: '', cvc: '' });
     const [odemeBasarili, setOdemeBasarili] = useState(false);
     const [cvvOdakta, setCvvOdakta] = useState(false);
@@ -16,10 +19,17 @@ const OdemeEkrani = () =>
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = e =>
+    const handleSubmit = async (e) =>
     {
         e.preventDefault();
-        setOdemeBasarili(true);
+        try {
+            // Bilet bilgisini backend'e gönder
+            await axios.post('/api/bilet-al', {user_id:user.id , etkinlik_id: bilet.etkinlik?.id, adet:bilet.adet, koltuk: Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar});
+            setOdemeBasarili(true);
+        } catch (err) {
+            alert('Bilet kaydedilirken hata oluştu!');
+            console.error(err);
+        }
     };
 
     const handleSonKullanmaChange = e =>
