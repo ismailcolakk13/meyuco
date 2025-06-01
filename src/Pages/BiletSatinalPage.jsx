@@ -1,22 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { EtkinliklerContext } from "../data/Context";
+import axios from "axios";
 
 // 👇 SeatSelection bileşeni
-const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
+const SeatSelection = ({ selectedSeats, setSelectedSeats, adet, doluKoltuklar }) =>
 {
     const rows = ["A", "B", "C", "D", "E", "F"];
     const cols = 10;
 
-    const toggleSeat = (seatId) =>
-    {
-        if (selectedSeats.includes(seatId))
-        {
+    const toggleSeat = (seatId) => {
+        if (doluKoltuklar.includes(seatId)) return; // Dolu koltuk tıklanamaz
+        if (selectedSeats.includes(seatId)) {
             setSelectedSeats((prev) => prev.filter((s) => s !== seatId));
-        } else
-        {
-            if (selectedSeats.length >= adet)
-            {
+        } else {
+            if (selectedSeats.length >= adet) {
                 alert(`En fazla ${adet} koltuk seçebilirsiniz.`);
                 return;
             }
@@ -29,10 +27,10 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
             <div className="mb-2 text-muted">Perde</div>
             {rows.map((row) => (
                 <div key={row} className="d-flex justify-content-center mb-1">
-                    {Array.from({ length: cols }).map((_, i) =>
-                    {
+                    {Array.from({ length: cols }).map((_, i) => {
                         const seatId = `${row}${i + 1}`;
                         const isSelected = selectedSeats.includes(seatId);
+                        const isFull = doluKoltuklar.includes(seatId);
                         return (
                             <div
                                 key={seatId}
@@ -42,19 +40,20 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet }) =>
                                     height: 30,
                                     margin: 4,
                                     borderRadius: 4,
-                                    cursor: "pointer",
-                                    backgroundColor: isSelected ? "#176763" : "#ccc", // ✅ yeşil renk
+                                    cursor: isFull ? "not-allowed" : "pointer",
+                                    backgroundColor: isFull ? "#d9534f" : (isSelected ? "#176763" : "#ccc"), // kırmızı: dolu, yeşil: seçili, gri: boş
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
                                     fontSize: 12,
                                     fontWeight: "bold",
-                                    color: isSelected ? "#fff" : "#333",
+                                    color: isFull ? "#fff" : (isSelected ? "#fff" : "#333"),
+                                    opacity: isFull ? 0.7 : 1
                                 }}
+                                title={isFull ? "Dolu Koltuk" : seatId}
                             >
                                 {i + 1}
                             </div>
-
                         );
                     })}
                 </div>
@@ -70,16 +69,44 @@ const BiletSatinalPage = () =>
     const { etkinlikler } = useContext(EtkinliklerContext);
     const [adet, setAdet] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
+    const [doluKoltuklar, setDoluKoltuklar] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const etkinlik = etkinlikler.find((e) => e.id === parseInt(id));
     const [bilet, setBilet] = useState({});
 
-    const handleSubmit = (e) =>
-    {
+    useEffect(() => {
+        setLoading(true);
+        axios.get(`/api/etkinlik-dolu-koltuklar/${id}`)
+            .then(res => {
+                // Her eleman virgüllü string olabilir, hepsini tek tek ayır
+                let dolular = res.data.dolu_koltuklar || [];
+                dolular = dolular.flatMap(item =>
+                    typeof item === 'string' ? item.split(',').map(s => s.trim()) : []
+                );
+                setDoluKoltuklar(dolular);
+                setLoading(false);
+            })
+            .catch(() => {
+                setDoluKoltuklar([]);
+                setLoading(false);
+            });
+    }, [id]);
+
+    if (!etkinlik || loading) {
+        return (
+            <div className="container my-5">
+                <div className="alert alert-info text-center">
+                    {loading ? "Koltuk bilgileri yükleniyor..." : "Etkinlik bulunamadı."}
+                </div>
+            </div>
+        );
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (selectedSeats.length !== parseInt(adet))
-        {
+        if (selectedSeats.length !== parseInt(adet)) {
             alert(`Lütfen tam olarak ${adet} koltuk seçin.`);
             return;
         }
@@ -110,8 +137,7 @@ const BiletSatinalPage = () =>
                         min="1"
                         max="10"
                         value={adet}
-                        onChange={(e) =>
-                        {
+                        onChange={(e) => {
                             setAdet(parseInt(e.target.value));
                             setSelectedSeats([]); // koltukları sıfırla
                         }}
@@ -126,6 +152,7 @@ const BiletSatinalPage = () =>
                         adet={adet}
                         selectedSeats={selectedSeats}
                         setSelectedSeats={setSelectedSeats}
+                        doluKoltuklar={doluKoltuklar}
                     />
                 </div>
 
