@@ -3,11 +3,13 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../data/Context";
 import loginAnim from "../assets/login-animation.json";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ const LoginPage = () => {
       //alert(response.data.message);
       localStorage.setItem("token", response.data.token);
       setUser(response.data.user);
-      window.location.href = "/kullanici"; // Başarılı girişte kullanıcı sayfasına yönlendir
+      navigate("/"); // Başarılı girişte kullanıcı sayfasına yönlendir
     } catch (err) {
       const msg = err.response?.data?.message || "Giriş sırasında hata oluştu";
       alert(msg);
