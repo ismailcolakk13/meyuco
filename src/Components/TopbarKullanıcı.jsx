@@ -1,20 +1,28 @@
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import { UserContext } from '../data/Context';
 
-const TopbarKullanıcı = () =>
-{
+const TopbarKullanıcı = () => {
     const { setUser } = useContext(UserContext);
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
+
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Token'ı kaldır
+        localStorage.removeItem('token');
         localStorage.removeItem('user');
         setUser(null);
-        window.location.href = '/'; // Anasayfaya yönlendir
+        window.location.href = '/';
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/arama?query=${encodeURIComponent(searchTerm)}`);
+        }
     };
 
     return (
-        <nav
-            className="navbar navbar-expand-lg navbar-dark shadow-sm"
+        <nav className="navbar navbar-expand-lg navbar-dark shadow-sm"
             style={{
                 top: 0,
                 zIndex: 100,
@@ -22,15 +30,7 @@ const TopbarKullanıcı = () =>
                 borderBottom: '1px solid black'
             }}
         >
-            <div
-                className="container"
-                style={{
-                    maxWidth: "1140px",
-                    paddingLeft: "16px",
-                    paddingRight: "16px"
-                }}
-            >
-                {/* Logo */}
+            <div className="container" style={{ maxWidth: "1140px", paddingLeft: "16px", paddingRight: "16px" }}>
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <img
                         src="/images/deneme3.png"
@@ -44,7 +44,6 @@ const TopbarKullanıcı = () =>
                     />
                 </Link>
 
-                {/* Hamburger Menü (Mobil) */}
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -57,13 +56,8 @@ const TopbarKullanıcı = () =>
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                {/* Menü İçeriği */}
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    {/* Sol Menü */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {/* <li className="nav-item">
-                            <Link className="nav-link" to="/">Anasayfa</Link>
-                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link" to="/hakkimizda">Hakkımızda</Link>
                         </li>
@@ -72,13 +66,15 @@ const TopbarKullanıcı = () =>
                         </li>
                     </ul>
 
-                    {/* Arama Çubuğu */}
-                    <form className="d-flex ms-3" style={{ minWidth: '330px', flex: 1, maxWidth: '357px' }}>
+                    {/* 🔍 Arama Çubuğu */}
+                    <form onSubmit={handleSearch} className="d-flex ms-3" style={{ minWidth: '330px', flex: 1, maxWidth: '357px' }}>
                         <input
                             className="form-control flex-grow-1 me-2"
                             type="search"
                             placeholder="Etkinlik, Sanatçı ya da Konser Arayın"
                             aria-label="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ minWidth: '250px', fontSize: "14px" }}
                         />
                         <button className="btn btn-outline-light d-flex align-items-center me-2" type="submit">
@@ -88,9 +84,7 @@ const TopbarKullanıcı = () =>
                         </button>
                     </form>
 
-                    {/* Sağ Butonlar */}
                     <div className="d-flex align-items-center">
-                        {/* <Link to="/login" className="btn btn-outline-light me-2" style={{ fontSize: "14px" }}>Giriş Yap</Link> */}
                         <Link to="/profile" className="btn btn-outline-light d-flex align-items-center me-2" style={{ fontSize: "14px" }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-person-circle me-1" viewBox="0 0 16 16">
                                 <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5c-1.482 0-2.758.726-3.468 1.87A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />

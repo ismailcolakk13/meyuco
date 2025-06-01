@@ -1,10 +1,18 @@
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import { UserContext } from '../data/Context';
 
-const Topbar = () =>
-{
+const Topbar = () => {
     const { user, setUser } = useContext(UserContext);
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/arama?query=${encodeURIComponent(searchTerm)}`);
+        }
+    };
 
     return (
         <nav
@@ -24,7 +32,6 @@ const Topbar = () =>
                     paddingRight: "16px"
                 }}
             >
-                {/* Logo */}
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <img
                         src="/images/deneme3.png"
@@ -38,7 +45,6 @@ const Topbar = () =>
                     />
                 </Link>
 
-                {/* Hamburger Menü (Mobil) */}
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -51,13 +57,8 @@ const Topbar = () =>
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                {/* Menü İçeriği */}
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    {/* Sol Menü */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {/* <li className="nav-item">
-                            <Link className="nav-link" to="/">Anasayfa</Link>
-                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link" to="/hakkimizda">Hakkımızda</Link>
                         </li>
@@ -67,12 +68,14 @@ const Topbar = () =>
                     </ul>
 
                     {/* Arama Çubuğu */}
-                    <form className="d-flex ms-3" style={{ minWidth: '330px', flex: 1, maxWidth: '357px' }}>
+                    <form onSubmit={handleSearch} className="d-flex ms-3" style={{ minWidth: '330px', flex: 1, maxWidth: '357px' }}>
                         <input
                             className="form-control flex-grow-1 me-2"
                             type="search"
                             placeholder="Etkinlik, Sanatçı ya da Konser Arayın"
                             aria-label="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ minWidth: '250px', fontSize: "14px" }}
                         />
                         <button className="btn btn-outline-light d-flex align-items-center me-2" type="submit">
@@ -82,7 +85,6 @@ const Topbar = () =>
                         </button>
                     </form>
 
-                    {/* Sağ Butonlar */}
                     <div className="d-flex align-items-center">
                         {user ? (
                             <>

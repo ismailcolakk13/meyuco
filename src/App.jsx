@@ -20,7 +20,7 @@ import Profile from "./Pages/Profile";
 import RegisterPage from "./Pages/RegisterPage";
 import UnutmaPage from "./Pages/UnutmaPage";
 import './style.css';
-
+import AramaSonuclari from "./Pages/AramaSonucları";
 function App() {
   const location = useLocation();
   const [etkinlikler, setEtkinlikler] = useState([]);
@@ -82,6 +82,7 @@ function App() {
               <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
               <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
               <Route path="/unutma" element={<UnutmaPage />} />
+              <Route path="/arama" element={<AramaSonuclari />} />
             </Routes>
           </div>
           <Footer />
