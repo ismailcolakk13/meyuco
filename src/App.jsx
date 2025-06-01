@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Topbar from "./Components/Topbar";
+import TopbarKullanıcı from "./Components/TopbarKullanıcı";
 import { EtkinliklerContext, UserContext } from "./data/Context";
 import AdminPanel from "./Pages/AdminPanel";
 import BiletSatinalPage from "./Pages/BiletSatinalPage";
@@ -18,27 +19,38 @@ import axios from "axios";
 import { etkinlikListesi } from "./data/etkinlikler";
 import './style.css';
 import UnutmaPage from "./Pages/UnutmaPage";
+import KullanıcıPage from "./Pages/KullanıcıPage";
 
-function App()
-{
+function App() {
   const location = useLocation();
-
-  const hideTopbarPaths = ["/login", "/register","/unutma"];
-  const showTopBar = !hideTopbarPaths.includes(location.pathname);
-
   const [etkinlikler, setEtkinlikler] = useState([]);
   const [user, setUser] = useState(null);
 
-  useEffect(() =>
-  {
+  // Token kontrolü
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      setUser({ token }); // Burada gerçek kullanıcı bilgisi API'den alınabilir
+    } else {
+      setUser(null);
+    }
+  }, [token]);
+
+  const hideTopbarPaths = ["/login", "/register", "/unutma"];
+  const isHidden = hideTopbarPaths.includes(location.pathname);
+
+  // Navbar gösterimi
+  const showTopBarKullanıcı = user && !isHidden;
+  const showTopBar = !user && !isHidden;
+
+  useEffect(() => {
     axios.get("/api/etkinlikler")
-      .then(res =>
-      {
+      .then(res => {
         console.log("API'dan etkinlikler alındı!");
-        setEtkinlikler(res.data)
+        setEtkinlikler(res.data);
       })
-      .catch(err =>
-      {
+      .catch(err => {
         console.error("API'dan etkinlikler alınamadı, local veri kullanılacak:", err);
         setEtkinlikler(etkinlikListesi);
       });
@@ -49,6 +61,7 @@ function App()
       <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
         <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: "whitesmoke" }}>
           {showTopBar && <Topbar />}
+          {showTopBarKullanıcı && <TopbarKullanıcı />}
           <div className="flex-grow-1">
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -66,6 +79,7 @@ function App()
               <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
               <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
               <Route path="/unutma" element={<UnutmaPage />} />
+              <Route path="/kullanici" element={<KullanıcıPage />} />
             </Routes>
           </div>
           <Footer />
