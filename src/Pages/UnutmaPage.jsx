@@ -10,23 +10,56 @@ const UnutmaPage = () =>
         confirmPassword: "",
     });
 
+    const [mesaj, setMesaj] = useState("");
+
     const handleChange = (e) =>
     {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) =>
+    const handleSubmit = async (e) =>
     {
         e.preventDefault();
+
         if (form.password !== form.confirmPassword)
         {
-            alert("Şifreler eşleşmiyor!");
+            setMesaj("❌ Şifreler eşleşmiyor!");
             return;
         }
-        // Burada şifre sıfırlama işlemi yapılabilir
-        alert("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
-        console.log("Şifre sıfırlama isteği:", form);
-        window.location.href = "/login";
+
+        try
+        {
+            const res = await fetch("http://localhost:5000/api/sifremi-unuttum", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: form.email,
+                    yeni_sifre: form.password,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok)
+            {
+                setMesaj("✅ Şifre başarıyla güncellendi.");
+                setTimeout(() =>
+                {
+                    window.location.href = "/login";
+                }, 1500);
+            }
+            else
+            {
+                setMesaj(`❌ ${data.message || "Bir hata oluştu"}`);
+            }
+        }
+        catch (error)
+        {
+            console.error("İstek hatası:", error);
+            setMesaj("❌ Sunucuya ulaşılamadı.");
+        }
     };
 
     return (
@@ -93,6 +126,12 @@ const UnutmaPage = () =>
                     <div className="d-grid">
                         <button type="submit" className="btn btn-success">Şifreyi Değiştir</button>
                     </div>
+
+                    {mesaj && (
+                        <div className="alert alert-info text-center mt-3 p-2">
+                            {mesaj}
+                        </div>
+                    )}
 
                     <p className="text-center mt-3 mb-0 text-dark">
                         Hesabın var mı? <a href="/login">Giriş Yap</a>
