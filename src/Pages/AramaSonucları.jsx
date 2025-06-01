@@ -1,8 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"; 
 import { etkinlikListesi, formatTarih } from "../data/etkinlikler";
 
 const AramaSonuclari = () => {
   const { search } = useLocation();
+  const navigate = useNavigate(); 
   const query = new URLSearchParams(search).get("query")?.toLowerCase() || "";
 
   const filtrelenmisEtkinlikler = etkinlikListesi.filter((etkinlik) =>
@@ -37,7 +38,12 @@ const AramaSonuclari = () => {
               <p>
                 <strong>Bilet Fiyatı:</strong> {etkinlik.fiyat}₺
               </p>
-              <button className="btn btn-success">Bilet Satın Al</button>
+              <button
+                className="btn btn-success"
+                onClick={() => navigate(`/bilet-satin-al/${etkinlik.id}`)} 
+              >
+                Bilet Satın Al
+              </button>
             </div>
           </div>
         ))
@@ -47,3 +53,4 @@ const AramaSonuclari = () => {
 };
 
 export default AramaSonuclari;
+
