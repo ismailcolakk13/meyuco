@@ -29,10 +29,11 @@ const LoginPage = () => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center vh-100"
+      className="d-flex justify-content-center align-items-center"
       style={{
         background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-        padding: "20px"
+        padding: "20px",
+        height: "100%"
       }}
     >
       <div

@@ -19,7 +19,7 @@ const İletisim = () => {
   };
 
   return (
-    <div className="container py-5" style={{ minHeight: 500 }}>
+    <div className="container" style={{ height: "100%"  }}>
       <div className="row justify-content-center align-items-center">
         {/* Sol: Büyük yardım animasyonu */}
         <div className="col-12 col-lg-6 d-flex justify-content-center mb-4 mb-lg-0">
