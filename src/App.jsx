@@ -62,7 +62,7 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
-        <div className="d-flex flex-column" style={{ backgroundColor: "whitesmoke", height: "100%" }}>
+        <div className="d-flex flex-column" style={{ backgroundColor: "whitesmoke", height: "100dvh" }}>
           {showTopBar && <Topbar />}
           {showTopBarKullanıcı && <TopbarKullanıcı />}
           <div className="flex-grow-1">
