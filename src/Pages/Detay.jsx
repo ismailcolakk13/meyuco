@@ -1,12 +1,14 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { formatTarih } from '../data/etkinlikler';
 
-const Detay = () => {
+const Detay = () =>
+{
   const location = useLocation();
   const etkinlik = location.state?.etkinlik;
   const navigate = useNavigate();
 
-  if (!etkinlik) {
+  if (!etkinlik)
+  {
     return <div>Etkinlik bulunamadı.</div>;
   }
 
@@ -22,18 +24,36 @@ const Detay = () => {
           />
         </div>
         <div className="col-12 col-md-7">
-          <h2 className="mb-3 text-primary">{etkinlik.ad}</h2>
+          <h2
+            className="mb-3"
+            style={{
+              color: "#000",
+              fontWeight: "bold"
+            }}
+          >
+            {etkinlik.ad}
+          </h2>
+
+
           <p className="text-secondary fs-5">{etkinlik.aciklama}</p>
           <p className="text-muted mb-2">
             <strong>Tarih:</strong> {formatTarih(etkinlik.tarih)} <br />
             <strong>Mekan:</strong> {etkinlik.mekan}
           </p>
           <button
-            className="btn btn-success btn-lg my-3"
-            onClick={()=> navigate(`/bilet-satin-al/${etkinlik.id}`)}
+            className="text-white border-0 btn-lg my-3"
+            style={{
+              background: "linear-gradient(135deg, #1C2D41, #18B38C)",
+              padding: "12px 20px",
+              borderRadius: "6px",
+              fontWeight: "bold",
+              fontSize: "1.1rem"
+            }}
+            onClick={() => navigate(`/bilet-satin-al/${etkinlik.id}`)}
           >
             Bilet Satın Al - <span>{etkinlik.fiyat}₺</span>
           </button>
+
           <div className="mt-4">
             <h5 className="mb-2">Etkinlik kuralları:</h5>
             <ul className="list-group list-group-flush">

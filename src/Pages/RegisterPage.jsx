@@ -33,7 +33,8 @@ const RegisterPage = () =>
             setError("Şifreler uyuşmuyor!");
             return;
         }
-        try {
+        try
+        {
             const response = await axios.post("/api/register", {
                 email: form.email,
                 password: form.password,
@@ -43,7 +44,8 @@ const RegisterPage = () =>
             alert(response.data.message);
             setUser(response.data.user); // Kullanıcıyı context'e kaydet
             navigate("/"); // Ana sayfaya yönlendir
-        } catch (err) {
+        } catch (err)
+        {
             const msg = err.response?.data?.message || "Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.";
             setError(msg);
         }
@@ -122,10 +124,20 @@ const RegisterPage = () =>
                     </div>
 
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-success">
+                        <button
+                            type="submit"
+                            className="text-white border-0"
+                            style={{
+                                background: "linear-gradient(135deg, #1C2D41, #18B38C)",
+                                padding: "10px",
+                                borderRadius: "5px",
+                                fontWeight: "bold"
+                            }}
+                        >
                             Kayıt Ol
                         </button>
                     </div>
+
 
                     <p className="text-center mt-3 mb-0 text-dark">
                         Zaten hesabın var mı? <a href="/login">Giriş Yap</a>

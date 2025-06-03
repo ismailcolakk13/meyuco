@@ -10,12 +10,16 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet, doluKoltuklar })
     const rows = ["A", "B", "C", "D", "E", "F"];
     const cols = 10;
 
-    const toggleSeat = (seatId) => {
+    const toggleSeat = (seatId) =>
+    {
         if (doluKoltuklar.includes(seatId)) return; // Dolu koltuk tıklanamaz
-        if (selectedSeats.includes(seatId)) {
+        if (selectedSeats.includes(seatId))
+        {
             setSelectedSeats((prev) => prev.filter((s) => s !== seatId));
-        } else {
-            if (selectedSeats.length >= adet) {
+        } else
+        {
+            if (selectedSeats.length >= adet)
+            {
                 alert(`En fazla ${adet} koltuk seçebilirsiniz.`);
                 return;
             }
@@ -28,7 +32,8 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet, doluKoltuklar })
             <div className="mb-2 text-muted">Perde</div>
             {rows.map((row) => (
                 <div key={row} className="d-flex justify-content-center mb-1">
-                    {Array.from({ length: cols }).map((_, i) => {
+                    {Array.from({ length: cols }).map((_, i) =>
+                    {
                         const seatId = `${row}${i + 1}`;
                         const isSelected = selectedSeats.includes(seatId);
                         const isFull = doluKoltuklar.includes(seatId);
@@ -78,10 +83,12 @@ const BiletSatinalPage = () =>
     const etkinlik = etkinlikler.find((e) => e.id === parseInt(id));
     const [bilet, setBilet] = useState({});
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         setLoading(true);
         axios.get(`/api/etkinlik-dolu-koltuklar/${id}`)
-            .then(res => {
+            .then(res =>
+            {
                 // Her eleman virgüllü string olabilir, hepsini tek tek ayır
                 let dolular = res.data.dolu_koltuklar || [];
                 dolular = dolular.flatMap(item =>
@@ -90,33 +97,38 @@ const BiletSatinalPage = () =>
                 setDoluKoltuklar(dolular);
                 setLoading(false);
             })
-            .catch(() => {
+            .catch(() =>
+            {
                 setDoluKoltuklar([]);
                 setLoading(false);
             });
     }, [id]);
 
-    if (!etkinlik || loading) {
+    if (!etkinlik || loading)
+    {
         return (
             <div className="container my-5">
                 {loading ? (
-                  <Spinner message="Koltuk bilgileri yükleniyor..." />
+                    <Spinner message="Koltuk bilgileri yükleniyor..." />
                 ) : (
-                  <div className="alert alert-info text-center">
-                    Etkinlik bulunamadı.
-                  </div>
+                    <div className="alert alert-info text-center">
+                        Etkinlik bulunamadı.
+                    </div>
                 )}
             </div>
         );
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) =>
+    {
         e.preventDefault();
-        if (!user) {
+        if (!user)
+        {
             alert("Lütfen giriş yapınız.");
             return;
         }
-        if (selectedSeats.length !== parseInt(adet)) {
+        if (selectedSeats.length !== parseInt(adet))
+        {
             alert(`Lütfen tam olarak ${adet} koltuk seçin.`);
             return;
         }
@@ -128,7 +140,7 @@ const BiletSatinalPage = () =>
         };
         setBilet(yeniBilet);
         console.log("Bilet Bilgisi:", yeniBilet);
-        navigate(`/odeme/${id}`, {state:{bilet:yeniBilet}});
+        navigate(`/odeme/${id}`, { state: { bilet: yeniBilet } });
     };
 
     return (
@@ -147,7 +159,8 @@ const BiletSatinalPage = () =>
                         min="1"
                         max="10"
                         value={adet}
-                        onChange={(e) => {
+                        onChange={(e) =>
+                        {
                             setAdet(parseInt(e.target.value));
                             setSelectedSeats([]); // koltukları sıfırla
                         }}
@@ -185,8 +198,19 @@ const BiletSatinalPage = () =>
                         className="form-control fw-bold text-success"
                     />
                 </div>
+                <button
+                    type="submit"
+                    className="w-100 text-white border-0"
+                    style={{
+                        background: "linear-gradient(135deg, #1C2D41, #18B38C)",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        fontWeight: "bold"
+                    }}
+                >
+                    Ödemeye Geç
+                </button>
 
-                <button type="submit" className="btn btn-primary w-100" >Ödemeye Geç</button>
             </form>
         </div>
     );

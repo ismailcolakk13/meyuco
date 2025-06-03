@@ -124,8 +124,20 @@ const UnutmaPage = () =>
                     </div>
 
                     <div className="d-grid">
-                        <button type="submit" className="btn btn-success">Şifreyi Değiştir</button>
+                        <button
+                            type="submit"
+                            className="text-white border-0"
+                            style={{
+                                background: "linear-gradient(135deg, #1C2D41, #18B38C)",
+                                padding: "10px",
+                                borderRadius: "5px",
+                                fontWeight: "bold"
+                            }}
+                        >
+                            Şifreyi Değiştir
+                        </button>
                     </div>
+
 
                     {mesaj && (
                         <div className="alert alert-info text-center mt-3 p-2">

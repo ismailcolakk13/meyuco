@@ -44,23 +44,39 @@ const EtkinlikGrupPage = ({ baslik, kategori }) =>
                   borderTopRightRadius: "8px",
                   cursor: "pointer"
                 }}
-                onClick={() => navigate(`/detay/${etkinlik.id}`,{state:{etkinlik:etkinlik}})}
+                onClick={() => navigate(`/detay/${etkinlik.id}`, { state: { etkinlik: etkinlik } })}
               />
               <div className="card-body">
                 <h5 className="card-title">{etkinlik.ad}</h5>
                 <div className="d-flex justify-content-center gap-2">
                   <button
-                    className="btn btn-success btn-sm"
+                    className="text-white border-0 btn-sm"
+                    style={{
+                      background: "linear-gradient(135deg, #1C2D41, #18B38C)",
+                      padding: "6px 12px",
+                      borderRadius: "4px",
+                      fontSize: "0.875rem",
+                      fontWeight: "500"
+                    }}
                     onClick={() => handleBiletBul(etkinlik.id)}
                   >
                     Bilet Bul
                   </button>
+
                   <button
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={() => navigate(`/detay/${etkinlik.id}`,{state:{etkinlik:etkinlik}})}
+                    className="text-white border-0 btn-sm"
+                    style={{
+                      background: "linear-gradient(135deg, #18B38C, #1C2D41)",
+                      padding: "6px 12px",
+                      borderRadius: "4px",
+                      fontSize: "0.875rem",
+                      fontWeight: "500"
+                    }}
+                    onClick={() => navigate(`/detay/${etkinlik.id}`, { state: { etkinlik: etkinlik } })}
                   >
                     Detay
                   </button>
+
                 </div>
               </div>
             </div>

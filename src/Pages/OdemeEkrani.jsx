@@ -7,7 +7,7 @@ import Spinner from '../Components/Spinner';
 
 const OdemeEkrani = () =>
 {
-    const{user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const [form, setForm] = useState({ isim: '', kartNo: '', sonKullanma: '', cvc: '' });
     const [odemeBasarili, setOdemeBasarili] = useState(false);
     const [cvvOdakta, setCvvOdakta] = useState(false);
@@ -27,15 +27,18 @@ const OdemeEkrani = () =>
         e.preventDefault();
         setLoading(true);
         setError("");
-        try {
+        try
+        {
             // Bilet bilgisini backend'e gönder
-            await axios.post('/api/bilet-al', {user_id:user.id , etkinlik_id: bilet.etkinlik?.id, adet:bilet.adet, koltuk: Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar});
+            await axios.post('/api/bilet-al', { user_id: user.id, etkinlik_id: bilet.etkinlik?.id, adet: bilet.adet, koltuk: Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar });
             setOdemeBasarili(true);
-        } catch (err) {
+        } catch (err)
+        {
             const msg = err.response?.data?.message || 'Bilet kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.';
             setError(msg);
             console.error(err);
-        } finally {
+        } finally
+        {
             setLoading(false);
         }
     };
@@ -118,58 +121,70 @@ const OdemeEkrani = () =>
 
                                 {/* FORM */}
                                 {error && (
-                                  <div className="alert alert-danger text-center">{error}</div>
+                                    <div className="alert alert-danger text-center">{error}</div>
                                 )}
                                 {loading ? (
-                                  <Spinner message="Ödeme işleniyor..." />
+                                    <Spinner message="Ödeme işleniyor..." />
                                 ) : (
-                                  <form onSubmit={handleSubmit}>
-                                    <div className="mb-3">
-                                        <label htmlFor="isim" className="form-label">Kart Üzerindeki İsim</label>
-                                        <input type="text" className="form-control" id="isim" name="isim" value={form.isim} onChange={handleChange} required />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="kartNo" className="form-label">Kart Numarası</label>
-                                        <input type="text" className="form-control" id="kartNo" name="kartNo" value={formatKartNo(form.kartNo)} onChange={handleKartNoChange} required maxLength={19} placeholder="1234 5678 9012 3456" autoComplete="cc-number" inputMode="numeric" />
-                                    </div>
-                                    <div className="row mb-3">
-                                        <div className="col">
-                                            <label htmlFor="sonKullanma" className="form-label">Son Kullanma</label>
-                                            <input
-                                                type="text"
-                                                pattern="^(0[1-9]|1[0-2])\/\d{2}$"
-                                                className="form-control"
-                                                id="sonKullanma"
-                                                name="sonKullanma"
-                                                value={form.sonKullanma}
-                                                onChange={handleSonKullanmaChange}
-                                                required
-                                                placeholder="AA/YY"
-                                                maxLength={5}
-                                                autoComplete="cc-exp"
-                                            />
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="mb-3">
+                                            <label htmlFor="isim" className="form-label">Kart Üzerindeki İsim</label>
+                                            <input type="text" className="form-control" id="isim" name="isim" value={form.isim} onChange={handleChange} required />
                                         </div>
-                                        <div className="col">
-                                            <label htmlFor="cvc" className="form-label">CVC</label>
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                id="cvc"
-                                                name="cvc"
-                                                value={form.cvc}
-                                                onFocus={() => setCvvOdakta(true)}
-                                                onBlur={() => setCvvOdakta(false)}
-                                                onChange={handleChange}
-                                                required
-                                                maxLength={3}
-                                                placeholder="123"
-                                                autoComplete="cc-csc"
-                                                inputMode="numeric"
-                                            />
+                                        <div className="mb-3">
+                                            <label htmlFor="kartNo" className="form-label">Kart Numarası</label>
+                                            <input type="text" className="form-control" id="kartNo" name="kartNo" value={formatKartNo(form.kartNo)} onChange={handleKartNoChange} required maxLength={19} placeholder="1234 5678 9012 3456" autoComplete="cc-number" inputMode="numeric" />
                                         </div>
-                                    </div>
-                                    <button type="submit" className="btn btn-success w-100">Ödemeyi Tamamla</button>
-                                  </form>
+                                        <div className="row mb-3">
+                                            <div className="col">
+                                                <label htmlFor="sonKullanma" className="form-label">Son Kullanma</label>
+                                                <input
+                                                    type="text"
+                                                    pattern="^(0[1-9]|1[0-2])\/\d{2}$"
+                                                    className="form-control"
+                                                    id="sonKullanma"
+                                                    name="sonKullanma"
+                                                    value={form.sonKullanma}
+                                                    onChange={handleSonKullanmaChange}
+                                                    required
+                                                    placeholder="AA/YY"
+                                                    maxLength={5}
+                                                    autoComplete="cc-exp"
+                                                />
+                                            </div>
+                                            <div className="col">
+                                                <label htmlFor="cvc" className="form-label">CVC</label>
+                                                <input
+                                                    type="password"
+                                                    className="form-control"
+                                                    id="cvc"
+                                                    name="cvc"
+                                                    value={form.cvc}
+                                                    onFocus={() => setCvvOdakta(true)}
+                                                    onBlur={() => setCvvOdakta(false)}
+                                                    onChange={handleChange}
+                                                    required
+                                                    maxLength={3}
+                                                    placeholder="123"
+                                                    autoComplete="cc-csc"
+                                                    inputMode="numeric"
+                                                />
+                                            </div>
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            className="text-white border-0 w-100"
+                                            style={{
+                                                background: "linear-gradient(135deg, #1C2D41, #18B38C)",
+                                                padding: "10px",
+                                                borderRadius: "5px",
+                                                fontWeight: "bold"
+                                            }}
+                                        >
+                                            Ödemeyi Tamamla
+                                        </button>
+
+                                    </form>
                                 )}
                             </>
                         )}
