@@ -8,13 +8,15 @@ const Footer = () =>
       style={{
         background: "linear-gradient(135deg, #1C2D41, #18B38C)",
         bottom: 0,
-        width: '100%',
+        width: "100%",
         zIndex: 999,
-        borderTop: '1px solid black',
-        borderBottom: '1px solid black'
+        borderTop: "1px solid black",
+        borderBottom: "1px solid black",
+        height: "80px"
       }}
-      className="py-1 shadow-sm"
+      className="py-3 shadow-sm"
     >
+
       <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center text-white">
         {/* Sol Telif */}
         <span style={{ color: "#7D969B" }}>&copy; {new Date().getFullYear()} Meyuco.com | Tüm hakları saklıdır.</span>

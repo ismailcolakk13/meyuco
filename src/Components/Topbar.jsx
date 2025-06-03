@@ -2,14 +2,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../data/Context';
 
-const Topbar = () => {
+const Topbar = () =>
+{
     const { user, setUser } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
-    const handleSearch = (e) => {
+    const handleSearch = (e) =>
+    {
         e.preventDefault();
-        if (searchTerm.trim()) {
+        if (searchTerm.trim())
+        {
             navigate(`/arama?query=${encodeURIComponent(searchTerm)}`);
         }
     };
@@ -21,9 +24,11 @@ const Topbar = () => {
                 top: 0,
                 zIndex: 100,
                 background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-                borderBottom: '1px solid black'
+                borderBottom: "1px solid black",
+                minHeight: "72px"
             }}
         >
+
             <div
                 className="container"
                 style={{
