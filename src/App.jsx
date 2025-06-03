@@ -21,18 +21,22 @@ import RegisterPage from "./Pages/RegisterPage";
 import UnutmaPage from "./Pages/UnutmaPage";
 import './style.css';
 import AramaSonuclari from "./Pages/AramaSonucları";
-function App() {
+function App()
+{
   const location = useLocation();
   const [etkinlikler, setEtkinlikler] = useState([]);
   // User'ı localStorage'dan yükle
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState(() =>
+  {
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
   });
 
   // User ve token bilgisini localStorage'dan güncel tut
-  useEffect(() => {
-    const handleStorage = () => {
+  useEffect(() =>
+  {
+    const handleStorage = () =>
+    {
       const storedUser = localStorage.getItem("user");
       setUser(storedUser ? JSON.parse(storedUser) : null);
     };
@@ -40,20 +44,23 @@ function App() {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  const hideTopbarPaths = ["/login", "/register", "/unutma"];
+  const hideTopbarPaths = ["/register", "/unutma"]; // login çıkarıldı
   const isHidden = hideTopbarPaths.includes(location.pathname);
 
   // Navbar gösterimi
   const showTopBarKullanıcı = user && !isHidden;
   const showTopBar = !user && !isHidden;
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios.get("/api/etkinlikler")
-      .then(res => {
+      .then(res =>
+      {
         console.log("API'dan etkinlikler alındı!");
         setEtkinlikler(res.data);
       })
-      .catch(err => {
+      .catch(err =>
+      {
         console.error("API'dan etkinlikler alınamadı, local veri kullanılacak:", err);
         setEtkinlikler(etkinlikListesi);
       });
