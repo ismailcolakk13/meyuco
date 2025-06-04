@@ -57,7 +57,7 @@ function App()
     axios.get("/api/etkinlikler")
       .then(res =>
       {
-        console.log("API'dan etkinlikler alındı!");
+        console.log("API'dan etkinlikler alındı!");   
         setEtkinlikler(res.data);
       })
       .catch(err =>
