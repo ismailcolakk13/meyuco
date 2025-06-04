@@ -21,6 +21,7 @@ import RegisterPage from "./Pages/RegisterPage";
 import UnutmaPage from "./Pages/UnutmaPage";
 import './style.css';
 import AramaSonuclari from "./Pages/AramaSonucları";
+import NotFound from "./Pages/NotFound";
 function App()
 {
   const location = useLocation();
@@ -90,6 +91,7 @@ function App()
               <Route path="/sinemalar" element={<EtkinlikGrupPage baslik="Sinemalar" kategori="sinemalar" />} />
               <Route path="/unutma" element={<UnutmaPage />} />
               <Route path="/arama" element={<AramaSonuclari />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           <Footer />
