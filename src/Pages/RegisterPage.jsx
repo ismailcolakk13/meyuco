@@ -1,8 +1,8 @@
-import Lottie from "lottie-react";
-import { useState, useContext } from "react";
-import registerAnim from "../assets/register-animation.json";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Lottie from "lottie-react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import registerAnim from "../assets/register-animation.json";
 import { UserContext } from "../data/Context";
 
 const RegisterPage = () =>
@@ -42,8 +42,7 @@ const RegisterPage = () =>
                 role: "user" // Varsayılan rol
             });
             alert(response.data.message);
-            setUser(response.data.user); // Kullanıcıyı context'e kaydet
-            navigate("/"); // Ana sayfaya yönlendir
+            navigate("/login"); // Ana sayfaya yönlendir
         } catch (err)
         {
             const msg = err.response?.data?.message || "Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.";

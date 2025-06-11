@@ -1,9 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../data/Context';
 
 const TopbarKullanıcı = () => {
-    const { setUser } = useContext(UserContext);
+    const { user,setUser } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
@@ -92,6 +92,11 @@ const TopbarKullanıcı = () => {
                             </svg>
                             Profil
                         </Link>
+                        {user && user.role === "admin" && (
+                                    <Link to="/admin" className="btn btn-warning me-2" style={{ fontSize: "14px" }}>
+                                        Admin Paneli
+                                    </Link>
+                                )}
                         <button onClick={handleLogout} className="btn btn-outline-light d-flex align-items-center" style={{ fontSize: "14px" }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right me-1" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M10 12a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v8A1.5 1.5 0 0 0 3.5 13h6a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
