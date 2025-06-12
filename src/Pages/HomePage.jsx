@@ -186,7 +186,7 @@ const HomePage = () => {
         <div className="col-12 col-lg-3 d-flex flex-column align-items-start justify-content-center">
           <h1 style={{ visibility: "hidden" }}>Öne Çıkanlar</h1>
           <video
-            src="/images/reklam2.mp4"
+            src="https://i.imgur.com/GRZM8Uv.mp4"
             autoPlay
             muted
             loop
