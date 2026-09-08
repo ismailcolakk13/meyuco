@@ -55,8 +55,8 @@ const AdminPanel = () =>
         e.preventDefault();
         try {
             const response = await axios.post('/api/etkinlik-ekle', form);
-            // response.data array değilse diziye çevir
-            const etkinliklerArr = Array.isArray(response.data) ? response.data : [response.data];
+            const data = response.data?.etkinlikler || response.data;
+            const etkinliklerArr = Array.isArray(data) ? data : [data];
             const normalized = etkinliklerArr.map(e => ({
                 ...e,
                 kategori: kategoriMap[e.kategori] || e.kategori
@@ -82,8 +82,8 @@ const AdminPanel = () =>
         if (onay) {
             try {
                 const etkinlikId = etkinlikler[index].id;
-                const response = await axios.delete(`/api/etkinlik-sil/${etkinlikId}`);
-                const etkinliklerArr = Array.isArray(response.data) ? response.data : [response.data];
+                const data = response.data?.etkinlikler || response.data;
+                const etkinliklerArr = Array.isArray(data) ? data : [data];
                 const normalized = etkinliklerArr.map(e => ({
                     ...e,
                     kategori: kategoriMap[e.kategori] || e.kategori
@@ -125,8 +125,8 @@ const AdminPanel = () =>
         e.preventDefault();
         try {
             if (!editId) throw new Error('Etkinlik id bulunamadı!');
-            const response = await axios.put(`/api/etkinlik-duzenle/${editId}`, editForm);
-            const etkinliklerArr = Array.isArray(response.data) ? response.data : [response.data];
+            const data = response.data?.etkinlikler || response.data;
+            const etkinliklerArr = Array.isArray(data) ? data : [data];
             const normalized = etkinliklerArr.map(e => ({
                 ...e,
                 kategori: kategoriMap[e.kategori] || e.kategori

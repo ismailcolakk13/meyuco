@@ -30,7 +30,7 @@ const OdemeEkrani = () =>
         try
         {
             // Bilet bilgisini backend'e gönder
-            await axios.post('/api/bilet-al', { user_id: user.id, etkinlik_id: bilet.etkinlik?.id, adet: bilet.adet, koltuk: Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar });
+            await axios.post('/api/bilet-al', { user_id: user.id, etkinlik_id: bilet.etkinlik?.id, adet: bilet.adet, koltuk: bilet.koltuklar });
             setOdemeBasarili(true);
         } catch (err)
         {
