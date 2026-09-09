@@ -1,5 +1,6 @@
 import Lottie from "lottie-react";
 import { useState } from "react";
+import axios from "axios";
 import registerAnim from "../assets/şifreunttum.json"; // Animasyon dosyası
 
 const UnutmaPage = () =>
@@ -29,20 +30,12 @@ const UnutmaPage = () =>
 
         try
         {
-            const res = await fetch("http://localhost:5000/api/sifremi-unuttum", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: form.email,
-                    yeni_sifre: form.password,
-                }),
+            const res = await axios.put("/api/sifremi-unuttum", {
+                email: form.email,
+                yeni_sifre: form.password,
             });
 
-            const data = await res.json();
-
-            if (res.ok)
+            if (res.status === 200)
             {
                 setMesaj("✅ Şifre başarıyla güncellendi.");
                 setTimeout(() =>
@@ -50,15 +43,12 @@ const UnutmaPage = () =>
                     window.location.href = "/login";
                 }, 1500);
             }
-            else
-            {
-                setMesaj(`❌ ${data.message || "Bir hata oluştu"}`);
-            }
         }
         catch (error)
         {
+            const errorMsg = error.response?.data?.message || "Bir hata oluştu";
+            setMesaj(`❌ ${errorMsg}`);
             console.error("İstek hatası:", error);
-            setMesaj("❌ Sunucuya ulaşılamadı.");
         }
     };
 
