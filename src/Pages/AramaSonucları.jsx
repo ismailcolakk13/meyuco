@@ -100,4 +100,3 @@ const AramaSonuclari = () => {
 };
 
 export default AramaSonuclari;
-

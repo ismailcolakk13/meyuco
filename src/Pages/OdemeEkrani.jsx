@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { formatTarih } from '../data/etkinlikler';
 import axios from 'axios';
 import { UserContext } from '../data/Context';
@@ -7,8 +7,10 @@ import Spinner from '../Components/Spinner';
 
 const OdemeEkrani = () => {
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
     const [form, setForm] = useState({ isim: '', kartNo: '', sonKullanma: '', cvc: '' });
     const [odemeBasarili, setOdemeBasarili] = useState(false);
+    const [odemeSonuc, setOdemeSonuc] = useState(null);
     const [cvvOdakta, setCvvOdakta] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -20,22 +22,67 @@ const OdemeEkrani = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    // iyzico Sandbox Test Kartlarını Otomatik Doldurma Yardımcıları
+    const fillTestCard = (type = 'success') => {
+        if (type === 'success') {
+            setForm({
+                isim: user?.name ? user.name.toUpperCase() : 'AHMET YILMAZ',
+                kartNo: '5890040000000016',
+                sonKullanma: '12/28',
+                cvc: '123'
+            });
+            setError("");
+        } else if (type === 'fail') {
+            setForm({
+                isim: 'YETERSIZ BAKIYE',
+                kartNo: '4354085555555557',
+                sonKullanma: '12/28',
+                cvc: '123'
+            });
+            setError("");
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!user) {
+            setError("Ödeme yapabilmek için lütfen giriş yapınız.");
+            navigate('/login');
+            return;
+        }
+
+        if (!bilet.etkinlik?.id) {
+            setError("Geçersiz bilet seçimi. Lütfen etkinlik sayfasından tekrar başlayınız.");
+            return;
+        }
+
         setLoading(true);
         setError("");
+
         try {
-            await axios.post('/api/bilet-al', {
-                user_id: user?.id,
-                etkinlik_id: bilet.etkinlik?.id,
+            const res = await axios.post('/api/odeme/kartla-ode', {
+                user_id: user.id,
+                etkinlik_id: bilet.etkinlik.id,
                 adet: bilet.adet,
-                koltuk: bilet.koltuklar
+                koltuk: bilet.koltuklar,
+                kart: {
+                    isim: form.isim,
+                    kartNo: form.kartNo,
+                    sonKullanma: form.sonKullanma,
+                    cvc: form.cvc
+                }
             });
-            setOdemeBasarili(true);
+
+            if (res.data.success) {
+                setOdemeSonuc(res.data);
+                setOdemeBasarili(true);
+            } else {
+                setError(res.data.message || 'Ödeme tamamlanamadı.');
+            }
         } catch (err) {
-            const msg = err.response?.data?.message || 'Bilet kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.';
+            const msg = err.response?.data?.message || 'Ödeme işlemi sırasında bir hata oluştu. Lütfen bilgilerinizi kontrol edip tekrar deneyiniz.';
             setError(msg);
-            console.error(err);
+            console.error("[ODEME HATASI]", err);
         } finally {
             setLoading(false);
         }
@@ -55,6 +102,7 @@ const OdemeEkrani = () => {
     };
 
     const formatKartNo = (num) => {
+        if (!num) return '';
         return num.replace(/(.{4})/g, '$1 ').trim();
     };
 
@@ -106,28 +154,108 @@ const OdemeEkrani = () => {
 
                 {/* Sağ: Kart & Ödeme Formu */}
                 <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
-                    <h2 className="text-xl font-bold text-slate-800 mb-6 text-center">💳 Güvenli Ödeme</h2>
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <span>💳</span> Güvenli Kartla Ödeme
+                        </h2>
+                        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+                            iyzico Güvencesi
+                        </span>
+                    </div>
 
-                    {odemeBasarili ? (
-                        <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-4">
-                            <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
+                    {!bilet.etkinlik ? (
+                        <div className="p-8 text-center space-y-4">
+                            <span className="text-4xl block">⚠️</span>
+                            <h3 className="text-lg font-bold text-slate-800">Bilet Bilgisi Bulunamadı</h3>
+                            <p className="text-sm text-slate-500 max-w-sm mx-auto">
+                                Ödeme adımına geçmeden önce lütfen bir etkinlik ve koltuk seçiniz.
+                            </p>
+                            <Link to="/" className="inline-block px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold transition-colors">
+                                Etkinlikleri İncele
+                            </Link>
+                        </div>
+                    ) : odemeBasarili ? (
+                        <div className="p-6 sm:p-8 rounded-2xl bg-linear-to-b from-emerald-50 to-white border border-emerald-200 text-center space-y-6">
+                            <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold shadow-inner">
                                 ✓
                             </div>
-                            <h3 className="text-xl font-bold text-emerald-800">Ödemeniz Başarıyla Alındı!</h3>
-                            <p className="text-sm text-emerald-700 max-w-md mx-auto">
-                                Biletiniz e-posta adresinize gönderilmiştir. Bilet detaylarınızı dilediğiniz zaman profil sayfanızdan inceleyebilirsiniz.
-                            </p>
-                            <div className="pt-2 flex justify-center gap-3">
-                                <Link to="/profile" className="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold shadow-sm transition-colors">
-                                    Biletlerime Git
+                            <div>
+                                <h3 className="text-2xl font-extrabold text-emerald-800">Ödemeniz Başarıyla Alındı!</h3>
+                                <p className="text-sm text-emerald-700 mt-1">
+                                    Biletiniz sistemimize kaydedildi ve doğrulandı.
+                                </p>
+                            </div>
+
+                            {/* Dijital Fiş Özeti */}
+                            <div className="bg-white rounded-2xl p-5 border border-slate-200 text-left space-y-3 shadow-xs">
+                                <div className="flex justify-between items-center pb-2 border-b border-slate-100 text-xs text-slate-500">
+                                    <span>Ödeme Referansı</span>
+                                    <span className="font-mono font-bold text-slate-800">
+                                        {odemeSonuc?.provider_payment_id || odemeSonuc?.odeme_id || "PAY-SUCCESS"}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-600">Bilet No</span>
+                                    <span className="font-bold text-slate-900">#{odemeSonuc?.bilet_id}</span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-600">Etkinlik</span>
+                                    <span className="font-semibold text-slate-900">{bilet.etkinlik?.ad}</span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-600">Koltuk(lar)</span>
+                                    <span className="font-semibold text-teal-700">
+                                        {Array.isArray(bilet.koltuklar) ? bilet.koltuklar.join(", ") : bilet.koltuklar}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center pt-2 border-t border-slate-100 text-sm">
+                                    <span className="font-bold text-slate-700">Ödenen Tutar</span>
+                                    <span className="text-lg font-extrabold text-teal-600">
+                                        {odemeSonuc?.tutar || bilet.toplamFiyat} ₺
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-center gap-2 text-xs text-emerald-700">
+                                <span>🛡️</span>
+                                <span>iyzico Güvenli Ödeme Altyapısı ile Onaylandı</span>
+                            </div>
+
+                            <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
+                                <Link to="/profile" className="px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-bold shadow-md transition-colors">
+                                    🎟️ Biletlerime Git
                                 </Link>
-                                <Link to="/" className="px-5 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-sm font-semibold transition-colors">
+                                <Link to="/" className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-semibold transition-colors">
                                     Anasayfaya Dön
                                 </Link>
                             </div>
                         </div>
                     ) : (
                         <>
+                            {/* Sandbox Test Kartı Hızlı Doldurma Butonları */}
+                            <div className="mb-6 p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                                <div className="flex items-center gap-2 text-xs text-amber-900 font-medium">
+                                    <span>🧪</span>
+                                    <span>Test Modu: Hızlı test kartı seçin</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => fillTestCard('success')}
+                                        className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
+                                    >
+                                        ✓ Başarılı Test Kartı
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => fillTestCard('fail')}
+                                        className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-rose-600 hover:bg-rose-700 text-white transition-colors"
+                                    >
+                                        ✕ Hatalı Kart
+                                    </button>
+                                </div>
+                            </div>
+
                             {/* KART 3D FLIP */}
                             <div className="flex justify-center mb-8 overflow-hidden py-2">
                                 <div className={`credit-card-3d ${cvvOdakta ? "flipped" : ""}`}>
@@ -158,15 +286,16 @@ const OdemeEkrani = () => {
                                 </div>
                             </div>
 
-                            {/* FORM */}
+                            {/* HATA MESAJI */}
                             {error && (
-                                <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm text-center">
-                                    {error}
+                                <div className="mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm text-center flex items-center justify-center gap-2">
+                                    <span>⚠️</span>
+                                    <span>{error}</span>
                                 </div>
                             )}
 
                             {loading ? (
-                                <Spinner message="Ödeme işleniyor, lütfen bekleyin..." />
+                                <Spinner message="iyzico ile güvenli ödeme işleniyor, lütfen bekleyin..." />
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div>
@@ -248,10 +377,15 @@ const OdemeEkrani = () => {
 
                                     <button
                                         type="submit"
-                                        className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-4"
+                                        className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-4 flex items-center justify-center gap-2"
                                     >
-                                        Ödemeyi Tamamla ({bilet.toplamFiyat} ₺)
+                                        <span>🔒</span>
+                                        <span>Ödemeyi Tamamla ({bilet.toplamFiyat} ₺)</span>
                                     </button>
+
+                                    <p className="text-[11px] text-center text-slate-400 mt-2">
+                                        🔒 256-bit SSL Güvenli Bağlantı • iyzico Ödeme Güvencesi
+                                    </p>
                                 </form>
                             )}
                         </>

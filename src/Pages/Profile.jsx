@@ -111,6 +111,11 @@ const Profile = () => {
                                     <span className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-200 text-slate-700 border border-slate-300">
                                         Koltuk: {bilet.koltuk}
                                     </span>
+                                    {bilet.odenen_tutar && (
+                                        <span className="px-3 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                            💳 {bilet.odenen_tutar} ₺
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         ))}
