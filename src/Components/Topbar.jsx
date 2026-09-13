@@ -2,113 +2,209 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../data/Context';
 
-const Topbar = () =>
-{
+const Topbar = () => {
     const { user, setUser } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState('');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
 
-    const handleSearch = (e) =>
-    {
+    const handleSearch = (e) => {
         e.preventDefault();
-        if (searchTerm.trim())
-        {
-            navigate(`/arama?query=${encodeURIComponent(searchTerm)}`);
+        if (searchTerm.trim()) {
+            navigate(`/arama?query=${encodeURIComponent(searchTerm.trim())}`);
+            setMobileMenuOpen(false);
         }
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/');
+    };
+
     return (
-        <nav
-            className="navbar navbar-expand-lg navbar-dark shadow-sm"
-            style={{
-                top: 0,
-                zIndex: 100,
-                background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-                borderBottom: "1px solid black",
-                minHeight: "72px"
-            }}
-        >
+        <header className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 via-[#1C2D41] to-[#18B38C] text-white shadow-lg border-b border-teal-800/30">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16 gap-4">
+                    {/* Logo & Brand */}
+                    <div className="flex items-center gap-6">
+                        <Link to="/" className="flex items-center gap-2 group">
+                            <img
+                                src="/images/deneme3.png"
+                                alt="Meyuco Logo"
+                                className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                            />
+                        </Link>
 
-            <div
-                className="container"
-                style={{
-                    maxWidth: "1140px",
-                    paddingLeft: "16px",
-                    paddingRight: "16px"
-                }}
-            >
-                <Link className="navbar-brand d-flex align-items-center" to="/">
-                    <img
-                        src="/images/deneme3.png"
-                        alt="Meyuco Logo"
-                        style={{
-                            height: "40px",
-                            objectFit: "contain",
-                            maxHeight: "64px",
-                            marginRight: "8px"
-                        }}
-                    />
-                </Link>
+                        {/* Desktop Links */}
+                        <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
+                            <Link to="/hakkimizda" className="text-slate-200 hover:text-white transition-colors">
+                                Hakkımızda
+                            </Link>
+                            <Link to="/iletisim" className="text-slate-200 hover:text-white transition-colors">
+                                İletişim
+                            </Link>
+                        </nav>
+                    </div>
 
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Menüyü Aç"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/hakkimizda">Hakkımızda</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/iletisim">İletişim</Link>
-                        </li>
-                    </ul>
-
-                    {/* Arama Çubuğu */}
-                    <form onSubmit={handleSearch} className="d-flex ms-3" style={{ minWidth: '330px', flex: 1, maxWidth: '357px' }}>
-                        <input
-                            className="form-control flex-grow-1 me-2"
-                            type="search"
-                            placeholder="Etkinlik, Sanatçı ya da Konser Arayın"
-                            aria-label="Search"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{ minWidth: '250px', fontSize: "14px" }}
-                        />
-                        <button className="btn btn-outline-light d-flex align-items-center me-2" type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.398a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z" />
-                            </svg>
-                        </button>
+                    {/* Search Bar */}
+                    <form onSubmit={handleSearch} className="hidden sm:flex flex-1 max-w-md mx-4">
+                        <div className="relative w-full">
+                            <input
+                                type="search"
+                                placeholder="Etkinlik, Sanatçı ya da Konser Arayın"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full bg-white/15 text-white placeholder-slate-300 text-sm rounded-full pl-4 pr-10 py-2 border border-white/20 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:bg-white/25 transition-all"
+                            />
+                            <button
+                                type="submit"
+                                aria-label="Ara"
+                                className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 text-slate-200 hover:text-white rounded-full transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
                     </form>
 
-                    <div className="d-flex align-items-center">
+                    {/* Desktop Auth / Actions */}
+                    <div className="hidden md:flex items-center gap-3">
                         {user ? (
                             <>
-                                <Link to="/profile" className="btn btn-outline-light me-2" style={{ fontSize: "14px" }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-person-circle me-1" viewBox="0 0 16 16">
-                                        <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5c-1.482 0-2.758.726-3.468 1.87A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
-                                        <path fillRule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 8A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                {user.role === 'admin' && (
+                                    <Link
+                                        to="/admin"
+                                        className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-900 transition-colors shadow-sm"
+                                    >
+                                        Admin Paneli
+                                    </Link>
+                                )}
+                                <Link
+                                    to="/profile"
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 transition-all"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
-                                    {user.name || user.username || user.email}
+                                    <span>{user.name || user.username || user.email?.split('@')[0]}</span>
                                 </Link>
-                                <button className="btn btn-outline-light btn-danger me-2" style={{ fontSize: "14px" }} onClick={() => setUser(null)}>Çıkış</button>
+                                <button
+                                    onClick={handleLogout}
+                                    className="px-3 py-1.5 text-sm font-medium rounded-lg bg-rose-600/80 hover:bg-rose-600 text-white transition-colors"
+                                >
+                                    Çıkış
+                                </button>
                             </>
                         ) : (
-                            <Link to="/login" className="btn btn-outline-light me-2" style={{ fontSize: "14px" }}>Giriş Yap</Link>
+                            <Link
+                                to="/login"
+                                className="px-4 py-2 text-sm font-medium rounded-full bg-white text-slate-900 hover:bg-teal-50 transition-all shadow-sm"
+                            >
+                                Giriş Yap
+                            </Link>
                         )}
                     </div>
+
+                    {/* Mobile Menu Button */}
+                    <div className="flex md:hidden items-center">
+                        <button
+                            type="button"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="p-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 focus:outline-none"
+                            aria-label="Menüyü Aç"
+                        >
+                            {mobileMenuOpen ? (
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            ) : (
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
                 </div>
+
+                {/* Mobile Dropdown Menu */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden py-4 border-t border-white/10 flex flex-col gap-3">
+                        <form onSubmit={handleSearch} className="w-full mb-2">
+                            <div className="relative">
+                                <input
+                                    type="search"
+                                    placeholder="Etkinlik, Sanatçı ya da Konser Arayın"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full bg-white/15 text-white placeholder-slate-300 text-sm rounded-lg pl-3 pr-9 py-2 border border-white/20 focus:outline-none focus:ring-2 focus:ring-teal-400"
+                                />
+                                <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 text-slate-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+
+                        <Link
+                            to="/hakkimizda"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="px-3 py-2 rounded-lg text-slate-200 hover:bg-white/10 hover:text-white text-sm font-medium"
+                        >
+                            Hakkımızda
+                        </Link>
+                        <Link
+                            to="/iletisim"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="px-3 py-2 rounded-lg text-slate-200 hover:bg-white/10 hover:text-white text-sm font-medium"
+                        >
+                            İletişim
+                        </Link>
+
+                        {user ? (
+                            <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
+                                {user.role === 'admin' && (
+                                    <Link
+                                        to="/admin"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="px-3 py-2 rounded-lg bg-amber-500 text-slate-900 text-sm font-semibold text-center"
+                                    >
+                                        Admin Paneli
+                                    </Link>
+                                )}
+                                <Link
+                                    to="/profile"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm font-medium text-center"
+                                >
+                                    Profil ({user.name || user.username || user.email})
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        handleLogout();
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    className="px-3 py-2 rounded-lg bg-rose-600/80 text-white text-sm font-medium text-center"
+                                >
+                                    Çıkış Yap
+                                </button>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="px-3 py-2 rounded-lg bg-white text-slate-900 text-sm font-medium text-center mt-2"
+                            >
+                                Giriş Yap
+                            </Link>
+                        )}
+                    </div>
+                )}
             </div>
-        </nav>
+        </header>
     );
 };
 

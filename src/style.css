@@ -1,6 +1,4 @@
-* {
-    background-color: b;
-}
+@import "tailwindcss";
 
 .credit-card-3d {
     width: 370px;

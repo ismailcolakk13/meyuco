@@ -1,12 +1,10 @@
 import axios from "axios";
 import Lottie from "lottie-react";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import registerAnim from "../assets/register-animation.json";
-import { UserContext } from "../data/Context";
 
-const RegisterPage = () =>
-{
+const RegisterPage = () => {
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -14,132 +12,124 @@ const RegisterPage = () =>
         confirmPassword: ""
     });
     const [error, setError] = useState("");
-
-    const { setUser } = useContext(UserContext);
-
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleChange = (e) =>
-    {
+    const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) =>
-    {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (form.password !== form.confirmPassword)
-        {
+        if (form.password !== form.confirmPassword) {
             setError("Şifreler uyuşmuyor!");
             return;
         }
-        try
-        {
+        setLoading(true);
+        setError("");
+        try {
             const response = await axios.post("/api/register", {
                 email: form.email,
                 password: form.password,
                 name: form.name,
-                role: "user" // Varsayılan rol
+                role: "user"
             });
-            alert(response.data.message);
-            navigate("/login"); // Ana sayfaya yönlendir
-        } catch (err)
-        {
+            alert(response.data.message || "Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
+            navigate("/login");
+        } catch (err) {
             const msg = err.response?.data?.message || "Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.";
             setError(msg);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div
-            className="d-flex justify-content-center align-items-center vh-100"
-            style={{
-                background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-                padding: "20px"
-            }}
-        >
-            <div
-                className="card p-4 shadow-lg"
-                style={{
-                    maxWidth: "400px",
-                    width: "100%",
-                    borderRadius: "15px",
-                    backgroundColor: "#ffffffcc",
-                    backdropFilter: "blur(10px)"
-                }}
-            >
-                <div className="text-center mb-3">
-                    <Lottie
-                        animationData={registerAnim}
-                        loop={true}
-                        style={{ width: 200, margin: "0 auto" }}
-                    />
+        <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center p-4 py-10 bg-gradient-to-br from-slate-900 via-[#1C2D41] to-[#18B38C]">
+            <div className="w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/30 transition-all">
+                <div className="w-40 mx-auto mb-2">
+                    <Lottie animationData={registerAnim} loop={true} />
                 </div>
-                <h3 className="text-center mb-4 text-dark">Kayıt Ol</h3>
-                {error && <div className="alert alert-danger text-center">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="form-label text-dark">Ad Soyad</label>
+                <h2 className="text-2xl font-bold text-center text-slate-800 mb-1">Hesap Oluşturun</h2>
+                <p className="text-center text-slate-500 text-sm mb-6">Meyuco dünyasına katılın</p>
+
+                {error && (
+                    <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm text-center">
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-3.5">
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+                            Ad Soyad
+                        </label>
                         <input
                             type="text"
                             name="name"
-                            className="form-control"
+                            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                            placeholder="Adınız Soyadınız"
                             onChange={handleChange}
                             required
                         />
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label text-dark">E-posta</label>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+                            E-posta
+                        </label>
                         <input
                             type="email"
                             name="email"
-                            className="form-control"
+                            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                            placeholder="ornek@mail.com"
                             onChange={handleChange}
                             required
                         />
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label text-dark">Şifre</label>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+                            Şifre
+                        </label>
                         <input
                             type="password"
                             name="password"
-                            className="form-control"
+                            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                            placeholder="••••••••"
                             onChange={handleChange}
                             required
                         />
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label text-dark">Şifre Tekrar</label>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wider">
+                            Şifre Tekrar
+                        </label>
                         <input
                             type="password"
                             name="confirmPassword"
-                            className="form-control"
+                            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                            placeholder="••••••••"
                             onChange={handleChange}
                             required
                         />
                     </div>
 
-                    <div className="d-grid">
-                        <button
-                            type="submit"
-                            className="text-white border-0"
-                            style={{
-                                background: "linear-gradient(135deg, #1C2D41, #18B38C)",
-                                padding: "10px",
-                                borderRadius: "5px",
-                                fontWeight: "bold"
-                            }}
-                        >
-                            Kayıt Ol
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all disabled:opacity-50 mt-2"
+                    >
+                        {loading ? "Kayıt Yapılıyor..." : "Kayıt Ol"}
+                    </button>
 
-
-                    <p className="text-center mt-3 mb-0 text-dark">
-                        Zaten hesabın var mı? <a href="/login">Giriş Yap</a>
+                    <p className="text-center text-sm text-slate-600 pt-2">
+                        Zaten hesabınız var mı?{" "}
+                        <Link to="/login" className="font-semibold text-teal-600 hover:text-teal-700">
+                            Giriş Yapın
+                        </Link>
                     </p>
                 </form>
             </div>

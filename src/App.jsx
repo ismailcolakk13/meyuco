@@ -14,7 +14,7 @@ import Detay from "./Pages/Detay";
 import EtkinlikGrupPage from "./Pages/EtkinlikGrupPage";
 import Hakkimizda from "./Pages/Hakkimizda";
 import HomePage from "./Pages/HomePage";
-import İletisim from "./Pages/İletisim";
+import Iletisim from "./Pages/İletisim";
 import LoginPage from "./Pages/LoginPage";
 import NotFound from "./Pages/NotFound";
 import OdemeEkrani from "./Pages/OdemeEkrani";
@@ -70,10 +70,10 @@ function App()
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
-        <div className="d-flex flex-column" style={{ backgroundColor: "whitesmoke", height: "100dvh" }}>
+        <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800">
           {showTopBar && <Topbar />}
           {showTopBarKullanıcı && <TopbarKullanıcı />}
-          <div className="flex-grow-1">
+          <main className="flex-1 w-full">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -88,7 +88,7 @@ function App()
               <Route path="/odeme/:id" element={<OdemeEkrani />} />
               <Route path="/detay/:id" element={<Detay />} />
               <Route path="/hakkimizda" element={<Hakkimizda />} />
-              <Route path="/iletisim" element={<İletisim />} />
+              <Route path="/iletisim" element={<Iletisim />} />
               <Route path="/konserler" element={<EtkinlikGrupPage baslik="Konserler" kategori="konserler" />} />
               <Route path="/tiyatrolar" element={<EtkinlikGrupPage baslik="Tiyatrolar" kategori="tiyatrolar" />} />
               <Route path="/sporlar" element={<EtkinlikGrupPage baslik="Sporlar" kategori="sporlar" />} />
@@ -97,7 +97,7 @@ function App()
               <Route path="/arama" element={<AramaSonuclari />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </div>
+          </main>
           <Footer />
         </div>
       </EtkinliklerContext.Provider>

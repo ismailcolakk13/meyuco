@@ -1,12 +1,11 @@
 import React from "react";
 
 const Spinner = ({ message = "Yükleniyor..." }) => (
-  <div className="d-flex flex-column align-items-center justify-content-center py-5">
-    <div className="spinner-border text-primary mb-3" style={{ width: 48, height: 48 }} role="status">
-      <span className="visually-hidden">Yükleniyor...</span>
-    </div>
-    <div className="fw-bold text-secondary">{message}</div>
+  <div className="flex flex-col items-center justify-center py-12">
+    <div className="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mb-4" role="status" />
+    <div className="text-sm font-medium text-slate-600 animate-pulse">{message}</div>
   </div>
 );
 
 export default Spinner;
+
