@@ -1,19 +1,65 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../data/Context';
+import { UserContext, EtkinliklerContext } from '../data/Context';
+import { formatTarih } from '../data/etkinlikler';
 
 const Topbar = () => {
     const { user, setUser } = useContext(UserContext);
+    const { etkinlikler = [] } = useContext(EtkinliklerContext) || {};
     const [searchTerm, setSearchTerm] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
+
+    const searchContainerRef = useRef(null);
+    const mobileSearchContainerRef = useRef(null);
+
+    // Live search suggestions filtering
+    const trimmed = searchTerm.trim().toLocaleLowerCase('tr-TR');
+    const filteredSuggestions = trimmed
+        ? etkinlikler.filter((e) => {
+            const ad = (e.ad || '').toLocaleLowerCase('tr-TR');
+            const mekan = (e.mekan || '').toLocaleLowerCase('tr-TR');
+            const kategori = (e.kategori || '').toLocaleLowerCase('tr-TR');
+            return ad.includes(trimmed) || mekan.includes(trimmed) || kategori.includes(trimmed);
+        })
+        : [];
+
+    const suggestionsToShow = filteredSuggestions.slice(0, 5);
+
+    // Close suggestions on click outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            const outsideDesktop = searchContainerRef.current && !searchContainerRef.current.contains(event.target);
+            const outsideMobile = mobileSearchContainerRef.current && !mobileSearchContainerRef.current.contains(event.target);
+            if (outsideDesktop && outsideMobile) {
+                setShowSuggestions(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const handleSelectSuggestion = (etkinlik) => {
+        navigate(`/detay/${etkinlik.id}`, { state: { etkinlik } });
+        setShowSuggestions(false);
+        setSearchTerm('');
+        setMobileMenuOpen(false);
+    };
 
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchTerm.trim()) {
             navigate(`/arama?query=${encodeURIComponent(searchTerm.trim())}`);
+            setShowSuggestions(false);
             setMobileMenuOpen(false);
         }
+    };
+
+    const handleClearSearch = () => {
+        setSearchTerm('');
+        setShowSuggestions(false);
     };
 
     const handleLogout = () => {
@@ -21,6 +67,73 @@ const Topbar = () => {
         localStorage.removeItem('user');
         setUser(null);
         navigate('/');
+    };
+
+    // Render suggestions dropdown
+    const renderSuggestionsDropdown = (isMobile = false) => {
+        if (!showSuggestions || trimmed.length === 0) return null;
+
+        return (
+            <div
+                className={`absolute left-0 right-0 top-full mt-2 bg-[#142334]/98 backdrop-blur-xl border border-teal-500/30 rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150 ${
+                    isMobile ? 'max-h-72' : 'max-h-96'
+                }`}
+            >
+                <div className="p-2 overflow-y-auto divide-y divide-slate-800/60">
+                    {suggestionsToShow.length > 0 ? (
+                        <>
+                            <div className="px-2.5 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                                <span>Önerilen Etkinlikler</span>
+                                <span className="text-teal-400">{filteredSuggestions.length} Sonuç</span>
+                            </div>
+                            {suggestionsToShow.map((item) => (
+                                <div
+                                    key={item.id}
+                                    onClick={() => handleSelectSuggestion(item)}
+                                    className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 cursor-pointer transition-colors group"
+                                >
+                                    <img
+                                        src={item.img}
+                                        alt={item.ad}
+                                        className="w-11 h-11 rounded-lg object-cover bg-slate-800 border border-white/10 shrink-0"
+                                    />
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center justify-between gap-2">
+                                            <h4 className="text-xs font-bold text-white truncate group-hover:text-[#18B38C] transition-colors">
+                                                {item.ad}
+                                            </h4>
+                                            <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-teal-500/20 text-[#18B38C] border border-teal-500/30 shrink-0">
+                                                {item.kategori}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between text-[11px] text-slate-400 mt-0.5">
+                                            <span className="truncate">{item.mekan} • {formatTarih(item.tarih)}</span>
+                                            <span className="font-semibold text-teal-300 ml-2 shrink-0">{item.fiyat} ₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                onClick={handleSearch}
+                                className="w-full mt-1 pt-2 pb-1 text-center text-xs font-semibold text-[#18B38C] hover:text-teal-200 transition-colors"
+                            >
+                                Tüm sonuçları gör ({filteredSuggestions.length} etkinlik) &rarr;
+                            </button>
+                        </>
+                    ) : (
+                        <div className="py-6 px-4 text-center">
+                            <p className="text-xs text-slate-300 font-medium">
+                                "{searchTerm}" ile ilgili etkinlik bulunamadı
+                            </p>
+                            <p className="text-[11px] text-slate-500 mt-1">
+                                Farklı bir etkinlik veya sanatçı adı deneyin.
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
     };
 
     return (
@@ -48,23 +161,45 @@ const Topbar = () => {
                         </nav>
                     </div>
 
-                    {/* Search Bar */}
-                    <form onSubmit={handleSearch} className="hidden sm:flex flex-1 max-w-md mx-4">
-                        <div className="relative w-full">
-                            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-300">
-                                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
+                    {/* Search Bar (Desktop) */}
+                    <div ref={searchContainerRef} className="hidden sm:flex flex-1 max-w-md mx-4 relative">
+                        <form onSubmit={handleSearch} className="w-full">
+                            <div className="relative w-full">
+                                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-300">
+                                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <input
+                                    type="search"
+                                    placeholder="Etkinlik, sanatçı veya kategori arayın..."
+                                    value={searchTerm}
+                                    onFocus={() => setShowSuggestions(true)}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                        setShowSuggestions(true);
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Escape') setShowSuggestions(false);
+                                    }}
+                                    className="w-full bg-white/10 hover:bg-white/15 focus:bg-white/20 text-white placeholder-slate-300 text-xs rounded-full pl-9 pr-9 py-2 border border-white/20 focus:outline-none focus:border-[#18B38C] focus:ring-1 focus:ring-[#18B38C] transition-all"
+                                />
+                                {searchTerm && (
+                                    <button
+                                        type="button"
+                                        onClick={handleClearSearch}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white transition-colors"
+                                        aria-label="Temizle"
+                                    >
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                )}
                             </div>
-                            <input
-                                type="search"
-                                placeholder="Etkinlik, sanatçı veya kategori arayın..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-white/10 hover:bg-white/15 focus:bg-white/20 text-white placeholder-slate-300 text-xs rounded-full pl-9 pr-4 py-2 border border-white/20 focus:outline-none focus:border-[#18B38C] focus:ring-1 focus:ring-[#18B38C] transition-all"
-                            />
-                        </div>
-                    </form>
+                        </form>
+                        {renderSuggestionsDropdown(false)}
+                    </div>
 
                     {/* Desktop Auth / Actions */}
                     <div className="hidden md:flex items-center gap-2.5">
@@ -128,22 +263,41 @@ const Topbar = () => {
                 {/* Mobile Dropdown Menu */}
                 {mobileMenuOpen && (
                     <div className="md:hidden py-4 border-t border-white/10 flex flex-col gap-3">
-                        <form onSubmit={handleSearch} className="w-full mb-1">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-300">
-                                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
+                        <div ref={mobileSearchContainerRef} className="w-full mb-1 relative">
+                            <form onSubmit={handleSearch} className="w-full">
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-300">
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                    </div>
+                                    <input
+                                        type="search"
+                                        placeholder="Etkinlik veya sanatçı arayın..."
+                                        value={searchTerm}
+                                        onFocus={() => setShowSuggestions(true)}
+                                        onChange={(e) => {
+                                            setSearchTerm(e.target.value);
+                                            setShowSuggestions(true);
+                                        }}
+                                        className="w-full bg-white/10 text-white placeholder-slate-300 text-xs rounded-lg pl-8 pr-8 py-2 border border-white/20 focus:outline-none focus:border-[#18B38C]"
+                                    />
+                                    {searchTerm && (
+                                        <button
+                                            type="button"
+                                            onClick={handleClearSearch}
+                                            className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-white"
+                                            aria-label="Temizle"
+                                        >
+                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    )}
                                 </div>
-                                <input
-                                    type="search"
-                                    placeholder="Etkinlik veya sanatçı arayın..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full bg-white/10 text-white placeholder-slate-300 text-xs rounded-lg pl-8 pr-3 py-2 border border-white/20 focus:outline-none focus:border-[#18B38C]"
-                                />
-                            </div>
-                        </form>
+                            </form>
+                            {renderSuggestionsDropdown(true)}
+                        </div>
 
                         <Link
                             to="/hakkimizda"
