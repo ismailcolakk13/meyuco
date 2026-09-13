@@ -105,3 +105,4 @@ export const SearchItemSkeleton = () => (
     </div>
   </div>
 );
+

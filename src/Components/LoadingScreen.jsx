@@ -25,12 +25,6 @@ const LoadingScreen = ({ isFadingOut = false }) => {
         <div className="w-48 sm:w-56 h-1.5 bg-white/10 rounded-full overflow-hidden relative shadow-inner">
           <div className="h-full bg-gradient-to-r from-teal-400 via-[#18B38C] to-teal-300 rounded-full w-full animate-pulse" />
         </div>
-
-        {/* Loading Indicator Text */}
-        <div className="flex items-center gap-2 text-xs font-medium text-slate-300 tracking-wider">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#18B38C] animate-ping" />
-          <span>Etkinlikler yükleniyor...</span>
-        </div>
       </div>
     </div>
   );

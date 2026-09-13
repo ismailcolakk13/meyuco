@@ -170,7 +170,7 @@ const HomePage = () => {
         {/* Sağ: Video Tanıtım */}
         <div className="lg:col-span-4 flex flex-col justify-end">
           <div className="hidden lg:block mb-3 text-sm font-semibold text-slate-500 uppercase tracking-wider">
-            Tanıtım
+            Reklam
           </div>
           <div className="w-full h-[360px] sm:h-[400px] rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-black">
             <video
