@@ -45,7 +45,7 @@ const EtkinlikGrupPage = ({ baslik, kategori }) => {
               className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
             >
               <div
-                className="relative aspect-[3/4] overflow-hidden bg-slate-100 cursor-pointer"
+                className="relative aspect-3/4 overflow-hidden bg-slate-100 cursor-pointer"
                 onClick={() => navigate(`/detay/${etkinlik.id}`, { state: { etkinlik } })}
               >
                 <img
@@ -61,7 +61,7 @@ const EtkinlikGrupPage = ({ baslik, kategori }) => {
                 </div>
               </div>
 
-              <div className="p-4 flex flex-col flex-grow justify-between">
+              <div className="p-4 flex flex-col grow justify-between">
                 <div>
                   <h3
                     onClick={() => navigate(`/detay/${etkinlik.id}`, { state: { etkinlik } })}
@@ -78,7 +78,7 @@ const EtkinlikGrupPage = ({ baslik, kategori }) => {
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
                   <button
                     onClick={() => navigate(`/bilet-satin-al/${etkinlik.id}`)}
-                    className="py-2 text-center text-xs font-bold rounded-xl bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 text-white shadow-xs transition-all"
+                    className="py-2 text-center text-xs font-bold rounded-xl bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 text-white shadow-xs transition-all"
                   >
                     Bilet Bul
                   </button>

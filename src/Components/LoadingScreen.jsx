@@ -1,7 +1,7 @@
 const LoadingScreen = ({ isFadingOut = false }) => {
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-[#0c1622] via-[#142334] to-[#1C2D41] text-white transition-opacity duration-500 ease-out select-none ${
+      className={`fixed inset-0 z-9999 flex flex-col items-center justify-center bg-linear-to-br from-[#0c1622] via-[#142334] to-[#1C2D41] text-white transition-opacity duration-500 ease-out select-none ${
         isFadingOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
       aria-live="polite"
@@ -23,7 +23,7 @@ const LoadingScreen = ({ isFadingOut = false }) => {
 
         {/* Sleek Animated Progress Bar */}
         <div className="w-48 sm:w-56 h-1.5 bg-white/10 rounded-full overflow-hidden relative shadow-inner">
-          <div className="h-full bg-gradient-to-r from-teal-400 via-[#18B38C] to-teal-300 rounded-full w-full animate-pulse" />
+          <div className="h-full bg-linear-to-r from-teal-400 via-[#18B38C] to-teal-300 rounded-full w-full animate-pulse" />
         </div>
       </div>
     </div>

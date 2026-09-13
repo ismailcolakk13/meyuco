@@ -32,7 +32,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center p-4 py-10 bg-gradient-to-br from-slate-900 via-[#1C2D41] to-[#18B38C]">
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center p-4 py-10 bg-linear-to-br from-slate-900 via-[#1C2D41] to-[#18B38C]">
       <div className="w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/30 transition-all">
         {/* Lottie Animasyon */}
         <div className="w-44 mx-auto mb-2">
@@ -85,7 +85,7 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all disabled:opacity-50 mt-2"
+            className="w-full py-3 rounded-xl text-sm font-bold text-white bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all disabled:opacity-50 mt-2"
           >
             {loading ? "Giriş Yapılıyor..." : "Giriş Yap"}
           </button>

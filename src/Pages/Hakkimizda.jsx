@@ -47,7 +47,7 @@ const Hakkimizda = () => {
                     <span>✨</span> Meyuco'yu Tanıyın
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                    Kültür, Sanat ve Eğlenceyi <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-800">Tek Tıkla</span> Buluşturuyoruz
+                    Kültür, Sanat ve Eğlenceyi <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-600 to-teal-800">Tek Tıkla</span> Buluşturuyoruz
                 </h1>
                 <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
                     Meyuco, canlı performansların büyüsünü teknolojiyle birleştiren yeni nesil etkinlik keşif ve biletleme platformudur.
@@ -55,13 +55,13 @@ const Hakkimizda = () => {
             </div>
 
             {/* Banner Image */}
-            <div className="relative rounded-3xl overflow-hidden shadow-md border border-slate-200 aspect-[21/9] max-h-[380px] w-full bg-slate-900">
+            <div className="relative rounded-3xl overflow-hidden shadow-md border border-slate-200 aspect-21/9 max-h-95 w-full bg-slate-900">
                 <img
                     src="/images/hakkimizda-banner.png"
-                    alt="Meyuco Etkinlikler"
-                    className="w-full h-full object-cover brightness-95"
+                    alt="Meyuco Sahne ve Etkinlikler"
+                    className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 via-transparent to-transparent" />
             </div>
 
             {/* Stats Grid */}
@@ -127,7 +127,7 @@ const Hakkimizda = () => {
             </div>
 
             {/* CTA Banner */}
-            <div className="rounded-3xl bg-gradient-to-r from-[#142334] via-[#1C2D41] to-[#124d49] text-white p-8 sm:p-12 shadow-lg border border-teal-500/20 text-center space-y-6 relative overflow-hidden">
+            <div className="rounded-3xl bg-linear-to-r from-[#142334] via-[#1C2D41] to-[#124d49] text-white p-8 sm:p-12 shadow-lg border border-teal-500/20 text-center space-y-6 relative overflow-hidden">
                 <div className="relative z-10 max-w-2xl mx-auto space-y-3">
                     <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                         Sıradaki Deneyimini Keşfetmeye Hazır Mısın?

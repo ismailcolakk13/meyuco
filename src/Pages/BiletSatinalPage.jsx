@@ -26,7 +26,7 @@ const SeatSelection = ({ selectedSeats, setSelectedSeats, adet, doluKoltuklar })
     <div className="flex flex-col items-center my-4 select-none">
       {/* Sahne / Perde */}
       <div className="w-full max-w-sm mb-6 flex flex-col items-center">
-        <div className="w-4/5 h-2 rounded-full bg-gradient-to-r from-slate-300 via-teal-500 to-slate-300 shadow-sm" />
+        <div className="w-4/5 h-2 rounded-full bg-linear-to-r from-slate-300 via-teal-500 to-slate-300 shadow-sm" />
         <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase mt-1">SAHNE / PERDE</span>
       </div>
 
@@ -226,19 +226,19 @@ const BiletSatinalPage = () => {
           {/* Seçilen Koltuklar ve Özet */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
                 Seçilen Koltuklar
               </label>
-              <div className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-700 min-h-[42px] flex items-center">
+              <div className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-700 min-h-10.5 flex items-center">
                 {selectedSeats.length > 0 ? selectedSeats.join(", ") : "Henüz koltuk seçilmedi"}
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
                 Toplam Tutar
               </label>
-              <div className="px-4 py-2.5 rounded-xl border border-teal-200 bg-teal-50 text-base font-bold text-teal-700 min-h-[42px] flex items-center">
+              <div className="px-4 py-2.5 rounded-xl border border-teal-200 bg-teal-50 text-base font-bold text-teal-700 min-h-10.5 flex items-center">
                 {etkinlik.fiyat * adet} ₺
               </div>
             </div>
@@ -247,7 +247,7 @@ const BiletSatinalPage = () => {
           {/* Submit CTA */}
           <button
             type="submit"
-            className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99]"
+            className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99]"
           >
             Ödemeye Geç
           </button>

@@ -248,7 +248,7 @@ const OdemeEkrani = () => {
 
                                     <button
                                         type="submit"
-                                        className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-4"
+                                        className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-4"
                                     >
                                         Ödemeyi Tamamla ({bilet.toplamFiyat} ₺)
                                     </button>

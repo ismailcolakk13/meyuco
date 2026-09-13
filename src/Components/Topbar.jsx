@@ -137,7 +137,7 @@ const Topbar = () => {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-gradient-to-r from-[#142334] via-[#1C2D41] to-[#124d49] text-slate-100 backdrop-blur-md border-b border-teal-500/20 shadow-md">
+        <header className="sticky top-0 z-50 bg-linear-to-r from-[#142334] via-[#1C2D41] to-[#124d49] text-slate-100 backdrop-blur-md border-b border-teal-500/20 shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16 gap-4">
                     {/* Logo & Brand */}
@@ -356,7 +356,7 @@ const Topbar = () => {
             </div>
 
             {/* Sleek subtle bottom hairline accent */}
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-[#18B38C]/40 to-transparent" />
+            <div className="h-px w-full bg-linear-to-r from-transparent via-[#18B38C]/40 to-transparent" />
         </header>
     );
 };

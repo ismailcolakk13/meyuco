@@ -48,7 +48,7 @@ const Iletisim = () => {
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Bir Sorun Mu Var?
             </h1>
-            <div className="w-12 h-12 flex-shrink-0">
+            <div className="w-12 h-12 shrink-0">
               <Lottie animationData={saskinAnim} loop={true} />
             </div>
           </div>
@@ -123,7 +123,7 @@ const Iletisim = () => {
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-2"
+                className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 shadow-md hover:shadow-lg transition-all active:scale-[0.99] mt-2"
               >
                 Mesajı Gönder
               </button>

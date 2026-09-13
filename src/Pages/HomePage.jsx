@@ -52,7 +52,7 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) => {
       </div>
       <Link
         to={link}
-        className="mt-4 w-full py-2.5 text-center text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-[#0c3e49] to-[#188976] hover:opacity-95 shadow-sm transition-all"
+        className="mt-4 w-full py-2.5 text-center text-sm font-semibold text-white rounded-xl bg-linear-to-r from-[#0c3e49] to-[#188976] hover:opacity-95 shadow-sm transition-all"
       >
         Daha Fazla Gör
       </Link>
@@ -110,7 +110,7 @@ const HomePage = () => {
           {loading ? (
             <CarouselSkeleton />
           ) : (
-            <div className="relative w-full h-[360px] sm:h-[400px] rounded-2xl overflow-hidden shadow-md bg-slate-900 group">
+            <div className="relative w-full h-90 sm:h-100 rounded-2xl overflow-hidden shadow-md bg-slate-900 group">
             {slides.map((etkinlik, idx) => (
               <div
                 key={etkinlik.id}
@@ -126,7 +126,7 @@ const HomePage = () => {
                   alt={etkinlik.ad}
                   className="w-full h-full object-cover brightness-90 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-white">
                   <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/90 text-white backdrop-blur-sm mb-2 uppercase tracking-wider">
                     {etkinlik.kategori || "Etkinlik"}
@@ -172,7 +172,7 @@ const HomePage = () => {
           <div className="hidden lg:block mb-3 text-sm font-semibold text-slate-500 uppercase tracking-wider">
             Reklam
           </div>
-          <div className="w-full h-[360px] sm:h-[400px] rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-black">
+          <div className="w-full h-90 sm:h-100 rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-black">
             <video
               src="https://i.imgur.com/GRZM8Uv.mp4"
               autoPlay

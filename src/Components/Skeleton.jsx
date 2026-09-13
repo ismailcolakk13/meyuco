@@ -8,7 +8,7 @@ export const SkeletonBox = ({ className = "" }) => (
 // Etkinlik Kartı İskeleti (HomePage ve EtkinlikGrupPage için)
 export const EventCardSkeleton = () => (
   <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 p-3 flex flex-col justify-between animate-pulse">
-    <div className="aspect-[3/4] w-full bg-slate-200 rounded-xl mb-3" />
+    <div className="aspect-3/4 w-full bg-slate-200 rounded-xl mb-3" />
     <div className="space-y-2">
       <div className="h-4 bg-slate-200 rounded w-3/4" />
       <div className="h-3 bg-slate-200 rounded w-1/2" />
@@ -44,7 +44,7 @@ export const CategoryGroupSkeleton = () => (
 
 // Ana Sayfa Carousel İskeleti
 export const CarouselSkeleton = () => (
-  <div className="relative w-full h-[360px] sm:h-[400px] rounded-2xl bg-slate-200 animate-pulse overflow-hidden">
+  <div className="relative w-full h-90 sm:h-100 rounded-2xl bg-slate-200 animate-pulse overflow-hidden">
     <div className="absolute bottom-6 left-6 right-6 space-y-3">
       <div className="h-5 bg-slate-300 rounded-full w-24" />
       <div className="h-8 bg-slate-300 rounded w-2/3" />
@@ -92,7 +92,7 @@ export const TicketSkeleton = () => (
 // Arama Listesi İskeleti
 export const SearchItemSkeleton = () => (
   <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 animate-pulse flex flex-col sm:flex-row gap-5 items-start sm:items-center">
-    <div className="w-full sm:w-36 h-44 sm:h-32 bg-slate-200 rounded-xl flex-shrink-0" />
+    <div className="w-full sm:w-36 h-44 sm:h-32 bg-slate-200 rounded-xl shrink-0" />
     <div className="flex-1 space-y-2 w-full">
       <div className="h-4 bg-slate-200 rounded w-20" />
       <div className="h-5 bg-slate-200 rounded w-3/4" />

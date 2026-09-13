@@ -4,9 +4,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-gradient-to-r from-[#142334] via-[#1C2D41] to-[#124d49] text-slate-300 border-t border-teal-500/20 mt-auto">
+    <footer className="w-full bg-linear-to-r from-[#142334] via-[#1C2D41] to-[#124d49] text-slate-300 border-t border-teal-500/20 mt-auto">
       {/* Sleek subtle top accent hairline */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#18B38C]/40 to-transparent" />
+      <div className="h-px w-full bg-linear-to-r from-transparent via-[#18B38C]/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-4">
         {/* Brand & Copyright */}

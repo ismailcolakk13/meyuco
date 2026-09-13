@@ -54,7 +54,7 @@ const AramaSonuclari = () => {
               className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex flex-col sm:flex-row gap-5 items-start sm:items-center"
             >
               <div
-                className="w-full sm:w-36 h-44 sm:h-32 rounded-xl overflow-hidden bg-slate-100 flex-shrink-0 cursor-pointer"
+                className="w-full sm:w-36 h-44 sm:h-32 rounded-xl overflow-hidden bg-slate-100 shrink-0 cursor-pointer"
                 onClick={() => navigate(`/detay/${etkinlik.id}`, { state: { etkinlik } })}
               >
                 <img
@@ -86,7 +86,7 @@ const AramaSonuclari = () => {
                 <div className="text-lg font-extrabold text-teal-600">{etkinlik.fiyat} ₺</div>
                 <button
                   onClick={() => navigate(`/bilet-satin-al/${etkinlik.id}`)}
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 text-white font-bold text-xs shadow-sm transition-all"
+                  className="px-5 py-2 rounded-xl bg-linear-to-r from-slate-900 to-teal-700 hover:from-slate-800 hover:to-teal-600 text-white font-bold text-xs shadow-sm transition-all"
                 >
                   Bilet Al
                 </button>

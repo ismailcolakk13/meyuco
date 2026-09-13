@@ -46,7 +46,7 @@ const Profile = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
             {/* Profil Bilgisi */}
             <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-slate-800 to-teal-600 text-white flex items-center justify-center text-3xl font-bold shadow-md">
+                <div className="w-20 h-20 rounded-full bg-linear-to-tr from-slate-800 to-teal-600 text-white flex items-center justify-center text-3xl font-bold shadow-md">
                     {(user.name || user.username || user.email || "U")[0].toUpperCase()}
                 </div>
                 <div className="text-center sm:text-left flex-1">
