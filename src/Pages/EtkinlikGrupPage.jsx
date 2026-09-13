@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { EtkinliklerContext } from "../data/Context";
 import { formatTarih } from "../data/etkinlikler";
+import { EventCardSkeleton } from "../Components/Skeleton";
 
 const EtkinlikGrupPage = ({ baslik, kategori }) => {
-  const { etkinlikler } = useContext(EtkinliklerContext);
+  const { etkinlikler, loading } = useContext(EtkinliklerContext);
   const navigate = useNavigate();
 
   const filtreliEtkinlikler = etkinlikler.filter((e) => e.kategori === kategori);
@@ -21,11 +22,17 @@ const EtkinlikGrupPage = ({ baslik, kategori }) => {
           </p>
         </div>
         <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-teal-100 text-teal-800">
-          {filtreliEtkinlikler.length} Etkinlik
+          {loading ? "Yükleniyor..." : `${filtreliEtkinlikler.length} Etkinlik`}
         </span>
       </div>
 
-      {filtreliEtkinlikler.length === 0 ? (
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <EventCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : filtreliEtkinlikler.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8">
           <span className="text-4xl block mb-2">🎭</span>
           <p className="text-slate-600 font-medium">Bu kategoride henüz etkinlik bulunamadı.</p>

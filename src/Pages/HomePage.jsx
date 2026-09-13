@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { EtkinliklerContext } from "../data/Context";
+import { CarouselSkeleton, CategoryGroupSkeleton } from "../Components/Skeleton";
 
 // Etkinlik kartı bileşeni
 const EtkinlikKart = ({ etkinlik }) => {
@@ -61,7 +62,7 @@ const EtkinlikKartGrubu = ({ baslik, veriler, link }) => {
 
 // Ana sayfa bileşeni
 const HomePage = () => {
-  const { etkinlikler } = useContext(EtkinliklerContext);
+  const { etkinlikler, loading } = useContext(EtkinliklerContext);
   const navigate = useNavigate();
 
   // Öne çıkan etkinlikler (ilk 3 veya popüler)
@@ -90,7 +91,7 @@ const HomePage = () => {
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
               <span>✨</span> Öne Çıkanlar
             </h1>
-            {slides.length > 1 && (
+            {!loading && slides.length > 1 && (
               <div className="flex gap-1.5">
                 {slides.map((_, idx) => (
                   <button
@@ -106,7 +107,10 @@ const HomePage = () => {
             )}
           </div>
 
-          <div className="relative w-full h-[360px] sm:h-[400px] rounded-2xl overflow-hidden shadow-md bg-slate-900 group">
+          {loading ? (
+            <CarouselSkeleton />
+          ) : (
+            <div className="relative w-full h-[360px] sm:h-[400px] rounded-2xl overflow-hidden shadow-md bg-slate-900 group">
             {slides.map((etkinlik, idx) => (
               <div
                 key={etkinlik.id}
@@ -160,6 +164,7 @@ const HomePage = () => {
               </>
             )}
           </div>
+          )}
         </div>
 
         {/* Sağ: Video Tanıtım */}
@@ -185,28 +190,36 @@ const HomePage = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-slate-900 tracking-tight">Kategorileri Keşfet</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <EtkinlikKartGrubu
-            baslik="Konserler"
-            veriler={etkinlikler.filter((e) => e.kategori === "konserler")}
-            link="/konserler"
-          />
-          <EtkinlikKartGrubu
-            baslik="Tiyatrolar"
-            veriler={etkinlikler.filter((e) => e.kategori === "tiyatrolar")}
-            link="/tiyatrolar"
-          />
-          <EtkinlikKartGrubu
-            baslik="Spor"
-            veriler={etkinlikler.filter((e) => e.kategori === "sporlar")}
-            link="/sporlar"
-          />
-          <EtkinlikKartGrubu
-            baslik="Sinemalar"
-            veriler={etkinlikler.filter((e) => e.kategori === "sinemalar")}
-            link="/sinemalar"
-          />
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <CategoryGroupSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <EtkinlikKartGrubu
+              baslik="Konserler"
+              veriler={etkinlikler.filter((e) => e.kategori === "konserler")}
+              link="/konserler"
+            />
+            <EtkinlikKartGrubu
+              baslik="Tiyatrolar"
+              veriler={etkinlikler.filter((e) => e.kategori === "tiyatrolar")}
+              link="/tiyatrolar"
+            />
+            <EtkinlikKartGrubu
+              baslik="Spor"
+              veriler={etkinlikler.filter((e) => e.kategori === "sporlar")}
+              link="/sporlar"
+            />
+            <EtkinlikKartGrubu
+              baslik="Sinemalar"
+              veriler={etkinlikler.filter((e) => e.kategori === "sinemalar")}
+              link="/sinemalar"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

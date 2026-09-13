@@ -2,11 +2,12 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import { EtkinliklerContext } from "../data/Context";
 import { formatTarih } from "../data/etkinlikler";
+import { SearchItemSkeleton } from "../Components/Skeleton";
 
 const AramaSonuclari = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
-  const { etkinlikler } = useContext(EtkinliklerContext);
+  const { etkinlikler, loading } = useContext(EtkinliklerContext);
   const query = new URLSearchParams(search).get("query")?.toLowerCase().trim() || "";
 
   const filtrelenmisEtkinlikler = etkinlikler.filter((etkinlik) =>
@@ -22,11 +23,17 @@ const AramaSonuclari = () => {
           Arama Sonuçları: <span className="text-teal-600 font-extrabold">"{query}"</span>
         </h1>
         <p className="text-sm text-slate-500 mt-1">
-          {filtrelenmisEtkinlikler.length} etkinlik bulundu.
+          {loading ? "Etkinlikler aranıyor..." : `${filtrelenmisEtkinlikler.length} etkinlik bulundu.`}
         </p>
       </div>
 
-      {filtrelenmisEtkinlikler.length === 0 ? (
+      {loading ? (
+        <div className="space-y-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <SearchItemSkeleton key={i} />
+          ))}
+        </div>
+      ) : filtrelenmisEtkinlikler.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 space-y-3">
           <span className="text-4xl block text-slate-300">🔍</span>
           <h2 className="text-lg font-bold text-slate-700">Sonuç Bulunamadı</h2>

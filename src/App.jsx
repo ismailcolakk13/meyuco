@@ -26,6 +26,7 @@ function App()
 {
   const location = useLocation();
   const [etkinlikler, setEtkinlikler] = useState([]);
+  const [loadingEtkinlikler, setLoadingEtkinlikler] = useState(true);
   // User'ı localStorage'dan yükle
   const [user, setUser] = useState(() =>
   {
@@ -54,6 +55,7 @@ function App()
 
   useEffect(() =>
   {
+    setLoadingEtkinlikler(true);
     axios.get("/api/etkinlikler")
       .then(res =>
       {
@@ -64,12 +66,16 @@ function App()
       {
         console.error("API'dan etkinlikler alınamadı, local veri kullanılacak:", err);
         setEtkinlikler(etkinlikListesi);
+      })
+      .finally(() =>
+      {
+        setLoadingEtkinlikler(false);
       });
   }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler }}>
+      <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler, loading: loadingEtkinlikler }}>
         <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800">
           {showTopBar && <Topbar />}
           {showTopBarKullanıcı && <TopbarKullanıcı />}

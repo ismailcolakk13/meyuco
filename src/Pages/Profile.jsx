@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../data/Context';
 import { formatTarih } from '../data/etkinlikler';
-import Spinner from '../Components/Spinner';
+import { TicketSkeleton } from '../Components/Skeleton';
 
 const Profile = () => {
     const { user } = useContext(UserContext);
@@ -74,7 +74,11 @@ const Profile = () => {
                 </div>
 
                 {loading ? (
-                    <Spinner message="Biletleriniz yükleniyor..." />
+                    <div className="space-y-4">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                            <TicketSkeleton key={i} />
+                        ))}
+                    </div>
                 ) : error ? (
                     <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-sm text-center">
                         {error}

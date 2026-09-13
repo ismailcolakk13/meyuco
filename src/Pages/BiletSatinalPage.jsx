@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { EtkinliklerContext, UserContext } from "../data/Context";
 import axios from "axios";
-import Spinner from "../Components/Spinner";
+import { SeatMapSkeleton } from "../Components/Skeleton";
 
 // Koltuk seçimi bileşeni
 const SeatSelection = ({ selectedSeats, setSelectedSeats, adet, doluKoltuklar }) => {
@@ -114,19 +114,46 @@ const BiletSatinalPage = () => {
       });
   }, [id]);
 
-  if (!etkinlik || loading) {
+  if (loading) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 animate-pulse space-y-6">
+          <div className="border-b border-slate-100 pb-4 space-y-2">
+            <div className="h-4 bg-slate-200 rounded w-24" />
+            <div className="h-7 bg-slate-200 rounded w-2/3" />
+            <div className="h-3.5 bg-slate-200 rounded w-1/3" />
+          </div>
+
+          <div className="space-y-2">
+            <div className="h-4 bg-slate-200 rounded w-24" />
+            <div className="h-10 bg-slate-200 rounded-xl w-24" />
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+            <div className="h-4 bg-slate-200 rounded w-36 mb-4" />
+            <SeatMapSkeleton />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="h-14 bg-slate-100 rounded-xl" />
+            <div className="h-14 bg-slate-100 rounded-xl" />
+          </div>
+
+          <div className="h-12 bg-slate-200 rounded-xl w-full" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!etkinlik) {
     return (
       <div className="max-w-xl mx-auto px-4 py-16 text-center">
-        {loading ? (
-          <Spinner message="Koltuk planı yükleniyor..." />
-        ) : (
-          <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
-            <p className="text-slate-600 mb-4">Etkinlik bulunamadı.</p>
-            <Link to="/" className="px-4 py-2 bg-teal-600 text-white rounded-xl text-sm font-medium">
-              Anasayfaya Dön
-            </Link>
-          </div>
-        )}
+        <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
+          <p className="text-slate-600 mb-4">Etkinlik bulunamadı.</p>
+          <Link to="/" className="px-4 py-2 bg-teal-600 text-white rounded-xl text-sm font-medium inline-block">
+            Anasayfaya Dön
+          </Link>
+        </div>
       </div>
     );
   }

@@ -1,10 +1,38 @@
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { EtkinliklerContext } from '../data/Context';
 import { formatTarih } from '../data/etkinlikler';
 
 const Detay = () => {
+  const { id } = useParams();
   const location = useLocation();
-  const etkinlik = location.state?.etkinlik;
+  const { etkinlikler, loading } = useContext(EtkinliklerContext);
   const navigate = useNavigate();
+
+  const etkinlik = location.state?.etkinlik || etkinlikler.find((e) => e.id === parseInt(id));
+
+  if (loading) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="h-4 bg-slate-200 rounded w-48 mb-6 animate-pulse" />
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-10 animate-pulse">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-sm rounded-2xl bg-slate-200 aspect-[3/4]" />
+            </div>
+            <div className="lg:col-span-7 space-y-4">
+              <div className="h-5 bg-slate-200 rounded-full w-24" />
+              <div className="h-8 bg-slate-200 rounded w-3/4" />
+              <div className="h-4 bg-slate-200 rounded w-full" />
+              <div className="h-4 bg-slate-200 rounded w-4/5" />
+              <div className="h-20 bg-slate-100 rounded-2xl" />
+              <div className="h-12 bg-slate-200 rounded-2xl w-48" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!etkinlik) {
     return (

@@ -14,7 +14,7 @@ const AdminPanel = () => {
     fiyat: "",
   });
 
-  const { etkinlikler, setEtkinlikler } = useContext(EtkinliklerContext);
+  const { etkinlikler, setEtkinlikler, loading } = useContext(EtkinliklerContext);
 
   // Sayfalama için state
   const [currentPage, setCurrentPage] = useState(1);
@@ -329,51 +329,71 @@ const AdminPanel = () => {
         </div>
 
         <div className="divide-y divide-slate-100">
-          {etkinliklerToShow.map((e, index) => {
-            const globalIndex = index + (currentPage - 1) * etkinliklerPerPage;
-            return (
-              <div
-                key={e.id || globalIndex}
-                className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/70 p-2 rounded-xl transition-colors"
-              >
-                <div className="flex items-center gap-4">
-                  {e.img && (
-                    <img
-                      src={e.img}
-                      alt={e.ad}
-                      className="w-14 h-14 rounded-xl object-cover border border-slate-200 flex-shrink-0"
-                    />
-                  )}
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-bold text-slate-900 text-sm sm:text-base">{e.ad}</h3>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-600 border border-slate-200">
-                        {e.kategori}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      📅 {formatTarih(e.tarih)} • 📍 {e.mekan} • 💰 {e.fiyat} ₺
-                    </p>
+          {loading ? (
+            Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="py-4 flex items-center justify-between gap-4 animate-pulse">
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="w-14 h-14 rounded-xl bg-slate-200 flex-shrink-0" />
+                  <div className="space-y-2 flex-1">
+                    <div className="h-4 bg-slate-200 rounded w-1/3" />
+                    <div className="h-3 bg-slate-100 rounded w-1/2" />
                   </div>
                 </div>
-
-                <div className="flex items-center gap-2 self-end sm:self-auto">
-                  <button
-                    onClick={() => handleEditClick(index)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 transition-colors"
-                  >
-                    ✏️ Düzenle
-                  </button>
-                  <button
-                    onClick={() => handleDelete(globalIndex)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-colors"
-                  >
-                    🗑️ Sil
-                  </button>
+                <div className="flex gap-2">
+                  <div className="w-16 h-8 bg-slate-200 rounded-lg" />
+                  <div className="w-14 h-8 bg-slate-200 rounded-lg" />
                 </div>
               </div>
-            );
-          })}
+            ))
+          ) : etkinliklerToShow.length === 0 ? (
+            <p className="py-8 text-center text-sm text-slate-500">Kayıtlı etkinlik bulunamadı.</p>
+          ) : (
+            etkinliklerToShow.map((e, index) => {
+              const globalIndex = index + (currentPage - 1) * etkinliklerPerPage;
+              return (
+                <div
+                  key={e.id || globalIndex}
+                  className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/70 p-2 rounded-xl transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    {e.img && (
+                      <img
+                        src={e.img}
+                        alt={e.ad}
+                        className="w-14 h-14 rounded-xl object-cover border border-slate-200 flex-shrink-0"
+                      />
+                    )}
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-slate-900 text-sm sm:text-base">{e.ad}</h3>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-600 border border-slate-200">
+                          {e.kategori}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        📅 {formatTarih(e.tarih)} • 📍 {e.mekan} • 💰 {e.fiyat} ₺
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 self-end sm:self-auto">
+                    <button
+                      onClick={() => handleEditClick(index)}
+                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 transition-colors"
+                    >
+                      ✏️ Düzenle
+                    </button>
+                    <button
+                      onClick={() => handleDelete(globalIndex)}
+                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-colors"
+                    >
+                      🗑️ Sil
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
 
