@@ -4,7 +4,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import AdminRoute from "./Components/AdminRoute";
 import Footer from "./Components/Footer";
 import Topbar from "./Components/Topbar";
-import TopbarKullanıcı from "./Components/TopbarKullanıcı";
 import { EtkinliklerContext, UserContext } from "./data/Context";
 import LoadingScreen from "./Components/LoadingScreen";
 import AdminPanel from "./Pages/AdminPanel";
@@ -51,13 +50,8 @@ function App()
   const hideTopbarPaths = ["/register", "/unutma"]; // login çıkarıldı
   const isHidden = hideTopbarPaths.includes(location.pathname);
 
-  // Navbar gösterimi
-  const showTopBarKullanıcı = user && !isHidden;
-  const showTopBar = !user && !isHidden;
-
   useEffect(() =>
   {
-    const startTime = Date.now();
     setLoadingEtkinlikler(true);
     axios.get("/api/etkinlikler")
       .then(res =>
@@ -73,16 +67,8 @@ function App()
       .finally(() =>
       {
         setLoadingEtkinlikler(false);
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, 450 - elapsed);
-        setTimeout(() =>
-        {
-          setIsFadingOut(true);
-          setTimeout(() =>
-          {
-            setInitialLoading(false);
-          }, 500);
-        }, remaining);
+        setIsFadingOut(true);
+        setTimeout(() => setInitialLoading(false), 500);
       });
   }, []);
 
@@ -91,8 +77,7 @@ function App()
       <EtkinliklerContext.Provider value={{ etkinlikler, setEtkinlikler, loading: loadingEtkinlikler }}>
         {initialLoading && <LoadingScreen isFadingOut={isFadingOut} />}
         <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800">
-          {showTopBar && <Topbar />}
-          {showTopBarKullanıcı && <TopbarKullanıcı />}
+          {!isHidden && <Topbar />}
           <main className="flex-1 w-full">
             <Routes>
               <Route path="/" element={<HomePage />} />

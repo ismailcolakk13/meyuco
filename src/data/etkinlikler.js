@@ -296,22 +296,11 @@
 
 export function formatTarih(tarihStr) {
   if (!tarihStr) return "";
-  
-  if (/\d{4}-\d{2}-\d{2}T/.test(tarihStr)) {
-    const date = new Date(tarihStr);
-    return date.toLocaleDateString("tr-TR");
+  if (typeof tarihStr === "string" && tarihStr.includes("/")) {
+    return tarihStr.replace(/\//g, ".");
   }
- 
-  if (/\d{2}\/\d{2}\/\d{4}/.test(tarihStr)) {
-    const [gun, ay, yil] = tarihStr.split("/");
-    return `${gun}.${ay}.${yil}`;
-  }
-  
-  if (/\d{4}-\d{2}-\d{2}/.test(tarihStr)) {
-    const [yil, ay, gun] = tarihStr.split("-");
-    return `${gun}.${ay}.${yil}`;
-  }
-  return tarihStr;
+  const date = new Date(tarihStr);
+  return isNaN(date.getTime()) ? tarihStr : date.toLocaleDateString("tr-TR");
 }
 
 
